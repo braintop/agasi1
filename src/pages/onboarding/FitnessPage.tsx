@@ -26,32 +26,32 @@ const EXPERIENCE_OPTIONS: { id: FitnessExperience; label: string; helper: string
   [
     {
       id: 'beginner',
-      label: 'Beginner',
-      helper: 'New to training or returning after a break',
+      label: 'מתחיל',
+      helper: 'חדש באימונים או חוזר אחרי הפסקה',
     },
     {
       id: 'intermediate',
-      label: 'Intermediate',
-      helper: '1–3 years of consistent training',
+      label: 'בינוני',
+      helper: '1–3 שנות אימון עקבי',
     },
     {
       id: 'advanced',
-      label: 'Advanced',
-      helper: '3+ years of serious training',
+      label: 'מתקדם',
+      helper: '3+ שנות אימון רציני ועקבי',
     },
   ]
 
 const LOCATION_OPTIONS: { id: FitnessLocation; label: string }[] = [
-  { id: 'gym', label: 'Gym' },
-  { id: 'home', label: 'Home' },
-  { id: 'both', label: 'Both' },
+  { id: 'gym', label: 'חדר כושר' },
+  { id: 'home', label: 'בית' },
+  { id: 'both', label: 'גם וגם' },
 ]
 
 const FOCUS_OPTIONS: { id: FitnessFocus; label: string }[] = [
-  { id: 'strength', label: 'Strength' },
-  { id: 'hypertrophy', label: 'Hypertrophy' },
-  { id: 'endurance', label: 'Endurance' },
-  { id: 'mixed', label: 'Mixed' },
+  { id: 'strength', label: 'כוח' },
+  { id: 'hypertrophy', label: 'היפרטרופיה' },
+  { id: 'endurance', label: 'סיבולת' },
+  { id: 'mixed', label: 'משולב' },
 ]
 
 const DAYS = [1, 2, 3, 4, 5, 6, 7]
@@ -77,23 +77,23 @@ export function FitnessPage() {
   }
 
   return (
-    <div className="flex min-h-[60vh] flex-col">
-      <Card className="mx-auto w-full max-w-3xl">
+    <div className="flex min-h-[60vh] flex-col pb-24">
+      <Card className="mx-auto w-full max-w-3xl border-none">
         <CardHeader className="space-y-2 text-center">
-          <CardTitle className="text-2xl font-semibold">Fitness</CardTitle>
+          <CardTitle className="text-2xl font-semibold">כושר</CardTitle>
           <CardDescription className="text-sm text-text-secondary">
-            Help us understand your current level
+            עזור לנו להבין את רמת הכושר וההרגלים הנוכחיים שלך.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Experience */}
-          <section className="space-y-2 border-b border-border/60 pb-4">
+          <section className="space-y-2 pb-4">
             <div>
               <h3 className="text-sm font-medium text-text-primary/90">
-                Training Experience
+                ניסיון אימוני
               </h3>
               <p className="text-xs text-text-secondary/80">
-                Choose the option that best describes you.
+                בחר את האפשרות שמתארת אותך בצורה הטובה ביותר.
               </p>
             </div>
             <div className="space-y-2">
@@ -119,13 +119,13 @@ export function FitnessPage() {
           </section>
 
           {/* Location */}
-          <section className="space-y-2 border-b border-border/60 pb-4">
+          <section className="space-y-2 pb-4">
             <div>
               <h3 className="text-sm font-medium text-text-primary/90">
-                Where do you train?
+                איפה אתה מתאמן?
               </h3>
               <p className="text-xs text-text-secondary/80">
-                We&apos;ll match your program to your environment.
+                נתאים את התוכנית לסביבה שבה אתה מתאמן בפועל.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -139,10 +139,10 @@ export function FitnessPage() {
                       setState((prev) => ({ ...prev, location: option.id }))
                     }
                     className={cn(
-                      'rounded-xl border px-4 py-2 text-sm transition-colors',
-                      'border-border bg-surface-2 text-text-secondary hover:bg-surface',
+                      'rounded-xl px-4 py-2 text-sm transition-colors',
+                      'bg-surface-2 text-text-secondary hover:bg-surface',
                       selected &&
-                        'border-[#10B981] bg-surface text-text-primary shadow-card',
+                        'bg-[#052e21] text-[#10B981] shadow-card',
                     )}
                   >
                     {option.label}
@@ -153,13 +153,13 @@ export function FitnessPage() {
           </section>
 
           {/* Days per week */}
-          <section className="space-y-2 border-b border-border/60 pb-4">
+          <section className="space-y-2 pb-4">
             <div>
               <h3 className="text-sm font-medium text-text-primary/90">
-                Weekly training days
+                מספר ימי אימון בשבוע
               </h3>
               <p className="text-xs text-text-secondary/80">
-                How many days can you realistically commit?
+                כמה ימים בשבוע תוכל להתחייב אליהם באופן מציאותי?
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -173,10 +173,10 @@ export function FitnessPage() {
                       setState((prev) => ({ ...prev, daysPerWeek: day }))
                     }
                     className={cn(
-                      'flex h-9 w-9 items-center justify-center rounded-xl border text-sm transition-colors',
-                      'border-border bg-surface-2 text-text-secondary hover:bg-surface',
+                      'flex h-9 w-9 items-center justify-center rounded-xl text-sm transition-colors',
+                      'bg-surface-2 text-text-secondary hover:bg-surface',
                       selected &&
-                        'border-[#10B981] bg-surface text-text-primary shadow-card',
+                        'bg-[#052e21] text-[#10B981] shadow-card',
                     )}
                   >
                     {day}
@@ -187,13 +187,13 @@ export function FitnessPage() {
           </section>
 
           {/* Focus */}
-          <section className="space-y-2 border-b border-border/60 pb-4">
+          <section className="space-y-2 pb-4">
             <div>
               <h3 className="text-sm font-medium text-text-primary/90">
-                Primary focus
+                מוקד עיקרי
               </h3>
               <p className="text-xs text-text-secondary/80">
-                What&apos;s the main outcome you care about?
+                מה הדבר שהכי חשוב לך להשיג מהאימונים?
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -207,10 +207,10 @@ export function FitnessPage() {
                       setState((prev) => ({ ...prev, focus: option.id }))
                     }
                     className={cn(
-                      'rounded-xl border px-4 py-2 text-sm transition-colors',
-                      'border-border bg-surface-2 text-text-secondary hover:bg-surface',
+                      'rounded-xl px-4 py-2 text-sm transition-colors',
+                      'bg-surface-2 text-text-secondary hover:bg-surface',
                       selected &&
-                        'border-[#10B981] bg-surface text-text-primary shadow-card',
+                        'bg-[#052e21] text-[#10B981] shadow-card',
                     )}
                   >
                     {option.label}
@@ -224,15 +224,14 @@ export function FitnessPage() {
           <section className="space-y-2">
             <div>
               <h3 className="text-sm font-medium text-text-primary/90">
-                Injuries or limitations
+                פציעות או מגבלות
               </h3>
               <p className="text-xs text-text-secondary/80">
-                Optional. Anything we should keep in mind when building your
-                plan.
+                לא חובה. ספר לנו אם יש אזור שדורש התחשבות מיוחדת.
               </p>
             </div>
             <Textarea
-              placeholder="e.g., knee pain, lower back sensitivity..."
+              placeholder="לדוגמה: כאבי ברכיים, רגישות בגב התחתון..."
               value={state.limitations ?? ''}
               onChange={(e) =>
                 setState((prev) => ({ ...prev, limitations: e.target.value }))
@@ -243,7 +242,7 @@ export function FitnessPage() {
         </CardContent>
       </Card>
 
-      <div className="sticky bottom-0 -mx-4 mt-8 border-t border-border bg-bg/95 px-4 py-4">
+      <div className="sticky bottom-0 -mx-4 mt-8 bg-bg/95 px-4 py-4">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
           <Button
             variant="secondary"
@@ -251,7 +250,7 @@ export function FitnessPage() {
             className="w-full max-w-[160px]"
             onClick={() => navigate('/goals')}
           >
-            Back
+            חזרה
           </Button>
           <Button
             size="lg"
@@ -259,7 +258,7 @@ export function FitnessPage() {
             onClick={handleContinue}
             disabled={!isValid}
           >
-            Continue
+            המשך
           </Button>
         </div>
       </div>

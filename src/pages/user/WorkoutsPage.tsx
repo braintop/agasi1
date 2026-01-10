@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 import {
   Card,
   CardContent,
@@ -21,13 +22,13 @@ import { getJSON } from '../../app/utils/storage'
 type TabId = 'schedule' | 'history'
 
 const DAYS: { id: keyof typeof weeklySchedule; label: string }[] = [
-  { id: 'mon', label: 'Mon' },
-  { id: 'tue', label: 'Tue' },
-  { id: 'wed', label: 'Wed' },
-  { id: 'thu', label: 'Thu' },
-  { id: 'fri', label: 'Fri' },
-  { id: 'sat', label: 'Sat' },
-  { id: 'sun', label: 'Sun' },
+  { id: 'mon', label: 'ב׳' },
+  { id: 'tue', label: 'ג׳' },
+  { id: 'wed', label: 'ד׳' },
+  { id: 'thu', label: 'ה׳' },
+  { id: 'fri', label: 'ו׳' },
+  { id: 'sat', label: 'ש׳' },
+  { id: 'sun', label: 'א׳' },
 ]
 
 export function WorkoutsPage() {
@@ -49,24 +50,35 @@ export function WorkoutsPage() {
 
   return (
     <div className="space-y-6 pb-10">
-      <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold text-text-primary">Workouts</h1>
-        <p className="text-sm text-text-secondary">Your training plan</p>
+      <div className="flex items-center justify-between gap-3">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="px-0 text-xs text-text-secondary hover:text-text-primary"
+          onClick={() => navigate('/dashboard')}
+        >
+          <ArrowRight className="ml-1 h-4 w-4" />
+          חזרה לדאשבורד
+        </Button>
       </div>
 
-      {/* KPI row */}
+      <div className="flex flex-col gap-1">
+        <h1 className="text-2xl font-semibold text-text-primary">אימונים</h1>
+        <p className="text-sm text-text-secondary">תוכנית האימונים שלך</p>
+      </div>
+
       <div className="grid gap-4 sm:grid-cols-3">
-        <MetricCard label="This Week" value="4" helper="Planned sessions" />
-        <MetricCard label="Completed" value="2" helper="So far" />
-        <MetricCard label="Next Workout" value="Upper Body" helper="Tomorrow" />
+        <MetricCard label="השבוע" value="4" helper="אימונים מתוכננים" />
+        <MetricCard label="בוצעו" value="2" helper="עד כה" />
+        <MetricCard label="האימון הבא" value="פלג גוף עליון" helper="מחר" />
       </div>
 
       <Card className="border-none bg-surface">
         <CardHeader className="flex flex-row items-center justify-between gap-3">
           <div>
-            <CardTitle className="text-base">Schedule</CardTitle>
+            <CardTitle className="text-base">לוח אימונים</CardTitle>
             <CardDescription className="text-xs text-text-secondary">
-              View your upcoming sessions or review your history.
+              לראות מה מחכה לך השבוע או לעבור על אימונים קודמים.
             </CardDescription>
           </div>
           <div className="inline-flex rounded-full border border-border/70 bg-surface-2 p-1 text-xs">
@@ -79,8 +91,8 @@ export function WorkoutsPage() {
                   ? 'bg-bg text-text-primary'
                   : 'text-text-secondary hover:text-text-primary',
               )}
-            >
-              Schedule
+              >
+              לוח
             </button>
             <button
               type="button"
@@ -91,8 +103,8 @@ export function WorkoutsPage() {
                   ? 'bg-bg text-text-primary'
                   : 'text-text-secondary hover:text-text-primary',
               )}
-            >
-              History
+              >
+              היסטוריה
             </button>
           </div>
         </CardHeader>
@@ -185,9 +197,9 @@ function RestDayCard() {
       <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-bg text-text-secondary">
         <span className="text-lg">🗓</span>
       </div>
-      <p className="mb-1 text-base font-medium text-text-primary">Rest Day</p>
+      <p className="mb-1 text-base font-medium text-text-primary">יום מנוחה</p>
       <p className="text-xs text-text-secondary/80">
-        No workouts scheduled for today. Enjoy your rest!
+        אין אימונים מתוכננים להיום. זה זמן מצוין להתאוששות.
       </p>
     </div>
   )
@@ -212,7 +224,7 @@ function WorkoutCard({
           </Badge>
         </div>
         <p className="text-xs text-text-secondary/80">
-          {workout.durationMin} min • {status}
+          {workout.durationMin} דק׳ • {status === 'Planned' ? 'מתוכנן' : 'הושלם'}
         </p>
       </div>
       <div className="flex items-center gap-3">
@@ -220,10 +232,10 @@ function WorkoutCard({
           variant={status === 'Completed' ? 'success' : 'outline'}
           className="text-[11px]"
         >
-          {status}
+          {status === 'Completed' ? 'הושלם' : 'מתוכנן'}
         </Badge>
         <Button size="sm" variant="secondary" onClick={onOpen}>
-          Open
+          פתיחה
         </Button>
       </div>
     </div>
@@ -243,7 +255,7 @@ function HistoryList({
   if (allLogs.length === 0) {
     return (
       <p className="text-xs text-text-secondary">
-        You haven&apos;t logged any workouts yet.
+        עדיין לא נרשמו אימונים.
       </p>
     )
   }
@@ -275,11 +287,11 @@ function HistoryList({
                 {workout.name}
               </span>
               <span className="text-[11px] text-text-secondary/80">
-                {log.durationMin} min • {log.highlight}
+                {log.durationMin} דק׳ • {log.highlight}
               </span>
             </div>
             <Badge variant="success" className="text-[11px]">
-              Completed
+              הושלם
             </Badge>
           </button>
         )

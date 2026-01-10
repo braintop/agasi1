@@ -30,9 +30,9 @@ export function DashboardPage() {
   return (
     <div className="space-y-6 pb-8">
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold text-text-primary">Dashboard</h1>
+        <h1 className="text-2xl font-semibold text-text-primary">דאשבורד</h1>
         <p className="text-sm text-text-secondary">
-          Your daily overview of training, recovery, and habits.
+          תמונת מצב יומית של אימונים, התאוששות והרגלים.
         </p>
       </div>
 
@@ -45,7 +45,7 @@ export function DashboardPage() {
               <Activity className="h-6 w-6" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xs uppercase tracking-wide text-text-secondary/80">
+              <span className="text-xs tracking-wide text-text-secondary/80">
                 {dailyScore.label}
               </span>
               <div className="flex items-baseline gap-2">
@@ -57,13 +57,13 @@ export function DashboardPage() {
                 </span>
               </div>
               <p className="mt-1 text-xs text-text-secondary/80">
-                This blends your training, recovery, and lifestyle signals.
+                שילוב של נתוני אימון, התאוששות ואורח חיים.
               </p>
             </div>
           </div>
           <div className="hidden flex-col items-end gap-2 text-xs text-text-secondary/80 sm:flex">
-            <span>Today&apos;s focus: Recovery & quality sleep</span>
-            <span>Tomorrow: Upper body strength</span>
+            <span>פוקוס להיום: התאוששות ושינה איכותית</span>
+            <span>מחר: אימון פלג גוף עליון</span>
           </div>
         </CardContent>
       </Card>
@@ -73,9 +73,9 @@ export function DashboardPage() {
         <Card className="border-none bg-surface">
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
-              <CardTitle className="text-base">Today&apos;s Actions</CardTitle>
+              <CardTitle className="text-base">הפעולות להיום</CardTitle>
               <CardDescription className="text-xs text-text-secondary">
-                A short list of the most important things to do today.
+                רשימה קצרה של הדברים הכי חשובים לעשות היום.
               </CardDescription>
             </div>
           </CardHeader>
@@ -114,9 +114,9 @@ export function DashboardPage() {
         <div className="space-y-4">
           <Card className="border-none bg-surface">
             <CardHeader className="pb-3">
-              <CardTitle className="text-base">Streaks</CardTitle>
+              <CardTitle className="text-base">רצפים</CardTitle>
               <CardDescription className="text-xs text-text-secondary">
-                Small wins that compound over time.
+                ניצחונות קטנים שמצטברים לאורך הזמן.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3 text-sm">
@@ -124,9 +124,9 @@ export function DashboardPage() {
                 <div className="flex items-center gap-2">
                   <Flame className="h-4 w-4 text-orange-400" />
                   <span className="text-text-primary">
-                    Workout streak:{' '}
+                    רצף אימונים:{' '}
                     <span className="font-semibold">
-                      {streaks.workoutDays} days
+                      {streaks.workoutDays} ימים
                     </span>
                   </span>
                 </div>
@@ -135,9 +135,9 @@ export function DashboardPage() {
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-emerald-400" />
                   <span className="text-text-primary">
-                    Check-in streak:{' '}
+                    רצף צ׳ק‑אין:{' '}
                     <span className="font-semibold">
-                      {streaks.checkInDays} days
+                      {streaks.checkInDays} ימים
                     </span>
                   </span>
                 </div>
@@ -154,25 +154,25 @@ export function DashboardPage() {
             <Brain className="h-4 w-4" />
           </div>
           <div>
-            <CardTitle className="text-base">AI Insight</CardTitle>
+            <CardTitle className="text-base">תובנת AI</CardTitle>
             <CardDescription className="text-xs text-text-secondary">
-              A quick signal based on your recent activity.
+              אות מהיר המבוסס על הפעילות האחרונה שלך.
             </CardDescription>
           </div>
         </CardHeader>
         <CardContent className="flex flex-col gap-3 text-sm text-text-secondary">
           <p>{aiInsightPreview}</p>
           <div className="flex items-center justify-between gap-3 text-xs">
-            <span className="text-text-secondary/80">
-              Updated once you complete today&apos;s actions.
-            </span>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() => navigate('/aiinsights')}
-            >
-              View insights
-            </Button>
+              <span className="text-text-secondary/80">
+                מתעדכן לאחר שתסיים את הפעולות של היום.
+              </span>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => navigate('/aiinsights')}
+              >
+                צפייה בתובנות
+              </Button>
           </div>
         </CardContent>
       </Card>

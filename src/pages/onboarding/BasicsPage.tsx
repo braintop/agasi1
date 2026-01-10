@@ -64,40 +64,36 @@ export function BasicsPage() {
 
   return (
     <div className="flex min-h-[60vh] flex-col">
-      <Card className="mx-auto w-full max-w-3xl">
+      <Card className="mx-auto w-full max-w-3xl border-none">
         <CardHeader className="space-y-2 text-center">
-          <CardTitle className="text-2xl font-semibold">
-            Basic Information
-          </CardTitle>
+          <CardTitle className="text-2xl font-semibold">פרטים בסיסיים</CardTitle>
           <CardDescription className="text-sm text-text-secondary">
-            Tell us about yourself
+            ספר לנו קצת עליך כדי שנוכל להתאים את התוכנית.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-5">
           <div className="space-y-2">
             <label className="block text-sm font-medium text-text-primary/90">
-              Full Name <span className="text-danger">*</span>
+              שם מלא <span className="text-danger">*</span>
             </label>
-            <Input
-              type="text"
-              placeholder="e.g. Asaf Amir"
+              <Input
+                type="text"
+                placeholder="לדוגמה: אסף אמיר"
               value={form.fullName}
               onChange={handleTextChange('fullName')}
             />
             {!isFullNameValid && (
-              <p className="text-xs text-danger/80">
-                Please enter your full name.
-              </p>
+              <p className="text-xs text-danger/80">נא להזין שם מלא.</p>
             )}
           </div>
 
           <div className="space-y-2">
             <label className="block text-sm font-medium text-text-primary/90">
-              Phone Number
+              טלפון (לא חובה)
             </label>
-            <Input
-              type="tel"
-              placeholder="+1 234 567 8900"
+              <Input
+                type="tel"
+                placeholder="05x-xxxxxxx"
               value={form.phone ?? ''}
               onChange={handleTextChange('phone')}
             />
@@ -106,7 +102,7 @@ export function BasicsPage() {
           <div className="grid gap-4 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
             <div className="space-y-2">
               <label className="block text-sm font-medium text-text-primary/90">
-                Age
+                גיל
               </label>
               <Input
                 type="number"
@@ -117,18 +113,18 @@ export function BasicsPage() {
                 onChange={handleNumberChange('age')}
               />
               <p className="text-[11px] text-text-secondary/70">
-                Optional, but helps us tailor your program.
+                לא חובה, אבל עוזר לנו לכוון את ההמלצות.
               </p>
             </div>
 
             <div className="space-y-2">
               <span className="block text-sm font-medium text-text-primary/90">
-                Gender
+                מין
               </span>
               <div className="flex gap-3">
                 {[
-                  { id: 'male', label: 'Male' },
-                  { id: 'female', label: 'Female' },
+                  { id: 'male', label: 'גבר' },
+                  { id: 'female', label: 'אישה' },
                 ].map((option) => {
                   const isSelected = form.gender === option.id
                   return (
@@ -139,10 +135,10 @@ export function BasicsPage() {
                         handleGenderSelect(option.id as 'male' | 'female')
                       }
                       className={cn(
-                        'flex-1 rounded-xl border px-3 py-2 text-sm transition-colors',
-                        'border-border bg-surface-2 text-text-secondary',
+                        'flex-1 rounded-xl px-3 py-2 text-sm transition-colors',
+                        'bg-surface-2 text-text-secondary hover:bg-surface',
                         isSelected &&
-                          'border-[#10B981] bg-surface text-text-primary',
+                          'bg-[#052e21] text-[#10B981] shadow-card',
                       )}
                     >
                       {option.label}
@@ -156,7 +152,7 @@ export function BasicsPage() {
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
               <label className="block text-sm font-medium text-text-primary/90">
-                Height (cm)
+                גובה (ס״מ)
               </label>
               <Input
                 type="number"
@@ -169,7 +165,7 @@ export function BasicsPage() {
             </div>
             <div className="space-y-2">
               <label className="block text-sm font-medium text-text-primary/90">
-                Weight (kg)
+                משקל (ק״ג)
               </label>
               <Input
                 type="number"
@@ -184,7 +180,7 @@ export function BasicsPage() {
         </CardContent>
       </Card>
 
-      <div className="sticky bottom-0 -mx-4 mt-8 border-t border-border bg-bg/95 px-4 py-4">
+      <div className="sticky bottom-0 -mx-4 mt-8 bg-bg/95 px-4 py-4">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
           <Button
             variant="secondary"
@@ -192,7 +188,7 @@ export function BasicsPage() {
             className="w-full max-w-[160px]"
             onClick={() => navigate('/welcome')}
           >
-            Back
+            חזרה
           </Button>
           <Button
             size="lg"
@@ -200,7 +196,7 @@ export function BasicsPage() {
             onClick={handleContinue}
             disabled={!isFullNameValid}
           >
-            Continue
+            המשך
           </Button>
         </div>
       </div>

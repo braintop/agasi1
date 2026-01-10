@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
-import { Sparkles, ChevronRight } from 'lucide-react'
+import { Sparkles, ChevronRight, ArrowRight } from 'lucide-react'
 import {
   Card,
   CardContent,
@@ -34,6 +35,7 @@ interface CheckinLogLike {
 const INSIGHTS_KEY = 'ai.insights'
 
 export function AIInsightsPage() {
+  const navigate = useNavigate()
   const [insights, setInsights] = useState<AiInsight[]>(() =>
     getJSON<AiInsight[]>(INSIGHTS_KEY, []),
   )
@@ -85,22 +87,34 @@ export function AIInsightsPage() {
   return (
     <div className="space-y-6 pb-10">
       <div className="flex items-center justify-between gap-3">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="px-0 text-xs text-text-secondary hover:text-text-primary"
+          onClick={() => navigate('/dashboard')}
+        >
+          <ArrowRight className="ml-1 h-4 w-4" />
+          חזרה לדאשבורד
+        </Button>
+      </div>
+
+      <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#8B5CF6]/20 text-[#8B5CF6]">
             <Sparkles className="h-4 w-4" />
           </div>
           <div className="flex flex-col">
             <h1 className="text-xl font-semibold text-text-primary">
-              AI Insights
+              תובנות AI
             </h1>
             <p className="text-xs text-text-secondary">
-              Personalized recommendations based on your training, cardio, and check-ins.
+              המלצות מותאמות אישית לפי האימונים, הקרדיו והצ׳ק‑אינים שלך.
             </p>
           </div>
         </div>
         <Button size="sm" onClick={handleGenerate}>
           <Sparkles className="mr-1 h-4 w-4" />
-          Generate This Week
+          הפקת תובנה לשבוע הזה
         </Button>
       </div>
 
@@ -112,11 +126,11 @@ export function AIInsightsPage() {
           </div>
           <div className="space-y-1">
             <h2 className="text-xl font-semibold text-text-primary">
-              Get AI-Powered Insights
+              קבל תובנות חכמות מ‑AI
             </h2>
             <p className="max-w-xl text-sm text-text-secondary">
-              Our AI will analyze your recent training, check-ins, and progress
-              to provide personalized recommendations for optimal results.
+              ה‑AI ינתח את האימונים, הקרדיו והצ׳ק‑אינים האחרונים שלך
+              וייתן המלצות אישיות לתוצאות מיטביות.
             </p>
           </div>
           <Button
@@ -125,11 +139,11 @@ export function AIInsightsPage() {
             onClick={handleGenerate}
           >
             <Sparkles className="mr-1 h-4 w-4" />
-            Analyze My Data
+            ניתוח הנתונים שלי
           </Button>
           {hasThisWeek && thisWeekInsight && (
             <p className="mt-1 text-[11px] text-text-secondary/80">
-              Latest insight: Week of{' '}
+              תובנה אחרונה: שבוע של{' '}
               {format(new Date(thisWeekInsight.weekStartISO), 'MMM d, yyyy')}
             </p>
           )}
@@ -140,19 +154,19 @@ export function AIInsightsPage() {
       <Card className="border-none bg-surface">
         <CardHeader className="flex flex-row items-center justify-between gap-3">
           <div>
-            <CardTitle className="text-sm">History</CardTitle>
+            <CardTitle className="text-sm">היסטוריה</CardTitle>
             <CardDescription className="text-xs text-text-secondary">
-              Previous weekly insights.
+              תובנות שבועיות קודמות.
             </CardDescription>
           </div>
           <span className="text-[11px] text-text-secondary/80">
-            {sortedInsights.length} total
+            {sortedInsights.length} סה״כ
           </span>
         </CardHeader>
         <CardContent className="space-y-2 text-sm">
           {sortedInsights.length === 0 ? (
             <p className="text-xs text-text-secondary">
-              No insights generated yet. Start by generating one for this week.
+              עדיין אין תובנות. אפשר להתחיל בהפקת תובנה לשבוע הנוכחי.
             </p>
           ) : (
             sortedInsights.map((insight) => (
@@ -164,7 +178,7 @@ export function AIInsightsPage() {
               >
                 <div className="flex flex-col gap-1">
                   <span className="text-xs text-text-secondary/80">
-                    Week of{' '}
+                    שבוע של{' '}
                     {format(new Date(insight.weekStartISO), 'MMM d, yyyy')}
                   </span>
                   <span className="text-sm font-medium text-text-primary">
@@ -184,12 +198,12 @@ export function AIInsightsPage() {
       <Modal
         open={!!detail}
         onClose={() => setDetail(null)}
-        title={detail?.title ?? 'Insight details'}
+        title={detail?.title ?? 'פרטי תובנה'}
       >
         {detail && (
           <div className="space-y-3 text-sm">
             <p className="text-xs text-text-secondary/80">
-              Generated{' '}
+              הופקה{' '}
               {format(new Date(detail.createdAtISO), 'PPP p')}
             </p>
             <p className="text-sm text-text-secondary">{detail.summary}</p>
@@ -203,7 +217,7 @@ export function AIInsightsPage() {
             </ul>
             <div className="mt-2 rounded-xl bg-surface-2 px-3 py-2 text-xs text-text-secondary">
               <span className="text-[11px] font-semibold uppercase tracking-wide text-[#8B5CF6]">
-                Focus
+                פוקוס
               </span>
               <p className="mt-1 text-sm text-text-primary">
                 {detail.focus}
@@ -216,7 +230,7 @@ export function AIInsightsPage() {
                 size="sm"
                 onClick={() => setDetail(null)}
               >
-                Close
+                סגירה
               </Button>
               <Button
                 type="button"
@@ -224,7 +238,7 @@ export function AIInsightsPage() {
                 className="bg-danger hover:bg-danger/80"
                 onClick={() => handleDelete(detail.id)}
               >
-                Delete
+                מחיקה
               </Button>
             </div>
           </div>

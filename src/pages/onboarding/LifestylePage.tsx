@@ -23,22 +23,22 @@ import { cn } from '../../app/utils/cn'
 const STORAGE_KEY = 'onboarding.lifestyle'
 
 const SLEEP_OPTIONS: { id: LifestyleSleep; label: string; helper: string }[] = [
-  { id: 'poor', label: 'Poor', helper: '0–5 hours / night' },
-  { id: 'average', label: 'Average', helper: '5–7 hours / night' },
-  { id: 'good', label: 'Good', helper: '7–9 hours / night' },
+  { id: 'poor', label: 'חלשה', helper: '0–5 שעות בלילה' },
+  { id: 'average', label: 'בינונית', helper: '5–7 שעות בלילה' },
+  { id: 'good', label: 'טובה', helper: '7–9 שעות בלילה' },
 ]
 
 const STEP_OPTIONS: { id: LifestyleSteps; label: string }[] = [
-  { id: '<3k', label: '< 3k' },
-  { id: '3-6k', label: '3k–6k' },
-  { id: '6-10k', label: '6k–10k' },
-  { id: '10k+', label: '10k+' },
+  { id: '<3k', label: 'פחות מ‑3,000' },
+  { id: '3-6k', label: '3,000–6,000' },
+  { id: '6-10k', label: '6,000–10,000' },
+  { id: '10k+', label: '10,000+' },
 ]
 
 const NUTRITION_OPTIONS: { id: LifestyleNutrition; label: string }[] = [
-  { id: 'not', label: 'Not consistent' },
-  { id: 'somewhat', label: 'Somewhat' },
-  { id: 'very', label: 'Very consistent' },
+  { id: 'not', label: 'לא עקבית' },
+  { id: 'somewhat', label: 'די עקבית' },
+  { id: 'very', label: 'עקבית מאוד' },
 ]
 
 export function LifestylePage() {
@@ -63,22 +63,22 @@ export function LifestylePage() {
 
   return (
     <div className="flex min-h-[60vh] flex-col">
-      <Card className="mx-auto w-full max-w-3xl">
+      <Card className="mx-auto w-full max-w-3xl border-none">
         <CardHeader className="space-y-2 text-center">
-          <CardTitle className="text-2xl font-semibold">Lifestyle</CardTitle>
+          <CardTitle className="text-2xl font-semibold">אורח חיים</CardTitle>
           <CardDescription className="text-sm text-text-secondary">
-            A few habits that affect your results
+            כמה הרגלים שמשפיעים ישירות על התוצאות שלך
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Sleep */}
-          <section className="space-y-2 border-b border-border/60 pb-4">
+          <section className="space-y-2 pb-4">
             <div>
               <h3 className="text-sm font-medium text-text-primary/90">
-                Sleep quality
+                איכות שינה
               </h3>
               <p className="text-xs text-text-secondary/80">
-                How would you describe your typical night&apos;s sleep?
+                איך היית מתאר את איכות השינה הממוצעת שלך?
               </p>
             </div>
             <div className="space-y-2">
@@ -92,10 +92,10 @@ export function LifestylePage() {
                       setState((prev) => ({ ...prev, sleep: option.id }))
                     }
                     className={cn(
-                      'flex w-full flex-col items-start gap-1 rounded-xl border px-4 py-2 text-left text-sm transition-colors',
-                      'border-border bg-surface-2 text-text-secondary hover:bg-surface',
+                      'flex w-full flex-col items-start gap-1 rounded-xl px-4 py-2 text-left text-sm transition-colors',
+                      'bg-surface-2 text-text-secondary hover:bg-surface',
                       selected &&
-                        'border-[#10B981] bg-surface text-text-primary shadow-card',
+                        'bg-[#052e21] text-[#10B981] shadow-card',
                     )}
                   >
                     <span className="font-medium">{option.label}</span>
@@ -109,22 +109,22 @@ export function LifestylePage() {
           </section>
 
           {/* Stress */}
-          <section className="space-y-3 border-b border-border/60 pb-4">
+          <section className="space-y-3 pb-4">
             <div>
               <h3 className="text-sm font-medium text-text-primary/90">
-                Stress level
+                רמת סטרס
               </h3>
               <p className="text-xs text-text-secondary/80">
-                Overall, how stressed do you feel day to day?
+                באופן כללי, כמה לחוץ אתה מרגיש ביום‑יום?
               </p>
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs text-text-secondary/80">
-                <span>Low</span>
+                  <span>נמוך</span>
                 <span className="text-text-primary/90">
                   {state.stress ?? 5}/10
                 </span>
-                <span>High</span>
+                  <span>גבוה</span>
               </div>
               <Slider
                 min={0}
@@ -142,13 +142,13 @@ export function LifestylePage() {
           </section>
 
           {/* Steps */}
-          <section className="space-y-2 border-b border-border/60 pb-4">
+          <section className="space-y-2 pb-4">
             <div>
               <h3 className="text-sm font-medium text-text-primary/90">
-                Daily steps
+                צעדים ביום
               </h3>
               <p className="text-xs text-text-secondary/80">
-                Roughly how many steps do you get on a typical day?
+                בערך כמה צעדים אתה עושה ביום ממוצע?
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -162,10 +162,10 @@ export function LifestylePage() {
                       setState((prev) => ({ ...prev, steps: option.id }))
                     }
                     className={cn(
-                      'rounded-xl border px-4 py-2 text-sm transition-colors',
-                      'border-border bg-surface-2 text-text-secondary hover:bg-surface',
+                      'rounded-xl px-4 py-2 text-sm transition-colors',
+                      'bg-surface-2 text-text-secondary hover:bg-surface',
                       selected &&
-                        'border-[#10B981] bg-surface text-text-primary shadow-card',
+                        'bg-[#052e21] text-[#10B981] shadow-card',
                     )}
                   >
                     {option.label}
@@ -176,14 +176,13 @@ export function LifestylePage() {
           </section>
 
           {/* Nutrition */}
-          <section className="space-y-2 border-b border-border/60 pb-4">
+          <section className="space-y-2 pb-4">
             <div>
               <h3 className="text-sm font-medium text-text-primary/90">
-                Nutrition consistency
+                עקביות תזונתית
               </h3>
               <p className="text-xs text-text-secondary/80">
-                How consistently do you follow a nutrition plan or general
-                guidelines?
+                עד כמה אתה מצליח לעמוד בקווים מנחים או בתוכנית תזונה?
               </p>
             </div>
             <div className="space-y-2">
@@ -197,10 +196,10 @@ export function LifestylePage() {
                       setState((prev) => ({ ...prev, nutrition: option.id }))
                     }
                     className={cn(
-                      'flex w-full items-center justify-between rounded-xl border px-4 py-2 text-left text-sm transition-colors',
-                      'border-border bg-surface-2 text-text-secondary hover:bg-surface',
+                      'flex w-full items-center justify-between rounded-xl px-4 py-2 text-left text-sm transition-colors',
+                      'bg-surface-2 text-text-secondary hover:bg-surface',
                       selected &&
-                        'border-[#10B981] bg-surface text-text-primary shadow-card',
+                        'bg-[#052e21] text-[#10B981] shadow-card',
                     )}
                   >
                     <span>{option.label}</span>
@@ -214,14 +213,14 @@ export function LifestylePage() {
           <section className="space-y-2">
             <div>
               <h3 className="text-sm font-medium text-text-primary/90">
-                Notes
+                הערות
               </h3>
               <p className="text-xs text-text-secondary/80">
-                Optional. Anything else we should know?
+                לא חובה. כל דבר נוסף שחשוב שנדע.
               </p>
             </div>
             <Textarea
-              placeholder="Anything else we should know?"
+              placeholder="כל דבר נוסף שחשוב שנדע..."
               value={state.notes ?? ''}
               onChange={(e) =>
                 setState((prev) => ({ ...prev, notes: e.target.value }))
@@ -232,7 +231,7 @@ export function LifestylePage() {
         </CardContent>
       </Card>
 
-      <div className="sticky bottom-0 -mx-4 mt-8 border-t border-border bg-bg/95 px-4 py-4">
+      <div className="sticky bottom-0 -mx-4 mt-8 bg-bg/95 px-4 py-4">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
           <Button
             variant="secondary"
@@ -240,7 +239,7 @@ export function LifestylePage() {
             className="w-full max-w-[160px]"
             onClick={() => navigate('/fitness')}
           >
-            Back
+            חזרה
           </Button>
           <Button
             size="lg"
@@ -248,7 +247,7 @@ export function LifestylePage() {
             onClick={handleContinue}
             disabled={!isValid}
           >
-            Continue
+            המשך
           </Button>
         </div>
       </div>

@@ -56,34 +56,33 @@ export function CompletePage() {
           </div>
         </div>
         <h1 className="mb-2 text-2xl font-semibold text-text-primary">
-          Your plan is ready
+          התוכנית האישית שלך מוכנה
         </h1>
         <p className="mb-8 text-sm text-text-secondary">
-          Based on your answers, here&apos;s your starting point. You can always
-          refine it inside the app.
+          על בסיס המידע שמילאת יצרנו עבורך נקודת פתיחה מותאמת. תמיד אפשר לעדכן ולשנות בתוך האפליקציה.
         </p>
       </div>
 
       <div className="mx-auto grid w-full max-w-3xl gap-4 px-1">
         {/* Profile summary */}
-        <Card>
+        <Card className="border-none">
           <CardHeader>
-            <CardTitle className="text-base">Your Profile</CardTitle>
+            <CardTitle className="text-base">הפרופיל שלך</CardTitle>
             <CardDescription className="text-xs text-text-secondary">
-              A quick snapshot of the information you shared.
+              צילום־מצב קצר של המידע שמסרת לנו.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-x-8 gap-y-3 text-sm sm:grid-cols-2">
               {basics.fullName && (
-                <SummaryRow label="Name" value={basics.fullName} />
+                <SummaryRow label="שם" value={basics.fullName} />
               )}
               {typeof basics.age === 'number' && (
-                <SummaryRow label="Age" value={`${basics.age}`} />
+                <SummaryRow label="גיל" value={`${basics.age}`} />
               )}
               {basics.gender && (
                 <SummaryRow
-                  label="Gender"
+                  label="מין"
                   value={
                     basics.gender === 'male'
                       ? 'Male'
@@ -94,15 +93,15 @@ export function CompletePage() {
                 />
               )}
               {typeof basics.heightCm === 'number' && (
-                <SummaryRow label="Height" value={`${basics.heightCm} cm`} />
+                <SummaryRow label="גובה" value={`${basics.heightCm} ס״מ`} />
               )}
               {typeof basics.weightKg === 'number' && (
-                <SummaryRow label="Weight" value={`${basics.weightKg} kg`} />
+                <SummaryRow label="משקל" value={`${basics.weightKg} ק״ג`} />
               )}
 
               {fitness.experience && (
                 <SummaryRow
-                  label="Experience"
+                  label="ניסיון אימוני"
                   value={
                     fitness.experience.charAt(0).toUpperCase() +
                     fitness.experience.slice(1)
@@ -111,67 +110,61 @@ export function CompletePage() {
               )}
               {fitness.location && (
                 <SummaryRow
-                  label="Training location"
+                  label="מקום אימון"
                   value={
                     fitness.location === 'both'
-                      ? 'Gym & home'
+                      ? 'חדר כושר ובית'
                       : fitness.location === 'gym'
-                        ? 'Gym'
-                        : 'Home'
+                        ? 'חדר כושר'
+                        : 'בית'
                   }
                 />
               )}
               {typeof fitness.daysPerWeek === 'number' && (
-                <SummaryRow
-                  label="Days / week"
-                  value={`${fitness.daysPerWeek}`}
-                />
+                <SummaryRow label="ימי אימון בשבוע" value={`${fitness.daysPerWeek}`} />
               )}
               {fitness.focus && (
                 <SummaryRow
-                  label="Primary focus"
+                  label="מוקד עיקרי"
                   value={
                     fitness.focus === 'hypertrophy'
-                      ? 'Hypertrophy'
+                      ? 'היפרטרופיה'
                       : fitness.focus === 'endurance'
-                        ? 'Endurance'
+                        ? 'סבולת'
                         : fitness.focus === 'strength'
-                          ? 'Strength'
-                          : 'Mixed'
+                          ? 'כוח'
+                          : 'משולב'
                   }
                 />
               )}
 
               {lifestyle.sleep && (
                 <SummaryRow
-                  label="Sleep"
+                  label="שינה"
                   value={
                     lifestyle.sleep === 'poor'
-                      ? 'Poor (0–5h)'
+                      ? 'חלשה (0–5 שעות)'
                       : lifestyle.sleep === 'average'
-                        ? 'Average (5–7h)'
-                        : 'Good (7–9h)'
+                        ? 'בינונית (5–7 שעות)'
+                        : 'טובה (7–9 שעות)'
                   }
                 />
               )}
               {typeof lifestyle.stress === 'number' && (
-                <SummaryRow
-                  label="Stress"
-                  value={`${lifestyle.stress}/10`}
-                />
+                <SummaryRow label="סטרס" value={`${lifestyle.stress}/10`} />
               )}
               {lifestyle.steps && (
-                <SummaryRow label="Daily steps" value={lifestyle.steps} />
+                <SummaryRow label="צעדים ביום" value={lifestyle.steps} />
               )}
               {lifestyle.nutrition && (
                 <SummaryRow
-                  label="Nutrition"
+                  label="תזונה"
                   value={
                     lifestyle.nutrition === 'not'
-                      ? 'Not consistent'
+                      ? 'לא עקבית'
                       : lifestyle.nutrition === 'somewhat'
-                        ? 'Somewhat consistent'
-                        : 'Very consistent'
+                        ? 'די עקבית'
+                        : 'עקבית מאוד'
                   }
                 />
               )}
@@ -180,57 +173,57 @@ export function CompletePage() {
         </Card>
 
         {/* Recommended focus */}
-        <Card>
+        <Card className="border-none">
           <CardHeader>
-            <CardTitle className="text-base">Recommended Focus</CardTitle>
+            <CardTitle className="text-base">על מה נשים דגש בהתחלה</CardTitle>
             <CardDescription className="text-xs text-text-secondary">
-              Three pillars we&apos;ll emphasize in your first weeks.
+              שלושה צירים מרכזיים שינחו את השבועות הראשונים שלך.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-3 sm:grid-cols-3">
               <PillarCard
-                title="Strength Program"
-                description="Foundational compound lifts 2–3x per week to build resilience."
+                title="תוכנית כוח"
+                description="תרגילי בסיס 2–3 פעמים בשבוע לבניית חוסן וכוח."
               />
               <PillarCard
-                title="Cardio Base"
-                description="Low-impact Zone 2 work to support heart health and recovery."
+                title="בסיס קרדיו"
+                description="אימוני Zone 2 עדינים לשיפור סבולת ובריאות הלב."
               />
               <PillarCard
-                title="Recovery & Sleep"
-                description="Simple routines to improve sleep quality and manage stress."
+                title="שיקום ושינה"
+                description="הרגלים פשוטים לשיפור איכות השינה והפחתת סטרס."
               />
             </div>
           </CardContent>
         </Card>
 
         {/* Next steps */}
-        <Card>
+        <Card className="border-none">
           <CardHeader>
-            <CardTitle className="text-base">Next Steps</CardTitle>
+            <CardTitle className="text-base">הצעדים הבאים</CardTitle>
             <CardDescription className="text-xs text-text-secondary">
-              A quick checklist for your first visit inside Younger.
+              צ׳קליסט קצר למה שחשוב לעשות בביקור הראשון בדאשבורד.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="space-y-1 text-sm text-text-secondary">
-              <li>✓ Check your first workout</li>
-              <li>✓ Log your daily check-in</li>
-              <li>✓ Explore your AI insights and progress views</li>
+              <li>✓ להסתכל על אימון היום</li>
+              <li>✓ למלא צ׳ק‑אין יומי ראשון</li>
+              <li>✓ לעבור על תובנות ה‑AI ומסך ההתקדמות</li>
             </ul>
           </CardContent>
         </Card>
       </div>
 
-      <div className="sticky bottom-0 -mx-4 mt-8 border-t border-border bg-bg/95 px-4 py-4">
+      <div className="sticky bottom-0 -mx-4 mt-8 bg-bg/95 px-4 py-4">
         <div className="mx-auto flex max-w-3xl justify-center">
           <Button
             size="lg"
             className="w-full max-w-md"
             onClick={() => navigate('/dashboard')}
           >
-            Enter App
+            כניסה לאפליקציה
           </Button>
         </div>
       </div>
@@ -245,7 +238,7 @@ interface SummaryRowProps {
 
 function SummaryRow({ label, value }: SummaryRowProps) {
   return (
-    <div className="flex flex-col gap-0.5 text-left">
+    <div className="flex flex-col gap-0.5 text-right">
       <span className="text-xs uppercase tracking-wide text-text-secondary/80">
         {label}
       </span>
@@ -261,7 +254,7 @@ interface PillarCardProps {
 
 function PillarCard({ title, description }: PillarCardProps) {
   return (
-    <div className="rounded-2xl border border-border bg-surface-2 p-3 text-left">
+    <div className="rounded-2xl bg-surface-2 p-3 text-right">
       <h3 className="mb-1 text-xs font-semibold text-text-primary">
         {title}
       </h3>

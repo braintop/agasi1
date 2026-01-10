@@ -1,6 +1,7 @@
 import { type ReactNode, useEffect, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
-import { Smile, SmilePlus, Meh, Frown, AlertTriangle, BatteryMedium, Brain, Moon } from 'lucide-react'
+import { Smile, SmilePlus, Meh, Frown, AlertTriangle, BatteryMedium, Brain, Moon, ArrowRight } from 'lucide-react'
 import {
   Card,
   CardContent,
@@ -28,12 +29,12 @@ interface Checkin {
 const LOG_KEY = 'checkins.logs'
 const DRAFT_KEY = 'checkins.draft'
 
-const MOOD_OPTIONS: { id: Mood; label: Mood; icon: ReactNode }[] = [
-  { id: 'Great', label: 'Great', icon: <SmilePlus className="h-4 w-4" /> },
-  { id: 'Good', label: 'Good', icon: <Smile className="h-4 w-4" /> },
-  { id: 'Okay', label: 'Okay', icon: <Meh className="h-4 w-4" /> },
-  { id: 'Low', label: 'Low', icon: <Frown className="h-4 w-4" /> },
-  { id: 'Stressed', label: 'Stressed', icon: <AlertTriangle className="h-4 w-4" /> },
+const MOOD_OPTIONS: { id: Mood; label: string; icon: ReactNode }[] = [
+  { id: 'Great', label: 'מצוין', icon: <SmilePlus className="h-4 w-4" /> },
+  { id: 'Good', label: 'טוב', icon: <Smile className="h-4 w-4" /> },
+  { id: 'Okay', label: 'סביר', icon: <Meh className="h-4 w-4" /> },
+  { id: 'Low', label: 'נמוך', icon: <Frown className="h-4 w-4" /> },
+  { id: 'Stressed', label: 'לחוץ', icon: <AlertTriangle className="h-4 w-4" /> },
 ]
 
 function moodToScore(mood: Mood): number {
@@ -54,6 +55,7 @@ function moodToScore(mood: Mood): number {
 }
 
 export function DailyCheckInPage() {
+  const navigate = useNavigate()
   const [logs, setLogs] = useState<Checkin[]>(() =>
     getJSON<Checkin[]>(LOG_KEY, []),
   )
@@ -166,18 +168,30 @@ export function DailyCheckInPage() {
 
   return (
     <div className="space-y-6 pb-10">
+      <div className="flex items-center justify-between gap-3">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="px-0 text-xs text-text-secondary hover:text-text-primary"
+          onClick={() => navigate('/dashboard')}
+        >
+          <ArrowRight className="ml-1 h-4 w-4" />
+          חזרה לדאשבורד
+        </Button>
+      </div>
+
       <div className="flex flex-col gap-1">
         <h1 className="text-2xl font-semibold text-text-primary">
-          Daily Check-in
+          צ׳ק‑אין יומי
         </h1>
         <p className="text-sm text-text-secondary">
-          Track how you feel today.
+          לעקוב אחרי ההרגשה שלך היום.
         </p>
         <p className="text-xs text-text-secondary/80">
-          Last check-in:{' '}
+          צ׳ק‑אין אחרון:{' '}
           {lastCheckin
             ? format(new Date(lastCheckin.dateISO), 'EEE, MMM d')
-            : 'None yet'}
+            : 'עדיין לא בוצע'}
         </p>
       </div>
 
@@ -191,31 +205,31 @@ export function DailyCheckInPage() {
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-text-primary">
-                    You&apos;ve checked in today!
+                    ביצעת צ׳ק‑אין היום!
                   </p>
                   <p className="text-xs text-text-secondary/80">
-                    Great job tracking your wellness. See you tomorrow!
+                    יפה מאוד, אתה עוקב אחרי ההרגשה שלך. נתראה מחר.
                   </p>
                 </div>
               </div>
               <div className="grid gap-3 sm:grid-cols-4">
                 <TodayTile
-                  label="Mood"
+                  label="מצב רוח"
                   value={moodToScore(existingToday.mood)}
                   icon={<SmilePlus className="h-4 w-4 text-emerald-400" />}
                 />
                 <TodayTile
-                  label="Energy"
+                  label="אנרגיה"
                   value={existingToday.energy}
                   icon={<BatteryMedium className="h-4 w-4 text-sky-400" />}
                 />
                 <TodayTile
-                  label="Stress"
+                  label="לחץ"
                   value={existingToday.stress}
                   icon={<Brain className="h-4 w-4 text-orange-300" />}
                 />
                 <TodayTile
-                  label="Sleep Quality"
+                  label="איכות שינה"
                   value={existingToday.sleepQuality}
                   icon={<Moon className="h-4 w-4 text-violet-300" />}
                 />
@@ -225,29 +239,29 @@ export function DailyCheckInPage() {
 
           <Card className="border-none bg-surface-2">
             <CardHeader>
-              <CardTitle className="text-base">7-Day Averages</CardTitle>
+              <CardTitle className="text-base">ממוצעים ל‑7 ימים</CardTitle>
               <CardDescription className="text-xs text-text-secondary">
-                A soft snapshot of your recent trends.
+                תמונת מצב עדינה של המגמות האחרונות.
               </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-3 sm:grid-cols-4">
               <AverageTile
-                label="Mood"
+                label="מצב רוח"
                 value={avgMood}
                 icon={<SmilePlus className="h-4 w-4 text-emerald-400" />}
               />
               <AverageTile
-                label="Energy"
+                label="אנרגיה"
                 value={avgEnergy}
                 icon={<BatteryMedium className="h-4 w-4 text-sky-400" />}
               />
               <AverageTile
-                label="Stress"
+                label="לחץ"
                 value={avgStress}
                 icon={<Brain className="h-4 w-4 text-orange-300" />}
               />
               <AverageTile
-                label="Sleep Quality"
+                label="איכות שינה"
                 value={avgSleep}
                 icon={<Moon className="h-4 w-4 text-violet-300" />}
               />
@@ -259,16 +273,16 @@ export function DailyCheckInPage() {
           {/* Today form */}
           <Card className="border-none bg-surface">
             <CardHeader>
-              <CardTitle className="text-base">Today</CardTitle>
+              <CardTitle className="text-base">היום</CardTitle>
               <CardDescription className="text-xs text-text-secondary">
-                How are you doing right now?
+                איך אתה מרגיש כרגע?
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-5">
               {/* Mood */}
               <section className="space-y-2">
                 <p className="text-xs font-medium text-text-primary/90">
-                  Mood <span className="text-danger">*</span>
+                  מצב רוח <span className="text-danger">*</span>
                 </p>
                 <div className="flex flex-wrap gap-2 text-xs">
                   {MOOD_OPTIONS.map((option) => {
@@ -277,10 +291,10 @@ export function DailyCheckInPage() {
                       <button
                         key={option.id}
                         type="button"
-                        className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 ${
+                        className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 ${
                           active
-                            ? 'border-[#10B981] bg-[#052e21] text-[#10B981]'
-                            : 'border-border bg-surface-2 text-text-secondary hover:text-text-primary'
+                            ? 'bg-[#052e21] text-[#10B981]'
+                            : 'bg-surface-2 text-text-secondary hover:text-text-primary'
                         }`}
                         onClick={() => setMood(option.id)}
                       >
@@ -295,19 +309,19 @@ export function DailyCheckInPage() {
               {/* Sliders */}
               <section className="space-y-4">
                 <SliderRow
-                  label="Energy"
+                  label="אנרגיה"
                   icon={<BatteryMedium className="h-4 w-4 text-sky-400" />}
                   value={energy}
                   onChange={setEnergy}
                 />
                 <SliderRow
-                  label="Stress"
+                  label="לחץ"
                   icon={<Brain className="h-4 w-4 text-orange-300" />}
                   value={stress}
                   onChange={setStress}
                 />
                 <SliderRow
-                  label="Sleep Quality"
+                  label="איכות שינה"
                   icon={<Moon className="h-4 w-4 text-violet-300" />}
                   value={sleepQuality}
                   onChange={setSleepQuality}
@@ -316,10 +330,10 @@ export function DailyCheckInPage() {
 
               {/* Notes */}
               <section className="space-y-2">
-                <p className="text-xs font-medium text-text-primary/90">Notes</p>
+                <p className="text-xs font-medium text-text-primary/90">הערות</p>
                 <Textarea
                   rows={3}
-                  placeholder="Anything else you want to remember about today..."
+                  placeholder="כל דבר נוסף שתרצה לזכור על היום..."
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                 />
@@ -330,29 +344,29 @@ export function DailyCheckInPage() {
           {/* 7-day averages */}
           <Card className="border-none bg-surface">
             <CardHeader>
-              <CardTitle className="text-base">7-Day Averages</CardTitle>
+              <CardTitle className="text-base">ממוצעים ל‑7 ימים</CardTitle>
               <CardDescription className="text-xs text-text-secondary">
-                A soft snapshot of your recent trends.
+                תמונת מצב עדינה של המגמות האחרונות.
               </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-3 sm:grid-cols-2">
               <AverageTile
-                label="Mood"
+                label="מצב רוח"
                 value={avgMood}
                 icon={<SmilePlus className="h-4 w-4 text-emerald-400" />}
               />
               <AverageTile
-                label="Energy"
+                label="אנרגיה"
                 value={avgEnergy}
                 icon={<BatteryMedium className="h-4 w-4 text-sky-400" />}
               />
               <AverageTile
-                label="Stress"
+                label="לחץ"
                 value={avgStress}
                 icon={<Brain className="h-4 w-4 text-orange-300" />}
               />
               <AverageTile
-                label="Sleep Quality"
+                label="איכות שינה"
                 value={avgSleep}
                 icon={<Moon className="h-4 w-4 text-violet-300" />}
               />
@@ -363,12 +377,12 @@ export function DailyCheckInPage() {
 
       {justSaved && (
         <div className="rounded-xl border border-[#10B981]/40 bg-[#052e21] px-4 py-2 text-xs text-[#10B981]">
-          Check-in saved. Great job taking a moment to reflect.
+          הצ׳ק‑אין נשמר. כל הכבוד שלקחת רגע לעצור ולבדוק איך אתה מרגיש.
         </div>
       )}
 
       {(!hasToday || editingExisting) && (
-        <div className="sticky bottom-0 -mx-4 mt-6 border-t border-border bg-bg/95 px-4 py-4">
+        <div className="sticky bottom-0 -mx-4 mt-6 bg-bg/95 px-4 py-4">
           <div className="mx-auto flex max-w-3xl justify-end">
             <Button
               size="lg"
@@ -376,7 +390,7 @@ export function DailyCheckInPage() {
               disabled={!mood}
               onClick={handleSubmit}
             >
-              Submit Check-in
+              שמירת צ׳ק‑אין
             </Button>
           </div>
         </div>

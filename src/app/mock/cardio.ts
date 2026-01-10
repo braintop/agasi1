@@ -21,23 +21,23 @@ export interface CardioLog {
 
 export const cardioPlan: CardioPlan = {
   id: 'cp1',
-  title: 'Zone 2 Base',
+  title: 'בסיס Zone 2',
   weeklyTargetSessions: 3,
   targetMinutesPerSession: 30,
   notes:
-    'Easy, conversational pace cardio to build your aerobic base without adding fatigue.',
+    'קרדיו בקצב קל שבו עדיין אפשר לדבר – לבניית בסיס אירובי בלי עומס מיותר.',
   sessionTypes: [
     {
       type: 'Zone 2',
-      description: 'Steady, low intensity cardio at conversational pace.',
+      description: 'קרדיו יציב, בעצימות נמוכה, בקצב שבו אפשר לנהל שיחה.',
     },
     {
       type: 'Intervals',
-      description: 'Short bursts above Zone 2 with full recovery.',
+      description: 'מקטעים קצרים מעל Zone 2 עם התאוששות מלאה ביניהם.',
     },
     {
       type: 'Easy',
-      description: 'Very light sessions for off-days and recovery.',
+      description: 'סשנים קלים מאוד לימים רגועים ולהתאוששות.',
     },
   ],
 }

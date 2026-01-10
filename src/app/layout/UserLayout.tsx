@@ -10,12 +10,12 @@ import {
 import { cn } from '../utils/cn'
 
 const USER_NAV_ITEMS = [
-  { label: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
-  { label: 'Workouts', path: '/workouts', icon: Dumbbell },
-  { label: 'Cardio', path: '/cardio', icon: HeartPulse },
-  { label: 'Check-in', path: '/dailycheckin', icon: CalendarCheck2 },
-  { label: 'Progress', path: '/progress', icon: LineChart },
-  { label: 'AI Insights', path: '/aiinsights', icon: Sparkles },
+  { label: 'דאשבורד', path: '/dashboard', icon: LayoutDashboard },
+  { label: 'אימונים', path: '/workouts', icon: Dumbbell },
+  { label: 'קרדיו', path: '/cardio', icon: HeartPulse },
+  { label: 'צ׳ק‑אין יומי', path: '/dailycheckin', icon: CalendarCheck2 },
+  { label: 'התקדמות', path: '/progress', icon: LineChart },
+  { label: 'תובנות AI', path: '/aiinsights', icon: Sparkles },
 ] as const
 
 export function UserLayout() {
@@ -28,11 +28,9 @@ export function UserLayout() {
               Y
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-semibold tracking-tight">
-                Younger
-              </span>
+              <span className="text-sm font-semibold tracking-tight">Younger</span>
               <span className="text-xs text-text-secondary">
-                Daily longevity coach
+                מאמן אריכות ימים יומי
               </span>
             </div>
           </div>
@@ -67,7 +65,7 @@ export function UserLayout() {
             <div className="flex flex-col">
               <span className="text-xs font-medium">Jordan Harper</span>
               <span className="text-[11px] text-text-secondary">
-                Premium member
+                חבר פרימיום
               </span>
             </div>
           </div>
@@ -84,7 +82,7 @@ export function UserLayout() {
                   Younger
                 </span>
                 <span className="text-[11px] text-text-secondary">
-                  User area
+                  אזור משתמש
                 </span>
               </div>
             </div>

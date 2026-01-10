@@ -1,35 +1,35 @@
 export const dailyScore = {
-  label: 'Longevity Score',
+  label: 'ציון אריכות ימים',
   value: 78,
-  trend: '+3 this week',
+  trend: '+3 השבוע',
 }
 
 export const todayActions = [
   {
     id: 'workout',
-    title: 'Workout',
-    subtitle: 'Upper Body • 45 min',
-    status: 'Pending',
+    title: 'אימון כוח',
+    subtitle: 'פלג גוף עליון • 45 דק׳',
+    status: 'ממתין',
     statusTone: 'primary' as const,
-    cta: 'Start',
+    cta: 'התחל',
     to: '/workouts',
   },
   {
     id: 'cardio',
-    title: 'Cardio',
-    subtitle: 'Zone 2 • 30 min',
-    status: 'Pending',
+    title: 'קרדיו',
+    subtitle: 'Zone 2 • 30 דק׳',
+    status: 'ממתין',
     statusTone: 'info' as const,
-    cta: 'Log',
+    cta: 'רשום',
     to: '/cardio',
   },
   {
     id: 'checkin',
-    title: 'Daily Check-in',
-    subtitle: '1 min',
-    status: 'Pending',
+    title: 'צ׳ק‑אין יומי',
+    subtitle: 'דקה אחת',
+    status: 'ממתין',
     statusTone: 'success' as const,
-    cta: 'Complete',
+    cta: 'השלם',
     to: '/dailycheckin',
   },
 ] as const
@@ -40,5 +40,5 @@ export const streaks = {
 }
 
 export const aiInsightPreview =
-  'Your consistency this week is trending up. Prioritize sleep tonight to support tomorrow’s training.'
+  'העקביות שלך השבוע משתפרת. עדיף לתת עדיפות לשינה הלילה כדי לתמוך באימון של מחר.'
 

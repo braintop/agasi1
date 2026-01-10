@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Area,
   AreaChart,
@@ -10,7 +11,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import { Activity, BarChart3, CheckCircle2, Dumbbell, HeartPulse } from 'lucide-react'
+import { Activity, BarChart3, CheckCircle2, Dumbbell, HeartPulse, ArrowRight } from 'lucide-react'
 import {
   Card,
   CardContent,
@@ -67,6 +68,7 @@ const CHECKIN_TARGETS = {
 }
 
 export function ProgressPage() {
+  const navigate = useNavigate()
   const [range, setRange] = useState<Range>('week')
 
   const workoutLogs = getJSON<WorkoutLog[]>('workout.logs', [])
@@ -168,12 +170,24 @@ export function ProgressPage() {
   return (
     <div className="space-y-6 pb-10">
       <div className="flex items-center justify-between gap-3">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="px-0 text-xs text-text-secondary hover:text-text-primary"
+          onClick={() => navigate('/dashboard')}
+        >
+          <ArrowRight className="ml-1 h-4 w-4" />
+          חזרה לדאשבורד
+        </Button>
+      </div>
+
+      <div className="flex items-center justify-between gap-3">
         <div className="flex flex-col gap-1">
           <h1 className="text-2xl font-semibold text-text-primary">
-            Progress
+            התקדמות
           </h1>
           <p className="text-sm text-text-secondary">
-            See trends and consistency.
+            לראות מגמות ורמת עקביות.
           </p>
         </div>
         <div className="inline-flex rounded-full bg-surface-2 p-1 text-xs">
@@ -186,7 +200,7 @@ export function ProgressPage() {
                 : 'text-text-secondary hover:text-text-primary'
             }`}
           >
-            Week
+            שבוע
           </button>
           <button
             type="button"
@@ -197,7 +211,7 @@ export function ProgressPage() {
                 : 'text-text-secondary hover:text-text-primary'
             }`}
           >
-            Month
+            חודש
           </button>
         </div>
       </div>
@@ -205,27 +219,27 @@ export function ProgressPage() {
       {/* KPIs */}
       <div className="grid gap-4 sm:grid-cols-4">
         <KpiCard
-          label="Workouts"
+          label="אימונים"
           value={workoutsCompleted.toString()}
-          helper={range === 'week' ? 'Completed this week' : 'Completed this month'}
+          helper={range === 'week' ? 'הושלמו השבוע' : 'הושלמו החודש'}
           icon={<Dumbbell className="h-4 w-4 text-emerald-400" />}
         />
         <KpiCard
-          label="Cardio minutes"
+          label="דקות קרדיו"
           value={cardioMinutes.toString()}
-          helper="In selected range"
+          helper="בטווח הנבחר"
           icon={<HeartPulse className="h-4 w-4 text-sky-400" />}
         />
         <KpiCard
-          label="Check-in streak"
+          label="רצף צ׳ק‑אין"
           value={streak.toString()}
-          helper="Consecutive days"
+          helper="ימים רצופים"
           icon={<CheckCircle2 className="h-4 w-4 text-amber-300" />}
         />
         <KpiCard
-          label="Consistency"
+          label="עקביות"
           value={`${consistency}%`}
-          helper="Blended score"
+          helper="ציון משוקלל"
           icon={<Activity className="h-4 w-4 text-[#10B981]" />}
         />
       </div>
@@ -234,9 +248,9 @@ export function ProgressPage() {
       <div className="grid gap-4 lg:grid-cols-3">
         <Card className="border-none bg-surface">
           <CardHeader>
-            <CardTitle className="text-sm">Cardio minutes per day</CardTitle>
+            <CardTitle className="text-sm">דקות קרדיו ליום</CardTitle>
             <CardDescription className="text-xs text-text-secondary">
-              {range === 'week' ? 'Last 7 days' : 'Last 30 days'}
+              {range === 'week' ? '7 הימים האחרונים' : '30 הימים האחרונים'}
             </CardDescription>
           </CardHeader>
           <CardContent className="h-48">
@@ -276,11 +290,11 @@ export function ProgressPage() {
 
         <Card className="border-none bg-surface">
           <CardHeader>
-            <CardTitle className="text-sm">Workouts completed</CardTitle>
+            <CardTitle className="text-sm">אימונים שהושלמו</CardTitle>
             <CardDescription className="text-xs text-text-secondary">
               {range === 'week'
-                ? 'Per day this week'
-                : 'Per day this month (quick view)'}
+                ? 'לפי ימים השבוע'
+                : 'לפי ימים החודש (תצוגה מהירה)'}
             </CardDescription>
           </CardHeader>
           <CardContent className="h-48">
@@ -308,9 +322,9 @@ export function ProgressPage() {
 
         <Card className="border-none bg-surface">
           <CardHeader>
-            <CardTitle className="text-sm">Weight trend</CardTitle>
+            <CardTitle className="text-sm">מגמת משקל</CardTitle>
             <CardDescription className="text-xs text-text-secondary">
-              Mock data – will sync with your scale later.
+              נתונים לדוגמה – בעתיד יסונכרנו עם המשקל שלך.
             </CardDescription>
           </CardHeader>
           <CardContent className="h-48">
@@ -349,9 +363,9 @@ export function ProgressPage() {
       <Card className="border-none bg-surface">
         <CardHeader className="flex flex-row items-center justify-between gap-3">
           <div>
-            <CardTitle className="text-sm">Summary</CardTitle>
+            <CardTitle className="text-sm">סיכום</CardTitle>
             <CardDescription className="text-xs text-text-secondary">
-              Quick highlights from this {range === 'week' ? 'week' : 'month'}.
+              נקודות עיקריות מה{range === 'week' ? 'שבוע' : 'חודש'} האחרון.
             </CardDescription>
           </div>
           <Button
@@ -361,14 +375,13 @@ export function ProgressPage() {
             onClick={() => (window.location.href = '/aiinsights')}
           >
             <BarChart3 className="mr-1 h-3 w-3" />
-            View AI Insights
+            צפייה בתובנות AI
           </Button>
         </CardHeader>
         <CardContent className="space-y-1 text-sm text-text-secondary">
           {summaryItems.length === 0 ? (
             <p>
-              No data yet. Start by completing a workout, logging cardio, or
-              submitting a daily check-in.
+              עדיין אין נתונים. התחל מסיום אימון, רישום קרדיו או צ׳ק‑אין יומי.
             </p>
           ) : (
             <ul className="list-disc space-y-1 pl-4">
@@ -417,8 +430,8 @@ function KpiCard({
 function EmptyChartMessage({ target }: { target: 'workouts' | 'cardio' }) {
   const label =
     target === 'cardio'
-      ? 'No cardio data yet. Log a session to see this chart.'
-      : 'No workout data yet. Complete a workout to see this chart.'
+      ? 'עדיין אין נתוני קרדיו. רשום סשן כדי לראות את הגרף.'
+      : 'עדיין אין נתוני אימונים. השלם אימון כדי לראות את הגרף.'
   return (
     <div className="flex h-full items-center justify-center text-xs text-text-secondary/80">
       {label}
@@ -446,36 +459,36 @@ function buildSummary({
   const checkinTarget = CHECKIN_TARGETS[range]
 
   if (workoutsCompleted >= workoutTarget) {
-    items.push('Great training consistency in this period – you hit your workout target.')
+    items.push('עקבית אימונים מצוינת בתקופה הזו – עמדת ביעד האימונים שלך.')
   } else if (workoutsCompleted > 0) {
     items.push(
-      `You completed ${workoutsCompleted} workouts. Aim for ${workoutTarget} to fully hit your target.`,
+      `השלמת ${workoutsCompleted} אימונים. נסה להגיע ל‑${workoutTarget} כדי לעמוד ביעד המלא.`,
     )
   } else {
-    items.push('No strength workouts logged yet in this range.')
+    items.push('עדיין לא נרשמו אימוני כוח בטווח הזה.')
   }
 
   if (cardioMinutes >= cardioTarget) {
-    items.push('Your cardio volume is on track – nice aerobic base work.')
+    items.push('נפח הקרדיו שלך על המסלול – בסיס אירובי יפה מאוד.')
   } else if (cardioMinutes > 0) {
     items.push(
-      `You logged ${cardioMinutes} minutes of cardio; consider adding one more Zone 2 session to reach ${cardioTarget} minutes.`,
+      `רשמת ${cardioMinutes} דקות קרדיו; כדאי לשקול להוסיף עוד סשן Zone 2 כדי להגיע ל‑${cardioTarget} דקות.`,
     )
   } else {
-    items.push('Cardio volume is low – even one short Zone 2 session would help.')
+    items.push('נפח הקרדיו נמוך – אפילו סשן Zone 2 קצר יכול לעזור.')
   }
 
   if (checkinCount >= checkinTarget * 0.7) {
-    items.push('Daily check-ins are consistent – great for spotting trends early.')
+    items.push('הצ׳ק‑אינים היומיים עקביים – מעולה לזיהוי מגמות מוקדם.')
   } else if (checkinCount > 0) {
-    items.push('Check-ins are a bit spotty – try to log most days to get better insights.')
+    items.push('הצ׳ק‑אינים קצת מפוזרים – נסה לרשום ברוב הימים כדי לקבל תובנות טובות יותר.')
   } else {
-    items.push('No daily check-ins yet this period. Start with a quick 30-second check-in.')
+    items.push('עדיין לא היו צ׳ק‑אינים יומיים בתקופה הזו. אפשר להתחיל בצ׳ק‑אין קצר של 30 שניות.')
   }
 
   if (avgSleep && avgSleep < 5) {
     items.push(
-      'Sleep quality looks lower than ideal – prioritizing wind-down and bedtime could boost recovery.',
+      'איכות השינה נראית נמוכה מהאידיאל – לתת עדיפות לשגרת ערב ושעת שינה קבועה יכול לשפר את ההתאוששות.',
     )
   }
 

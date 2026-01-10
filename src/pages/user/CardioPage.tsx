@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
-import { Activity, Flame, MapPin, Timer } from 'lucide-react'
+import { Activity, Flame, MapPin, Timer, ArrowRight } from 'lucide-react'
 import {
   Card,
   CardContent,
@@ -20,6 +21,7 @@ const LOG_KEY = 'cardio.logs'
 const TYPE_OPTIONS: CardioType[] = ['Zone 2', 'Intervals', 'Easy', 'Other']
 
 export function CardioPage() {
+  const navigate = useNavigate()
   const [logs, setLogs] = useState<CardioLog[]>(() =>
     getJSON<CardioLog[]>(LOG_KEY, []),
   )
@@ -97,44 +99,56 @@ export function CardioPage() {
   return (
     <div className="space-y-6 pb-10">
       <div className="flex items-center justify-between gap-3">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="px-0 text-xs text-text-secondary hover:text-text-primary"
+          onClick={() => navigate('/dashboard')}
+        >
+          <ArrowRight className="ml-1 h-4 w-4" />
+          חזרה לדאשבורד
+        </Button>
+      </div>
+
+      <div className="flex items-center justify-between gap-3">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold text-text-primary">Cardio</h1>
+          <h1 className="text-2xl font-semibold text-text-primary">קרדיו</h1>
           <p className="text-sm text-text-secondary">
-            Build heart health and endurance.
+            לבנות בריאות לב‑ריאה וסיבולת לאורך זמן.
           </p>
         </div>
         <Button size="sm" onClick={handleOpenLogModal}>
-          + Log Session
+          + רישום סשן
         </Button>
       </div>
 
       {/* KPI cards */}
       <div className="grid gap-4 sm:grid-cols-4">
         <MetricCard
-          label="This Week"
+          label="השבוע"
           value={`${kpiSessions}`}
-          helper="Sessions"
+          helper="סשנים"
           icon={<Activity className="h-4 w-4" />}
           accent="emerald"
         />
         <MetricCard
-          label="Minutes"
+          label="דקות"
           value={`${kpiMinutes}`}
-          helper="This week"
+          helper="השבוע"
           icon={<Timer className="h-4 w-4" />}
           accent="sky"
         />
         <MetricCard
-          label="Distance"
+          label="מרחק"
           value={kpiDistance.toFixed(1)}
-          helper="Total km"
+          helper="סה״כ ק״מ"
           icon={<MapPin className="h-4 w-4" />}
           accent="violet"
         />
         <MetricCard
-          label="Calories"
+          label="קלוריות"
           value={`${kpiCalories}`}
-          helper="Estimated"
+          helper="הערכה"
           icon={<Flame className="h-4 w-4" />}
           accent="orange"
         />
@@ -151,7 +165,7 @@ export function CardioPage() {
           </div>
           <Badge className="text-[11px]">
             {cardioPlan.weeklyTargetSessions} x {cardioPlan.targetMinutesPerSession}
-            &nbsp;min
+            &nbsp;דק׳
           </Badge>
         </CardHeader>
         <CardContent className="space-y-4 text-sm">
@@ -165,10 +179,10 @@ export function CardioPage() {
           <div className="flex items-center justify-between gap-3 rounded-2xl border border-border/70 bg-surface-2 px-4 py-3 text-xs text-text-secondary">
             <div>
               <p className="font-medium text-text-primary">
-                Connect Health App (coming soon)
+                חיבור לאפליקציות בריאות (בקרוב)
               </p>
               <p className="text-[11px] text-text-secondary/80">
-                Sync Apple Health / wearables to auto-log cardio sessions.
+                סנכרון Apple Health / שעונים חכמים לרישום אוטומטי של קרדיו.
               </p>
             </div>
             <div className="flex h-6 w-10 items-center rounded-full bg-surface border border-border/70">
@@ -181,14 +195,14 @@ export function CardioPage() {
       {/* History */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-medium text-text-primary">History</h2>
+          <h2 className="text-sm font-medium text-text-primary">היסטוריה</h2>
           <span className="text-[11px] text-text-secondary/80">
-            Most recent first
+            החדשים ביותר למעלה
           </span>
         </div>
         {sortedLogs.length === 0 ? (
           <p className="text-xs text-text-secondary">
-            No cardio sessions logged yet. Start by logging your first session.
+            עדיין אין סשני קרדיו רשומים. התחל ברישום הסשן הראשון שלך.
           </p>
         ) : (
           <div className="space-y-2 text-sm">
@@ -206,15 +220,15 @@ export function CardioPage() {
                       {dateLabel}
                     </span>
                     <span className="font-medium text-text-primary">
-                      {log.type} • {log.durationMin} min
+                      {log.type} • {log.durationMin} דק׳
                     </span>
                     <span className="text-[11px] text-text-secondary/80">
-                      {log.distanceKm ? `${log.distanceKm.toFixed(1)} km` : 'No distance'}
-                      {log.avgHr ? ` • Avg HR ${log.avgHr}` : ''}
+                      {log.distanceKm ? `${log.distanceKm.toFixed(1)} ק״מ` : 'ללא מרחק'}
+                      {log.avgHr ? ` • דופק ממוצע ${log.avgHr}` : ''}
                     </span>
                   </div>
                   <Badge variant="success" className="text-[11px]">
-                    Logged
+                    נרשם
                   </Badge>
                 </button>
               )
@@ -227,8 +241,8 @@ export function CardioPage() {
       <Modal
         open={isLogOpen}
         onClose={() => setIsLogOpen(false)}
-        title="Log cardio session"
-        description="Capture a quick summary of your cardio work."
+        title="רישום סשן קרדיו"
+        description="לכידה מהירה של מה שעשית בקרדיו."
       >
         <form
           className="space-y-3 text-sm"
@@ -239,7 +253,7 @@ export function CardioPage() {
         >
           <div className="space-y-1">
             <label className="text-xs font-medium text-text-primary/90">
-              Date
+              תאריך
             </label>
             <Input
               type="date"
@@ -257,7 +271,7 @@ export function CardioPage() {
           </div>
           <div className="space-y-1">
             <label className="text-xs font-medium text-text-primary/90">
-              Type
+              סוג
             </label>
             <div className="flex flex-wrap gap-2 text-xs">
               {TYPE_OPTIONS.map((t) => (
@@ -279,7 +293,7 @@ export function CardioPage() {
           <div className="grid gap-3 sm:grid-cols-2">
             <div className="space-y-1">
               <label className="text-xs font-medium text-text-primary/90">
-                Duration (min)
+                משך (דקות)
               </label>
               <Input
                 type="number"
@@ -297,7 +311,7 @@ export function CardioPage() {
             </div>
             <div className="space-y-1">
               <label className="text-xs font-medium text-text-primary/90">
-                Distance (km)
+                מרחק (ק״מ)
               </label>
               <Input
                 type="number"
@@ -316,7 +330,7 @@ export function CardioPage() {
           </div>
           <div className="space-y-1">
             <label className="text-xs font-medium text-text-primary/90">
-              Avg HR
+              דופק ממוצע
             </label>
             <Input
               type="number"
@@ -333,11 +347,11 @@ export function CardioPage() {
           </div>
           <div className="space-y-1">
             <label className="text-xs font-medium text-text-primary/90">
-              Notes
+              הערות
             </label>
             <Input
               type="text"
-              placeholder="How did it feel?"
+              placeholder="איך זה הרגיש?"
               value={form.notes ?? ''}
               onChange={(e) =>
                 setForm((prev) => ({ ...prev, notes: e.target.value }))
@@ -351,10 +365,10 @@ export function CardioPage() {
               size="sm"
               onClick={() => setIsLogOpen(false)}
             >
-              Cancel
+              ביטול
             </Button>
             <Button type="submit" size="sm" disabled={!form.durationMin}>
-              Save
+              שמירה
             </Button>
           </div>
         </form>
@@ -364,7 +378,7 @@ export function CardioPage() {
       <Modal
         open={!!detailLog}
         onClose={() => setDetailLog(null)}
-        title="Session details"
+        title="פרטי סשן"
       >
         {detailLog && (
           <div className="space-y-2 text-sm">
@@ -372,17 +386,17 @@ export function CardioPage() {
               {format(new Date(detailLog.dateISO), 'PPP')}
             </p>
             <p className="font-medium text-text-primary">
-              {detailLog.type} • {detailLog.durationMin} min
+              {detailLog.type} • {detailLog.durationMin} דק׳
             </p>
             <p className="text-xs text-text-secondary/80">
               {detailLog.distanceKm
-                ? `${detailLog.distanceKm.toFixed(1)} km`
-                : 'No distance logged'}
-              {detailLog.avgHr ? ` • Avg HR ${detailLog.avgHr}` : ''}
+                ? `${detailLog.distanceKm.toFixed(1)} ק״מ`
+                : 'לא נרשם מרחק'}
+              {detailLog.avgHr ? ` • דופק ממוצע ${detailLog.avgHr}` : ''}
             </p>
             {detailLog.notes && (
               <p className="text-xs text-text-secondary/80">
-                Notes: {detailLog.notes}
+                הערות: {detailLog.notes}
               </p>
             )}
             <div className="mt-3 flex justify-end gap-2">
@@ -392,7 +406,7 @@ export function CardioPage() {
                 size="sm"
                 onClick={() => setDetailLog(null)}
               >
-                Close
+                סגירה
               </Button>
               <Button
                 type="button"
@@ -400,7 +414,7 @@ export function CardioPage() {
                 className="bg-danger hover:bg-danger/80"
                 onClick={() => handleDeleteLog(detailLog.id)}
               >
-                Delete
+                מחיקה
               </Button>
             </div>
           </div>

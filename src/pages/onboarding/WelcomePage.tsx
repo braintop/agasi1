@@ -9,13 +9,13 @@ export function WelcomePage() {
         </div>
       </div>
       <CardTitle className="mb-3 text-2xl sm:text-3xl font-semibold">
-        Welcome to Younger
+        ברוכים הבאים ל‑Younger
       </CardTitle>
       <CardDescription className="max-w-xl text-[15px] text-text-secondary">
-        Your personalized journey to strength, vitality, and longevity starts here.
+        המסע האישי שלך לחוזק, חיוניות ואריכות ימים מתחיל כאן.
       </CardDescription>
       <p className="mt-2 max-w-xl text-xs sm:text-sm text-text-secondary/80">
-        Let’s get to know you better so we can create your perfect program.
+        בוא נכיר אותך קצת יותר טוב כדי שנוכל לבנות עבורך תוכנית מושלמת.
       </p>
     </div>
   )

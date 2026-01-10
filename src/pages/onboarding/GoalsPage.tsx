@@ -15,14 +15,14 @@ import { getJSON, setJSON } from '../../app/utils/storage'
 const STORAGE_KEY = 'onboarding.goals'
 
 const GOALS = [
-  'Build Muscle',
-  'Lose Fat',
-  'Improve Strength',
-  'Increase Endurance',
-  'Better Mobility',
-  'Longevity & Health',
-  'Athletic Performance',
-  'Stress Reduction',
+  'בניה שרירית',
+  'הפחתת שומן',
+  'שיפור כוח',
+  'שיפור סבולת',
+  'שיפור ניידות',
+  'בריאות ואריכות ימים',
+  'ביצועים ספורטיביים',
+  'הפחתת סטרס',
 ] as const
 
 export function GoalsPage() {
@@ -58,11 +58,11 @@ export function GoalsPage() {
 
   return (
     <div className="flex min-h-[60vh] flex-col">
-      <Card className="mx-auto w-full max-w-3xl">
+      <Card className="mx-auto w-full max-w-3xl border-none">
         <CardHeader className="space-y-2 text-center">
-          <CardTitle className="text-2xl font-semibold">Your Goals</CardTitle>
+          <CardTitle className="text-2xl font-semibold">מטרות</CardTitle>
           <CardDescription className="text-sm text-text-secondary">
-            Select all that apply
+            בחר את כל המטרות שמתאימות לך
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -81,7 +81,7 @@ export function GoalsPage() {
         </CardContent>
       </Card>
 
-      <div className="sticky bottom-0 -mx-4 mt-8 border-t border-border bg-bg/95 px-4 py-4">
+      <div className="sticky bottom-0 -mx-4 mt-8 bg-bg/95 px-4 py-4">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
           <Button
             variant="secondary"
@@ -89,7 +89,7 @@ export function GoalsPage() {
             className="w-full max-w-[160px]"
             onClick={() => navigate('/basics')}
           >
-            Back
+            חזרה
           </Button>
           <Button
             size="lg"
@@ -97,7 +97,7 @@ export function GoalsPage() {
             onClick={handleContinue}
             disabled={!hasSelection}
           >
-            Continue
+            המשך
           </Button>
         </div>
       </div>

@@ -5,12 +5,12 @@ import { Button } from '../ui/button'
 import { cn } from '../utils/cn'
 
 const ONBOARDING_STEPS = [
-  { id: 'welcome', label: 'Welcome', path: '/welcome' },
-  { id: 'basics', label: 'Basics', path: '/basics' },
-  { id: 'goals', label: 'Goals', path: '/goals' },
-  { id: 'fitness', label: 'Fitness', path: '/fitness' },
-  { id: 'lifestyle', label: 'Lifestyle', path: '/lifestyle' },
-  { id: 'complete', label: 'Complete', path: '/complete' },
+  { id: 'welcome', label: 'ברוכים הבאים', path: '/welcome' },
+  { id: 'basics', label: 'פרטים בסיסיים', path: '/basics' },
+  { id: 'goals', label: 'מטרות', path: '/goals' },
+  { id: 'fitness', label: 'כושר', path: '/fitness' },
+  { id: 'lifestyle', label: 'אורח חיים', path: '/lifestyle' },
+  { id: 'complete', label: 'סיום', path: '/complete' },
 ] as const
 
 export function OnboardingLayout() {
@@ -42,16 +42,14 @@ export function OnboardingLayout() {
               Y
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-semibold tracking-tight">
-                Younger
-              </span>
+              <span className="text-sm font-semibold tracking-tight">Younger</span>
               <span className="text-xs text-text-secondary">
-                Personalized longevity onboarding
+                תהליך התחלה מותאם לאריכות ימים
               </span>
             </div>
           </div>
 
-          <Badge variant="outline">Onboarding</Badge>
+          <Badge variant="outline">תהליך התחלה</Badge>
         </div>
 
         <nav className="border-t border-border/80">

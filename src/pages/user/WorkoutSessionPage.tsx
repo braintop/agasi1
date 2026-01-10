@@ -80,9 +80,9 @@ export function WorkoutSessionPage() {
       <div className="space-y-4">
         <Button variant="secondary" size="sm" onClick={() => navigate('/workouts')}>
           <ArrowLeft className="mr-1 h-4 w-4" />
-          Back to workouts
+          חזרה לאימונים
         </Button>
-        <p className="text-sm text-danger">Workout not found.</p>
+        <p className="text-sm text-danger">האימון לא נמצא.</p>
       </div>
     )
   }
@@ -153,9 +153,9 @@ export function WorkoutSessionPage() {
           className="inline-flex items-center gap-1 text-xs text-text-secondary hover:text-text-primary"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back to workouts
+          חזרה לאימונים
         </button>
-        <Badge className="text-[11px]">Session</Badge>
+        <Badge className="text-[11px]">סשן אימון</Badge>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -168,12 +168,12 @@ export function WorkoutSessionPage() {
               {detail.name}
             </h1>
             <p className="text-xs text-text-secondary">
-              {detail.tag} • {detail.durationMin} min
+              {detail.tag} • {detail.durationMin} דק׳
             </p>
           </div>
         </div>
         <p className="text-xs text-text-secondary/80">
-          Exercises completed{' '}
+          תרגילים שהושלמו{' '}
           <span className="font-semibold text-text-primary">
             {completedExercises}/{totalExercises}
           </span>
@@ -199,7 +199,7 @@ export function WorkoutSessionPage() {
                 </div>
                 <div className="flex flex-col items-end gap-1">
                   <span className="text-[11px] text-text-secondary/80">
-                    {cfg.sets} sets • {cfg.targetReps} reps • {cfg.restSec}s rest
+                    {cfg.sets} סטים • {cfg.targetReps} חזרות • {cfg.restSec} שניות מנוחה
                   </span>
                   <label className="inline-flex items-center gap-2 text-[11px] text-text-secondary">
                     <input
@@ -208,13 +208,13 @@ export function WorkoutSessionPage() {
                       checked={log.done}
                       onChange={() => handleToggleDone(idx)}
                     />
-                    Mark done
+                    סמן כהושלם
                   </label>
                 </div>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-center justify-between gap-3 text-[11px] text-text-secondary">
-                  <span>Sets</span>
+                  <span>סטים</span>
                   <Button
                     type="button"
                     size="sm"
@@ -227,7 +227,7 @@ export function WorkoutSessionPage() {
                       }
                     }}
                   >
-                    Watch demo
+                    צפייה בדמו
                     <ExternalLink className="ml-1 h-3 w-3" />
                   </Button>
                 </div>
@@ -238,11 +238,11 @@ export function WorkoutSessionPage() {
                       className="grid grid-cols-[auto,1fr,1fr] items-center gap-3 rounded-xl bg-surface px-3 py-2"
                     >
                       <span className="text-xs text-text-secondary/80">
-                        Set {setIdx + 1}
+                        סט {setIdx + 1}
                       </span>
                       <Input
                         type="number"
-                        placeholder="Weight (kg)"
+                        placeholder="משקל (ק״ג)"
                         className="h-8 text-xs"
                         value={set.weight ?? ''}
                         onChange={(e) =>
@@ -251,7 +251,7 @@ export function WorkoutSessionPage() {
                       />
                       <Input
                         type="number"
-                        placeholder="Reps"
+                        placeholder="חזרות"
                         className="h-8 text-xs"
                         value={set.reps ?? ''}
                         onChange={(e) =>
@@ -275,7 +275,7 @@ export function WorkoutSessionPage() {
             className="w-full max-w-[180px]"
             onClick={handleSaveAndExit}
           >
-            Save &amp; Exit
+            שמירה ויציאה
           </Button>
           <Button
             size="lg"
@@ -283,7 +283,7 @@ export function WorkoutSessionPage() {
             onClick={handleCompleteWorkout}
             disabled={!allDone}
           >
-            Complete Workout
+            סיום האימון
           </Button>
         </div>
       </div>
