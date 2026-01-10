@@ -22,9 +22,9 @@ export function UserLayout() {
   return (
     <div className="min-h-screen bg-bg text-text-primary">
       <div className="flex max-w-6xl gap-6 px-6 py-6">
-        <aside className="flex w-64 flex-col bg-surface/90 pr-4 max-lg:hidden">
+        <aside className="flex w-64 flex-col bg-bg/90 pr-4 max-lg:hidden">
           <div className="mb-6 flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#10B981] text-sm font-semibold text-bg">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#C98A6B] text-sm font-semibold text-bg">
               Y
             </div>
             <div className="flex flex-col">
@@ -45,9 +45,9 @@ export function UserLayout() {
                   className={({ isActive }) =>
                     cn(
                       'flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-colors',
-                      'text-text-secondary hover:bg-surface-2 hover:text-text-primary',
+                      'text-text-secondary hover:bg-surface-2 hover:text-[#2F2626]',
                       isActive &&
-                        'bg-[#052e21] text-[#10B981]',
+                        'bg-[#A96D51] text-[#2F2626]',
                     )
                   }
                 >
@@ -59,7 +59,7 @@ export function UserLayout() {
           </nav>
 
           <div className="mt-6 flex items-center gap-3 rounded-xl border border-border/70 bg-surface-2 px-3 py-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#10B981]/10 text-xs font-semibold text-[#10B981]">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#C98A6B]/10 text-xs font-semibold text-[#C98A6B]">
               JH
             </div>
             <div className="flex flex-col">
@@ -74,7 +74,7 @@ export function UserLayout() {
         <main className="flex-1">
           <div className="mb-4 flex items-center justify-between gap-3 lg:hidden">
             <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#10B981] text-xs font-semibold text-bg">
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#C98A6B] text-xs font-semibold text-bg">
                 Y
               </div>
               <div className="flex flex-col">

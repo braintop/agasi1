@@ -240,7 +240,7 @@ export function ProgressPage() {
           label="עקביות"
           value={`${consistency}%`}
           helper="ציון משוקלל"
-          icon={<Activity className="h-4 w-4 text-[#10B981]" />}
+          icon={<Activity className="h-4 w-4" style={{ color: '#C98A6B' }} />}
         />
       </div>
 
@@ -261,8 +261,8 @@ export function ProgressPage() {
                 <AreaChart data={cardioPerDay}>
                   <defs>
                     <linearGradient id="cardioGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#10B981" stopOpacity={0.8} />
-                      <stop offset="100%" stopColor="#10B981" stopOpacity={0} />
+                      <stop offset="0%" stopColor="#C98A6B" stopOpacity={0.85} />
+                      <stop offset="100%" stopColor="#C98A6B" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="#1f2933" />
@@ -278,7 +278,7 @@ export function ProgressPage() {
                   <Area
                     type="monotone"
                     dataKey="minutes"
-                    stroke="#10B981"
+                    stroke="#C98A6B"
                     fill="url(#cardioGradient)"
                     strokeWidth={2}
                   />

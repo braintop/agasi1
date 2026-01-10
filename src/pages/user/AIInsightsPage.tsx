@@ -119,9 +119,9 @@ export function AIInsightsPage() {
       </div>
 
       {/* Hero card – Get AI-Powered Insights */}
-      <Card className="border-none bg-gradient-to-r from-[#1f2937] via-[#111827] to-[#022c22] shadow-card">
+      <Card className="border-none bg-gradient-to-r from-[#2F2626] via-[#3a2b27] to-[#4a3730] shadow-card">
         <CardContent className="flex flex-col items-center justify-center gap-4 py-10 text-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#8B5CF6] to-[#10B981] text-white shadow-card">
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#8B5CF6] to-[#C98A6B] text-white shadow-card">
             <Sparkles className="h-7 w-7" />
           </div>
           <div className="space-y-1">
@@ -135,7 +135,7 @@ export function AIInsightsPage() {
           </div>
           <Button
             size="sm"
-            className="mt-2 bg-gradient-to-r from-[#8B5CF6] to-[#10B981] border-none text-white hover:brightness-110"
+            className="mt-2 bg-gradient-to-r from-[#8B5CF6] to-[#C98A6B] border-none text-white hover:brightness-110"
             onClick={handleGenerate}
           >
             <Sparkles className="mr-1 h-4 w-4" />
@@ -247,4 +247,3 @@ export function AIInsightsPage() {
     </div>
   )
 }
-

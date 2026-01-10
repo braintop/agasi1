@@ -37,11 +37,11 @@ export function DashboardPage() {
       </div>
 
       {/* Daily score */}
-      <Card className="relative overflow-hidden border-none bg-gradient-to-r from-surface via-surface to-surface-2">
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-[#10B981]/20 via-transparent to-transparent" />
+      <Card className="relative overflow-hidden border-none bg-gradient-to-r from-[#2F2626] via-[#2F2626] to-[#4a3730]">
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-[#C98A6B]/25 via-transparent to-transparent" />
         <CardContent className="relative flex items-center justify-between gap-6 py-5">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#10B981]/15 text-[#10B981]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C98A6B]/20 text-[#C98A6B]">
               <Activity className="h-6 w-6" />
             </div>
             <div className="flex flex-col">
@@ -52,12 +52,12 @@ export function DashboardPage() {
                 <span className="text-3xl font-semibold text-text-primary">
                   {dailyScore.value}
                 </span>
-                <span className="text-xs text-emerald-400">
+                <span className="text-xs" style={{ color: '#8FAF9A' }}>
                   ↑ {dailyScore.trend}
                 </span>
               </div>
               <p className="mt-1 text-xs text-text-secondary/80">
-                שילוב של נתוני אימון, התאוששות ואורח חיים.
+                שילוב רגוע של נתוני אימון, התאוששות ואורח חיים.
               </p>
             </div>
           </div>
@@ -122,7 +122,7 @@ export function DashboardPage() {
             <CardContent className="space-y-3 text-sm">
               <div className="flex items-center justify-between rounded-xl bg-surface-2 px-3 py-2">
                 <div className="flex items-center gap-2">
-                  <Flame className="h-4 w-4 text-orange-400" />
+                  <Flame className="h-4 w-4" style={{ color: '#D6A77A' }} />
                   <span className="text-text-primary">
                     רצף אימונים:{' '}
                     <span className="font-semibold">
@@ -133,7 +133,7 @@ export function DashboardPage() {
               </div>
               <div className="flex items-center justify-between rounded-xl bg-surface-2 px-3 py-2">
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                  <CheckCircle2 className="h-4 w-4" style={{ color: '#8FAF9A' }} />
                   <span className="text-text-primary">
                     רצף צ׳ק‑אין:{' '}
                     <span className="font-semibold">
@@ -207,10 +207,10 @@ function StatusBadge({
 
   const toneClass =
     tone === 'primary'
-      ? 'border-[#10B981]/60 bg-[#10B981]/10 text-[#10B981]'
+      ? 'border-[#C98A6B]/60 bg-[#C98A6B]/10 text-[#C98A6B]'
       : tone === 'info'
         ? 'border-sky-400/60 bg-sky-400/10 text-sky-300'
-        : 'border-emerald-400/60 bg-emerald-400/10 text-emerald-300'
+        : 'border-[#8FAF9A]/60 bg-[#8FAF9A]/10 text-[#8FAF9A]'
 
   return <span className={cn(base, toneClass)}>{children}</span>
 }

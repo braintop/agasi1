@@ -18,9 +18,9 @@ export function SelectableCard({
       type={type ?? 'button'}
       className={cn(
         'flex w-full items-center justify-between rounded-2xl border px-4 py-3 text-sm font-medium transition-colors',
-        'border-border bg-surface-2 text-text-primary/90 hover:bg-surface hover:border-border/80',
+        'border-[color:var(--border)] bg-surface-2 text-[#2F2626] hover:bg-surface',
         selected &&
-          'border-[#10B981] bg-surface shadow-card text-text-primary',
+          'border-transparent bg-[#A96D51] text-[#2F2626] shadow-card',
         className,
       )}
       {...props}

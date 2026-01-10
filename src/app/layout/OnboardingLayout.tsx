@@ -38,7 +38,7 @@ export function OnboardingLayout() {
       <header className="sticky top-0 z-20 border-b border-border bg-surface/80 backdrop-blur">
           <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
           <div className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#10B981] text-sm font-semibold text-bg">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#C98A6B] text-sm font-semibold text-bg">
               Y
             </div>
             <div className="flex flex-col">
@@ -67,7 +67,7 @@ export function OnboardingLayout() {
                     'flex flex-1 min-w-0 items-center justify-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors',
                     'text-text-secondary',
                     isActive &&
-                      'bg-[#052e21] text-[#10B981] shadow-card',
+                      'bg-[#A96D51] text-[#2F2626] shadow-card',
                     isCompleted && 'text-text-primary',
                     !isActive && !isCompleted && 'hover:bg-surface-2/60',
                   )}
@@ -76,7 +76,7 @@ export function OnboardingLayout() {
                     className={cn(
                       'flex h-4 w-4 items-center justify-center rounded-full text-[10px]',
                       'bg-surface-2 text-text-secondary',
-                      isActive && 'bg-[#10B981] text-bg',
+                      isActive && 'bg-[#C98A6B] text-[#2F2626]',
                       isCompleted &&
                         'bg-success text-bg font-semibold',
                     )}

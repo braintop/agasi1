@@ -197,10 +197,10 @@ export function DailyCheckInPage() {
 
       {hasToday && !editingExisting && existingToday ? (
         <>
-          <Card className="border border-[#10B981]/50 bg-surface shadow-card">
+          <Card className="border border-[#C98A6B]/40 bg-[#3a2b27] shadow-card">
             <CardContent className="flex flex-col gap-5 py-6">
               <div className="flex flex-col items-center gap-3 text-center">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#10B981]/15 text-[#10B981]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#C98A6B]/20 text-[#C98A6B]">
                   <SmilePlus className="h-5 w-5" />
                 </div>
                 <div>
@@ -376,7 +376,7 @@ export function DailyCheckInPage() {
       )}
 
       {justSaved && (
-        <div className="rounded-xl border border-[#10B981]/40 bg-[#052e21] px-4 py-2 text-xs text-[#10B981]">
+        <div className="rounded-xl border border-[#C98A6B]/40 bg-[#3a2b27] px-4 py-2 text-xs text-[#C98A6B]">
           הצ׳ק‑אין נשמר. כל הכבוד שלקחת רגע לעצור ולבדוק איך אתה מרגיש.
         </div>
       )}

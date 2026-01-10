@@ -142,7 +142,7 @@ export function FitnessPage() {
                       'rounded-xl px-4 py-2 text-sm transition-colors',
                       'bg-surface-2 text-text-secondary hover:bg-surface',
                       selected &&
-                        'bg-[#052e21] text-[#10B981] shadow-card',
+                        'bg-[#A96D51] text-[#2F2626] shadow-card',
                     )}
                   >
                     {option.label}
@@ -176,7 +176,7 @@ export function FitnessPage() {
                       'flex h-9 w-9 items-center justify-center rounded-xl text-sm transition-colors',
                       'bg-surface-2 text-text-secondary hover:bg-surface',
                       selected &&
-                        'bg-[#052e21] text-[#10B981] shadow-card',
+                        'bg-[#A96D51] text-[#2F2626] shadow-card',
                     )}
                   >
                     {day}
@@ -210,7 +210,7 @@ export function FitnessPage() {
                       'rounded-xl px-4 py-2 text-sm transition-colors',
                       'bg-surface-2 text-text-secondary hover:bg-surface',
                       selected &&
-                        'bg-[#052e21] text-[#10B981] shadow-card',
+                        'bg-[#A96D51] text-[#2F2626] shadow-card',
                     )}
                   >
                     {option.label}
