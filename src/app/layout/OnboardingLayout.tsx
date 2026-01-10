@@ -55,7 +55,7 @@ export function OnboardingLayout() {
         </div>
 
         <nav className="border-t border-border/80">
-          <div className="mx-auto flex max-w-5xl items-center gap-2 overflow-x-auto px-4 py-3">
+          <div className="mx-auto flex max-w-5xl items-center gap-1.5 px-4 py-3">
             {ONBOARDING_STEPS.map((step, index) => {
               const isActive = location.pathname === step.path
               const isCompleted =
@@ -66,24 +66,21 @@ export function OnboardingLayout() {
                   key={step.id}
                   to={step.path}
                   className={cn(
-                    'flex min-w-[96px] items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium transition-colors',
-                    'border border-transparent text-text-secondary',
+                    'flex flex-1 min-w-0 items-center justify-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors',
+                    'text-text-secondary',
                     isActive &&
-                      'bg-[#10B981]/10 text-[#10B981] border-[#10B981]/40 shadow-card',
+                      'bg-[#052e21] text-[#10B981] shadow-card',
                     isCompleted && 'text-text-primary',
-                    !isActive &&
-                      !isCompleted &&
-                      'hover:border-border hover:bg-surface-2/60',
+                    !isActive && !isCompleted && 'hover:bg-surface-2/60',
                   )}
                 >
                   <span
                     className={cn(
-                      'flex h-5 w-5 items-center justify-center rounded-full border text-[10px]',
-                      'border-border/70 text-text-secondary',
-                      isActive &&
-                        'border-[#10B981] bg-[#10B981]/20 text-[#10B981]',
+                      'flex h-4 w-4 items-center justify-center rounded-full text-[10px]',
+                      'bg-surface-2 text-text-secondary',
+                      isActive && 'bg-[#10B981] text-bg',
                       isCompleted &&
-                        'border-success bg-success/20 text-success font-semibold',
+                        'bg-success text-bg font-semibold',
                     )}
                   >
                     {index + 1}
