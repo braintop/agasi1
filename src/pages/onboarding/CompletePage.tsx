@@ -48,8 +48,8 @@ export function CompletePage() {
   return (
     <div className="flex min-h-[60vh] flex-col items-center">
       <div className="mx-auto w-full max-w-3xl px-1">
-        {/* ניווט – כניסה + חזור באותה שורה (מיושר לימין) */}
-        <div className="mx-auto mb-4 flex w-full max-w-3xl items-center justify-between gap-2 px-1">
+        {/* ניווט – בשלב האחרון אין "המשך" */}
+        <div className="mx-auto mb-4 flex w-full max-w-3xl items-center justify-start px-1">
           <Button
             variant="primary"
             size="sm"
@@ -57,14 +57,6 @@ export function CompletePage() {
             onClick={() => navigate('/lifestyle')}
           >
             חזור
-          </Button>
-          <Button
-            variant="primary"
-            size="sm"
-            className="min-w-[90px]"
-            onClick={() => navigate('/dashboard')}
-          >
-            כניסה
           </Button>
         </div>
 
@@ -238,7 +230,7 @@ export function CompletePage() {
         </Card>
       </div>
 
-      {/* אין כפתור "כניסה" למטה – משתמשים בשורת הניווט העליונה */}
+      {/* אין "המשך" אחרי שלב 6 */}
     </div>
   )
 }
