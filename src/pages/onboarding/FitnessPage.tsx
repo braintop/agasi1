@@ -78,6 +78,27 @@ export function FitnessPage() {
 
   return (
     <div className="flex min-h-[60vh] flex-col pb-24">
+      {/* ניווט – המשך + חזור באותה שורה (מיושר לימין) */}
+      <div className="mx-auto mb-4 flex w-full max-w-3xl items-center justify-between gap-2 px-1">
+        <Button
+          variant="primary"
+          size="sm"
+          className="min-w-[90px]"
+          onClick={() => navigate('/goals')}
+        >
+          חזור
+        </Button>
+        <Button
+          variant="primary"
+          size="sm"
+          className="min-w-[90px]"
+          onClick={handleContinue}
+          disabled={!isValid}
+        >
+          המשך
+        </Button>
+      </div>
+
       <Card className="mx-auto w-full max-w-3xl border-none">
         <CardHeader className="space-y-2 text-center">
           <CardTitle className="text-2xl font-semibold">כושר</CardTitle>
@@ -242,26 +263,7 @@ export function FitnessPage() {
         </CardContent>
       </Card>
 
-      <div className="sticky bottom-0 -mx-4 mt-8 bg-bg/95 px-4 py-4">
-        <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
-          <Button
-            variant="secondary"
-            size="lg"
-            className="w-full max-w-[160px]"
-            onClick={() => navigate('/goals')}
-          >
-            חזרה
-          </Button>
-          <Button
-            size="lg"
-            className="w-full max-w-[220px]"
-            onClick={handleContinue}
-            disabled={!isValid}
-          >
-            המשך
-          </Button>
-        </div>
-      </div>
+      {/* אין כפתור המשך למטה – משתמשים בשורת הניווט העליונה */}
     </div>
   )
 }

@@ -1,6 +1,5 @@
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
-import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 import { cn } from '../utils/cn'
 
@@ -35,8 +34,9 @@ export function OnboardingLayout() {
 
   return (
     <div className="min-h-screen bg-bg text-text-primary">
-      <header className="sticky top-0 z-20 border-b border-border bg-surface/80 backdrop-blur">
-          <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
+      {/* כותרת עליונה + סטפר אופקי בדסקטופ */}
+      <header className="sticky top-0 z-20 bg-bg/95 backdrop-blur">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
           <div className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#C98A6B] text-sm font-semibold text-bg">
               Y
@@ -48,12 +48,11 @@ export function OnboardingLayout() {
               </span>
             </div>
           </div>
-
-          <Badge variant="outline">תהליך התחלה</Badge>
         </div>
 
-        <nav className="border-t border-border/80">
-          <div className="mx-auto flex max-w-5xl items-center gap-1.5 px-4 py-3">
+        {/* סטפר – רק במסכים רחבים */}
+        <nav className="hidden border-t border-border/60 lg:block">
+          <div className="mx-auto flex max-w-5xl items-center gap-1.5 px-4 py-2">
             {ONBOARDING_STEPS.map((step, index) => {
               const isActive = location.pathname === step.path
               const isCompleted =
@@ -64,25 +63,15 @@ export function OnboardingLayout() {
                   key={step.id}
                   to={step.path}
                   className={cn(
-                    'flex flex-1 min-w-0 items-center justify-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors',
-                    'text-text-secondary',
-                    isActive &&
-                      'bg-[#A96D51] text-[#2F2626] shadow-card',
-                    isCompleted && 'text-text-primary',
-                    !isActive && !isCompleted && 'hover:bg-surface-2/60',
+                    'flex flex-1 min-w-0 items-center justify-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-medium transition-colors',
+                    isActive
+                      ? 'bg-[#A96D51] text-[#2F2626] shadow-card'
+                      : isCompleted
+                        ? 'bg-transparent text-text-primary'
+                        : 'bg-transparent text-text-secondary hover:bg-surface-2/60',
                   )}
                 >
-                  <span
-                    className={cn(
-                      'flex h-4 w-4 items-center justify-center rounded-full text-[10px]',
-                      'bg-surface-2 text-text-secondary',
-                      isActive && 'bg-[#C98A6B] text-[#2F2626]',
-                      isCompleted &&
-                        'bg-success text-bg font-semibold',
-                    )}
-                  >
-                    {index + 1}
-                  </span>
+                  <span className="text-[10px]">{index + 1}</span>
                   <span>{step.label}</span>
                 </Link>
               )
@@ -91,13 +80,14 @@ export function OnboardingLayout() {
         </nav>
       </header>
 
+      {/* תוכן המסך – ממורכז, בלי תפריט צדדי */}
       <main className="mx-auto flex max-w-2xl flex-col px-4 pb-32 pt-8">
         <Outlet />
       </main>
 
       {!isStepWithOwnActions && (
-        <footer className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-surface-2/90 backdrop-blur">
-          <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-4">
+        <footer className="fixed inset-x-0 bottom-0 z-20 bg-surface-2/90 px-4 py-4 backdrop-blur">
+          <div className="mx-auto flex max-w-5xl items-center justify-between gap-4">
             {isWelcome ? (
               <div className="flex w-full justify-center">
                 <Button
@@ -106,21 +96,20 @@ export function OnboardingLayout() {
                   onClick={() => navigate('/basics')}
                   rightIcon={<ArrowRight className="h-4 w-4" />}
                 >
-                  Get Started
+                  בוא נתחיל
                 </Button>
               </div>
             ) : (
               <>
                 <div className="flex flex-col text-xs text-text-secondary">
-                  <span>Navigation controls are placeholder-only for now.</span>
-                  <span>Each step will define its own actions later.</span>
+                  <span>ניווט בין השלבים מתבצע עם כפתורי אחורה / המשך בכל מסך.</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Button variant="ghost" size="md" disabled>
-                    Back
+                    אחורה
                   </Button>
                   <Button size="md" disabled>
-                    Continue
+                    המשך
                   </Button>
                 </div>
               </>

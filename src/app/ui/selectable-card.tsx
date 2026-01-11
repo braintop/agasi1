@@ -18,9 +18,11 @@ export function SelectableCard({
       type={type ?? 'button'}
       className={cn(
         'flex w-full items-center justify-between rounded-2xl border px-4 py-3 text-sm font-medium transition-colors',
-        'border-[color:var(--border)] bg-surface-2 text-[#2F2626] hover:bg-surface',
+        // Default (unselected): framed + readable on dark background
+        'border-[#8C7A73]/70 bg-transparent text-text-primary hover:bg-white/5',
         selected &&
-          'border-transparent bg-[#A96D51] text-[#2F2626] shadow-card',
+          // Selected: keep border (stronger) + highlighted background, still white text
+          'border-[#C98A6B] bg-[#A96D51] text-text-primary shadow-card',
         className,
       )}
       {...props}

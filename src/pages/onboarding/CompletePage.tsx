@@ -47,7 +47,28 @@ export function CompletePage() {
 
   return (
     <div className="flex min-h-[60vh] flex-col items-center">
-      <div className="mx-auto w-full max-w-3xl px-1 text-center">
+      <div className="mx-auto w-full max-w-3xl px-1">
+        {/* ניווט – כניסה + חזור באותה שורה (מיושר לימין) */}
+        <div className="mx-auto mb-4 flex w-full max-w-3xl items-center justify-between gap-2 px-1">
+          <Button
+            variant="primary"
+            size="sm"
+            className="min-w-[90px]"
+            onClick={() => navigate('/lifestyle')}
+          >
+            חזור
+          </Button>
+          <Button
+            variant="primary"
+            size="sm"
+            className="min-w-[90px]"
+            onClick={() => navigate('/dashboard')}
+          >
+            כניסה
+          </Button>
+        </div>
+
+        <div className="text-center">
         <div className="mb-6 flex items-center justify-center">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#10B981]/15">
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#10B981] text-xl text-bg">
@@ -61,6 +82,7 @@ export function CompletePage() {
         <p className="mb-8 text-sm text-text-secondary">
           על בסיס המידע שמילאת יצרנו עבורך נקודת פתיחה מותאמת. תמיד אפשר לעדכן ולשנות בתוך האפליקציה.
         </p>
+        </div>
       </div>
 
       <div className="mx-auto grid w-full max-w-3xl gap-4 px-1">
@@ -216,17 +238,7 @@ export function CompletePage() {
         </Card>
       </div>
 
-      <div className="sticky bottom-0 -mx-4 mt-8 bg-bg/95 px-4 py-4">
-        <div className="mx-auto flex max-w-3xl justify-center">
-          <Button
-            size="lg"
-            className="w-full max-w-md"
-            onClick={() => navigate('/dashboard')}
-          >
-            כניסה לאפליקציה
-          </Button>
-        </div>
-      </div>
+      {/* אין כפתור "כניסה" למטה – משתמשים בשורת הניווט העליונה */}
     </div>
   )
 }
@@ -264,4 +276,5 @@ function PillarCard({ title, description }: PillarCardProps) {
     </div>
   )
 }
+
 

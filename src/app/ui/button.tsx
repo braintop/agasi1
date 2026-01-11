@@ -19,7 +19,8 @@ const variantClasses: Record<ButtonVariant, string> = {
   primary:
     'bg-[#C98A6B] text-[#2F2626] border-transparent hover:bg-[#A96D51] shadow-card',
   secondary:
-    'bg-surface-2 text-[#2F2626] border-transparent hover:bg-[#e0bba7]',
+    // Use explicit color to avoid cases where theme tokens don't resolve
+    'bg-[#F4E6DD] text-[#2F2626] border-transparent hover:bg-[#e0bba7]',
   ghost:
     'bg-transparent text-text-secondary border-transparent hover:bg-surface-2 hover:text-[#2F2626]',
 }

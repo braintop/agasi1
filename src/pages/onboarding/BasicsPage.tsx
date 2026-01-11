@@ -64,6 +64,27 @@ export function BasicsPage() {
 
   return (
     <div className="flex min-h-[60vh] flex-col">
+      {/* ניווט – המשך + חזור באותה שורה (מיושר לימין) */}
+      <div className="mx-auto mb-4 flex w-full max-w-3xl items-center justify-between gap-2 px-1">
+        <Button
+          variant="primary"
+          size="sm"
+          className="min-w-[90px]"
+          onClick={() => navigate('/welcome')}
+        >
+          חזור
+        </Button>
+        <Button
+          variant="primary"
+          size="sm"
+          className="min-w-[90px]"
+          onClick={handleContinue}
+          disabled={!isFullNameValid}
+        >
+          המשך
+        </Button>
+      </div>
+
       <Card className="mx-auto w-full max-w-3xl border-none">
         <CardHeader className="space-y-2 text-center">
           <CardTitle className="text-2xl font-semibold">פרטים בסיסיים</CardTitle>
@@ -76,9 +97,9 @@ export function BasicsPage() {
             <label className="block text-sm font-medium text-text-primary/90">
               שם מלא <span className="text-danger">*</span>
             </label>
-              <Input
-                type="text"
-                placeholder="לדוגמה: אסף אמיר"
+            <Input
+              type="text"
+              placeholder="לדוגמה: אסף אמיר"
               value={form.fullName}
               onChange={handleTextChange('fullName')}
             />
@@ -91,9 +112,9 @@ export function BasicsPage() {
             <label className="block text-sm font-medium text-text-primary/90">
               טלפון (לא חובה)
             </label>
-              <Input
-                type="tel"
-                placeholder="05x-xxxxxxx"
+            <Input
+              type="tel"
+              placeholder="05x-xxxxxxx"
               value={form.phone ?? ''}
               onChange={handleTextChange('phone')}
             />
@@ -112,7 +133,7 @@ export function BasicsPage() {
                 value={form.age ?? ''}
                 onChange={handleNumberChange('age')}
               />
-              <p className="text-[11px] text-text-secondary/70">
+              <p className="text-xs text-text-secondary/70">
                 לא חובה, אבל עוזר לנו לכוון את ההמלצות.
               </p>
             </div>
@@ -180,26 +201,7 @@ export function BasicsPage() {
         </CardContent>
       </Card>
 
-      <div className="sticky bottom-0 -mx-4 mt-8 bg-bg/95 px-4 py-4">
-        <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
-          <Button
-            variant="secondary"
-            size="lg"
-            className="w-full max-w-[160px]"
-            onClick={() => navigate('/welcome')}
-          >
-            חזרה
-          </Button>
-          <Button
-            size="lg"
-            className="w-full max-w-[220px]"
-            onClick={handleContinue}
-            disabled={!isFullNameValid}
-          >
-            המשך
-          </Button>
-        </div>
-      </div>
+      {/* אין כפתור המשך למטה – משתמשים בשורת הניווט העליונה */}
     </div>
   )
 }
