@@ -230,7 +230,17 @@ export function CompletePage() {
         </Card>
       </div>
 
-      {/* אין "המשך" אחרי שלב 6 */}
+      {/* מעבר לאפליקציה */}
+      <div className="mx-auto mt-6 w-full max-w-3xl px-1">
+        <Button
+          variant="primary"
+          size="lg"
+          fullWidth
+          onClick={() => navigate('/dashboard')}
+        >
+          כניסה לאפליקציה
+        </Button>
+      </div>
     </div>
   )
 }
