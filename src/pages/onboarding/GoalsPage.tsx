@@ -102,7 +102,18 @@ export function GoalsPage() {
         </CardContent>
       </Card>
 
-      {/* אין כפתור המשך למטה – משתמשים בשורת הניווט העליונה */}
+      {/* כפתור המשך בתחתית (אחרי הבחירות) */}
+      <div className="mx-auto mt-6 w-full max-w-3xl px-1">
+        <Button
+          variant="primary"
+          size="lg"
+          fullWidth
+          onClick={handleContinue}
+          disabled={!hasSelection}
+        >
+          המשך
+        </Button>
+      </div>
     </div>
   )
 }

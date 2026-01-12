@@ -159,7 +159,7 @@ export function BasicsPage() {
                         'flex-1 rounded-xl px-3 py-2 text-sm transition-colors',
                         'bg-surface-2 text-text-secondary hover:bg-surface',
                         isSelected &&
-                          'bg-[#A96D51] text-[#2F2626] shadow-card',
+                          'bg-[#A96D51] text-text-primary shadow-card',
                       )}
                     >
                       {option.label}
@@ -201,7 +201,18 @@ export function BasicsPage() {
         </CardContent>
       </Card>
 
-      {/* אין כפתור המשך למטה – משתמשים בשורת הניווט העליונה */}
+      {/* כפתור המשך בתחתית (אחרי כל השדות) */}
+      <div className="mx-auto mt-6 w-full max-w-3xl px-1">
+        <Button
+          variant="primary"
+          size="lg"
+          fullWidth
+          onClick={handleContinue}
+          disabled={!isFullNameValid}
+        >
+          המשך
+        </Button>
+      </div>
     </div>
   )
 }

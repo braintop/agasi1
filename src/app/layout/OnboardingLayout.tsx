@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { Button } from '../ui/button'
 import { cn } from '../utils/cn'
 
@@ -11,6 +11,41 @@ const ONBOARDING_STEPS = [
   { id: 'lifestyle', label: 'אורח חיים', path: '/lifestyle' },
   { id: 'complete', label: 'סיום', path: '/complete' },
 ] as const
+
+function StepDots({
+  currentIndex,
+}: {
+  currentIndex: number
+}) {
+  return (
+    <div className="mx-auto mb-6 flex w-full max-w-3xl items-center justify-center gap-2 px-1 lg:hidden">
+      {ONBOARDING_STEPS.map((step, index) => {
+        const isActive = index === currentIndex
+        const isDone = currentIndex !== -1 && index <= currentIndex
+
+        return (
+          <Link
+            key={step.id}
+            to={step.path}
+            className={cn(
+              'flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold transition-colors',
+              // Default: background like screen, thin white border, white text
+              'bg-transparent text-text-primary border border-white/60',
+              // Progress: filled with the same brown as primary buttons
+              isDone && 'border-transparent bg-[#C98A6B] text-text-primary',
+              // Current step gets a subtle ring for clarity
+              isActive && 'ring-2 ring-[#C98A6B]/60 ring-offset-2 ring-offset-bg',
+            )}
+            aria-current={isActive ? 'step' : undefined}
+            title={step.label}
+          >
+            {index + 1}
+          </Link>
+        )
+      })}
+    </div>
+  )
+}
 
 export function OnboardingLayout() {
   const location = useLocation()
@@ -82,6 +117,8 @@ export function OnboardingLayout() {
 
       {/* תוכן המסך – ממורכז, בלי תפריט צדדי */}
       <main className="mx-auto flex max-w-2xl flex-col px-4 pb-32 pt-8">
+        {/* מד־התקדמות: 1–6 (מעל כפתורי המשך/חזור בכל מסך) */}
+        <StepDots currentIndex={currentIndex} />
         <Outlet />
       </main>
 
@@ -94,7 +131,7 @@ export function OnboardingLayout() {
                   size="lg"
                   className="w-full max-w-md"
                   onClick={() => navigate('/basics')}
-                  rightIcon={<ArrowRight className="h-4 w-4" />}
+                  rightIcon={<ArrowLeft className="h-4 w-4" />}
                 >
                   בוא נתחיל
                 </Button>
