@@ -13,10 +13,12 @@ import {
   type GoalsInfo,
   type FitnessInfo,
   type LifestyleInfo,
+  type NutritionHabitsInfo,
   emptyBasicsInfo,
   emptyGoalsInfo,
   emptyFitnessInfo,
   emptyLifestyleInfo,
+  emptyNutritionHabitsInfo,
 } from '../../app/types/onboarding'
 import { getJSON } from '../../app/utils/storage'
 
@@ -37,13 +39,17 @@ function useOnboardingSummary() {
     () => getJSON<LifestyleInfo>('onboarding.lifestyle', emptyLifestyleInfo),
     [],
   )
+  const nutrition = useMemo<NutritionHabitsInfo>(
+    () => getJSON<NutritionHabitsInfo>('onboarding.nutrition', emptyNutritionHabitsInfo),
+    [],
+  )
 
-  return { basics, goals, fitness, lifestyle }
+  return { basics, goals, fitness, lifestyle, nutrition }
 }
 
 export function CompletePage() {
   const navigate = useNavigate()
-  const { basics, fitness, lifestyle } = useOnboardingSummary()
+  const { basics, fitness, lifestyle, nutrition } = useOnboardingSummary()
   const strength = fitness.strength ?? {}
   const cardio = fitness.cardio ?? {}
 
@@ -56,7 +62,7 @@ export function CompletePage() {
             variant="primary"
             size="sm"
             className="min-w-[90px]"
-            onClick={() => navigate('/lifestyle')}
+            onClick={() => navigate('/nutrition')}
           >
             חזור
           </Button>
@@ -403,6 +409,174 @@ export function CompletePage() {
                   }
                 />
               )}
+
+              {/* תזונה מוצגת בסיכום נפרד כדי להראות "סיכום מלא" */}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Nutrition summary (full) */}
+        <Card className="border-none">
+          <CardHeader>
+            <CardTitle className="text-base">תזונה</CardTitle>
+            <CardDescription className="text-xs text-text-secondary">
+              סיכום מלא של הרגלי התזונה שסימנת.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-x-8 gap-y-3 text-sm sm:grid-cols-2">
+              <SummaryRow
+                label="סגנון אכילה"
+                value={
+                  nutrition.eatingStyle
+                    ? nutrition.eatingStyle === 'regular'
+                      ? 'רגיל / מעורב'
+                      : nutrition.eatingStyle === 'protein'
+                        ? 'דגש על חלבון'
+                        : nutrition.eatingStyle === 'lowCarb'
+                          ? 'דל פחמימות'
+                          : nutrition.eatingStyle === 'vegetarian'
+                            ? 'צמחוני'
+                            : nutrition.eatingStyle === 'vegan'
+                              ? 'טבעוני'
+                              : 'לא מוגדר / משתנה'
+                    : 'לא צוין'
+                }
+              />
+              <SummaryRow
+                label="ארוחות ביום"
+                value={
+                  nutrition.mealsPerDay
+                    ? nutrition.mealsPerDay === 'varies'
+                      ? 'משתנה'
+                      : String(nutrition.mealsPerDay)
+                    : 'לא צוין'
+                }
+              />
+              <SummaryRow
+                label="מקורות חלבון"
+                value={
+                  nutrition.proteinSources && nutrition.proteinSources.length > 0
+                    ? nutrition.proteinSources
+                        .map((p) =>
+                          p === 'chicken'
+                            ? 'עוף'
+                            : p === 'beef'
+                              ? 'בקר'
+                              : p === 'fish'
+                                ? 'דגים'
+                                : p === 'eggs'
+                                  ? 'ביצים'
+                                  : p === 'dairy'
+                                    ? 'מוצרי חלב'
+                                    : p === 'legumes'
+                                      ? 'קטניות'
+                                      : p === 'tofuSoy'
+                                        ? 'טופו / סויה'
+                                        : p === 'proteinPowder'
+                                          ? 'אבקות חלבון'
+                                          : 'כמעט ולא אוכל חלבון',
+                        )
+                        .join(' / ')
+                    : 'לא צוין'
+                }
+              />
+              <SummaryRow
+                label="הימנעויות"
+                value={
+                  nutrition.restrictions && nutrition.restrictions.length > 0
+                    ? [
+                        ...nutrition.restrictions
+                          .filter((r) => r !== 'other')
+                          .map((r) =>
+                            r === 'pork'
+                              ? 'חזיר'
+                              : r === 'seafood'
+                                ? 'פירות ים'
+                                : r === 'gluten'
+                                  ? 'גלוטן'
+                                  : r === 'lactose'
+                                    ? 'לקטוז'
+                                    : r === 'soy'
+                                      ? 'סויה'
+                                      : 'אגוזים',
+                          ),
+                        ...(nutrition.restrictions.includes('other') &&
+                        nutrition.restrictionsOtherText?.trim()
+                          ? [nutrition.restrictionsOtherText.trim()]
+                          : []),
+                      ].join(' / ')
+                    : 'ללא'
+                }
+              />
+              <SummaryRow
+                label="פירות וירקות"
+                value={
+                  nutrition.fruitsVeg
+                    ? nutrition.fruitsVeg === 'daily'
+                      ? 'כמעט כל יום'
+                      : nutrition.fruitsVeg === 'sometimes'
+                        ? 'לפעמים'
+                        : 'כמעט ולא'
+                    : 'לא צוין'
+                }
+              />
+              <SummaryRow
+                label="פחמימות"
+                value={
+                  nutrition.carbs
+                    ? nutrition.carbs === 'free'
+                      ? 'אוהב ואוכל חופשי'
+                      : nutrition.carbs === 'moderate'
+                        ? 'אוכל במידה'
+                        : nutrition.carbs === 'avoid'
+                          ? 'משתדל להימנע'
+                          : 'לא בטוח'
+                    : 'לא צוין'
+                }
+              />
+              <SummaryRow
+                label="אוכל בחוץ"
+                value={
+                  nutrition.eatingOut
+                    ? nutrition.eatingOut === 'rarely'
+                      ? 'כמעט לא'
+                      : nutrition.eatingOut === '1-2'
+                        ? '1–2 פעמים בשבוע'
+                        : '3+ פעמים בשבוע'
+                    : 'לא צוין'
+                }
+              />
+              <SummaryRow
+                label="מים ביום"
+                value={
+                  nutrition.hydration
+                    ? nutrition.hydration === 'lt1l'
+                      ? 'פחות מ־1 ליטר'
+                      : nutrition.hydration === '1-2l'
+                        ? '1–2 ליטר'
+                        : nutrition.hydration === '2l+'
+                          ? '2+ ליטר'
+                          : 'לא בטוח'
+                    : 'לא צוין'
+                }
+              />
+              <SummaryRow
+                label="משקאות ממותקים"
+                value={
+                  nutrition.sweetenedDrinks
+                    ? nutrition.sweetenedDrinks === 'rarely'
+                      ? 'כמעט לא'
+                      : nutrition.sweetenedDrinks === 'sometimes'
+                        ? 'לפעמים'
+                        : 'באופן קבוע'
+                    : 'לא צוין'
+                }
+              />
+              <SummaryRow
+                label="הערות תזונה"
+                value={nutrition.notes?.trim() ? nutrition.notes.trim() : 'לא צוין'}
+              />
             </div>
           </CardContent>
         </Card>

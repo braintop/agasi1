@@ -9,6 +9,7 @@ const ONBOARDING_STEPS = [
   { id: 'goals', label: 'מטרות', path: '/goals' },
   { id: 'fitness', label: 'כושר', path: '/fitness' },
   { id: 'lifestyle', label: 'אורח חיים', path: '/lifestyle' },
+  { id: 'nutrition', label: 'תזונה', path: '/nutrition' },
   { id: 'complete', label: 'סיום', path: '/complete' },
 ] as const
 
@@ -57,6 +58,7 @@ export function OnboardingLayout() {
     '/goals',
     '/fitness',
     '/lifestyle',
+    '/nutrition',
     '/complete',
   ] as const
   const isStepWithOwnActions = STEPS_WITH_OWN_ACTIONS.includes(

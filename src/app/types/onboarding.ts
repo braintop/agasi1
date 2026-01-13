@@ -118,4 +118,60 @@ export interface LifestyleInfo {
 
 export const emptyLifestyleInfo: LifestyleInfo = {}
 
+// Nutrition habits (separate from lifestyle; no supplements here)
+export type EatingStyle =
+  | 'regular'
+  | 'protein'
+  | 'lowCarb'
+  | 'vegetarian'
+  | 'vegan'
+  | 'undefined'
+
+export type MealsPerDay = 2 | 3 | '4+' | 'varies'
+
+export type ProteinSource =
+  | 'chicken'
+  | 'beef'
+  | 'fish'
+  | 'eggs'
+  | 'dairy'
+  | 'legumes'
+  | 'tofuSoy'
+  | 'proteinPowder'
+  | 'almostNone'
+
+export type Restriction =
+  | 'pork'
+  | 'seafood'
+  | 'gluten'
+  | 'lactose'
+  | 'soy'
+  | 'nuts'
+  | 'other'
+
+export type FruitsVegFrequency = 'daily' | 'sometimes' | 'rarely'
+export type CarbsAttitude = 'free' | 'moderate' | 'avoid' | 'unsure'
+export type EatingOutFrequency = 'rarely' | '1-2' | '3+'
+export type Hydration = 'lt1l' | '1-2l' | '2l+' | 'unsure'
+export type SweetenedDrinksFrequency = 'rarely' | 'sometimes' | 'regular'
+
+export interface NutritionHabitsInfo {
+  eatingStyle?: EatingStyle
+  mealsPerDay?: MealsPerDay
+  proteinSources?: ProteinSource[]
+  restrictions?: Restriction[]
+  restrictionsOtherText?: string
+  fruitsVeg?: FruitsVegFrequency
+  carbs?: CarbsAttitude
+  eatingOut?: EatingOutFrequency
+  hydration?: Hydration
+  sweetenedDrinks?: SweetenedDrinksFrequency
+  notes?: string
+}
+
+export const emptyNutritionHabitsInfo: NutritionHabitsInfo = {
+  proteinSources: [],
+  restrictions: [],
+}
+
 

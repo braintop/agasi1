@@ -6,6 +6,7 @@ import { BasicsPage } from '../../pages/onboarding/BasicsPage'
 import { GoalsPage } from '../../pages/onboarding/GoalsPage'
 import { FitnessPage } from '../../pages/onboarding/FitnessPage'
 import { LifestylePage } from '../../pages/onboarding/LifestylePage.tsx'
+import { NutritionPage } from '../../pages/onboarding/NutritionPage'
 import { CompletePage } from '../../pages/onboarding/CompletePage'
 import { DashboardPage } from '../../pages/user/DashboardPage'
 import { WorkoutsPage } from '../../pages/user/WorkoutsPage'
@@ -24,6 +25,7 @@ export function AppRoutes() {
         <Route path="/goals" element={<GoalsPage />} />
         <Route path="/fitness" element={<FitnessPage />} />
         <Route path="/lifestyle" element={<LifestylePage />} />
+        <Route path="/nutrition" element={<NutritionPage />} />
         <Route path="/complete" element={<CompletePage />} />
       </Route>
 
