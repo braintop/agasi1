@@ -10,12 +10,20 @@ import {
 import { Button } from '../../app/ui/button'
 import { Textarea } from '../../app/ui/textarea'
 import { Slider } from '../../app/ui/slider'
+import { SelectableCard } from '../../app/ui/selectable-card'
 import {
   type LifestyleInfo,
   emptyLifestyleInfo,
   type LifestyleSleep,
   type LifestyleSteps,
   type LifestyleNutrition,
+  type LifestyleFrequency3,
+  type SaunaPerWeek,
+  type ColdExposureType,
+  type DailyMovement,
+  type AlcoholFrequency,
+  type SmokingFrequency,
+  type SupplementsFrequency,
 } from '../../app/types/onboarding'
 import { getJSON, setJSON } from '../../app/utils/storage'
 import { cn } from '../../app/utils/cn'
@@ -41,6 +49,50 @@ const NUTRITION_OPTIONS: { id: LifestyleNutrition; label: string }[] = [
   { id: 'very', label: 'עקבית מאוד' },
 ]
 
+const FREQUENCY_3_OPTIONS: { id: LifestyleFrequency3; label: string }[] = [
+  { id: 'no', label: 'לא' },
+  { id: 'sometimes', label: 'לפעמים' },
+  { id: 'regular', label: 'כן, באופן קבוע' },
+]
+
+const SAUNA_TIMES_OPTIONS: { id: SaunaPerWeek; label: string }[] = [
+  { id: 1, label: '1' },
+  { id: 2, label: '2' },
+  { id: 3, label: '3+' },
+  { id: 'unknown', label: 'לא בטוח' },
+]
+
+const COLD_TYPES: { id: ColdExposureType; label: string }[] = [
+  { id: 'iceBath', label: 'אמבטיית קרח' },
+  { id: 'coldShowers', label: 'מקלחות קרות' },
+  { id: 'seaNature', label: 'ים / טבע' },
+  { id: 'other', label: 'אחר' },
+]
+
+const DAILY_MOVEMENT_OPTIONS: { id: DailyMovement; label: string }[] = [
+  { id: 'mostlySitting', label: 'רוב היום בישיבה' },
+  { id: 'mixed', label: 'שילוב של ישיבה ותנועה' },
+  { id: 'mostlyMoving', label: 'רוב היום בתנועה' },
+]
+
+const ALCOHOL_OPTIONS: { id: AlcoholFrequency; label: string }[] = [
+  { id: 'none', label: 'לא שותה' },
+  { id: '1-2', label: '1–2 פעמים בשבוע' },
+  { id: '3+', label: '3+ פעמים בשבוע' },
+]
+
+const SMOKING_OPTIONS: { id: SmokingFrequency; label: string }[] = [
+  { id: 'no', label: 'לא' },
+  { id: 'sometimes', label: 'לפעמים' },
+  { id: 'yes', label: 'כן' },
+]
+
+const SUPPLEMENTS_OPTIONS: { id: SupplementsFrequency; label: string }[] = [
+  { id: 'no', label: 'לא' },
+  { id: 'basic', label: 'כן – בסיסיים' },
+  { id: 'regular', label: 'כן – באופן קבוע' },
+]
+
 export function LifestylePage() {
   const navigate = useNavigate()
   const [state, setState] = useState<LifestyleInfo>(() =>
@@ -56,9 +108,47 @@ export function LifestylePage() {
     [state.sleep, state.nutrition],
   )
 
+  const sauna = state.sauna ?? {}
+  const cold = state.coldExposure ?? {}
+  const showSaunaDetails = sauna.currently === 'sometimes' || sauna.currently === 'regular'
+  const showColdDetails = cold.currently === 'sometimes' || cold.currently === 'regular'
+
+  const extendedValid = useMemo(() => {
+    if (!isValid) return false
+    if (showSaunaDetails && !sauna.timesPerWeek) return false
+    if (showColdDetails && (!cold.types || cold.types.length === 0)) return false
+    return true
+  }, [isValid, showSaunaDetails, sauna.timesPerWeek, showColdDetails, cold.types])
+
   const handleContinue = () => {
-    if (!isValid) return
+    if (!extendedValid) return
     navigate('/complete')
+  }
+
+  const setSauna = (patch: Partial<NonNullable<LifestyleInfo['sauna']>>) => {
+    setState((prev) => ({
+      ...prev,
+      sauna: {
+        ...(prev.sauna ?? {}),
+        ...patch,
+      },
+    }))
+  }
+
+  const setCold = (patch: Partial<NonNullable<LifestyleInfo['coldExposure']>>) => {
+    setState((prev) => ({
+      ...prev,
+      coldExposure: {
+        ...(prev.coldExposure ?? {}),
+        ...patch,
+      },
+    }))
+  }
+
+  const toggleColdType = (t: ColdExposureType) => {
+    const current = cold.types ?? []
+    const exists = current.includes(t)
+    setCold({ types: exists ? current.filter((x) => x !== t) : [...current, t] })
   }
 
   return (
@@ -252,6 +342,231 @@ export function LifestylePage() {
         </CardContent>
       </Card>
 
+      {/* תוספות (בלי למחוק את הקיים) */}
+      <div className="mx-auto mt-10 w-full max-w-3xl px-1">
+        <div className="mb-6 border-t border-white/10 pt-8" />
+
+        {/* Sauna / Heat Exposure */}
+        <section className="space-y-4 pb-6">
+          <div className="space-y-1 text-center">
+            <h2 className="text-lg font-semibold text-text-primary">סאונה / חום</h2>
+            <p className="text-xs text-text-secondary/80">
+              חשיפה לחום יכולה להשפיע על התאוששות ובריאות כללית.
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-sm font-medium text-text-primary/90">
+              האם אתה משתמש בסאונה או חשיפה לחום?
+            </h3>
+            <div className="grid gap-2 sm:grid-cols-3">
+              {FREQUENCY_3_OPTIONS.map((opt) => {
+                const selected = sauna.currently === opt.id
+                return (
+                  <SelectableCard
+                    key={opt.id}
+                    selected={selected}
+                    onClick={() => {
+                      if (opt.id === 'no') {
+                        setSauna({ currently: 'no', timesPerWeek: undefined })
+                      } else {
+                        setSauna({ currently: opt.id })
+                      }
+                    }}
+                    className="justify-center"
+                  >
+                    <span>{opt.label}</span>
+                  </SelectableCard>
+                )
+              })}
+            </div>
+          </div>
+
+          {showSaunaDetails && (
+            <div className="space-y-2">
+              <h3 className="text-sm font-medium text-text-primary/90">
+                כמה פעמים בשבוע?
+              </h3>
+              <div className="grid gap-2 sm:grid-cols-4">
+                {SAUNA_TIMES_OPTIONS.map((opt) => {
+                  const selected = sauna.timesPerWeek === opt.id
+                  return (
+                    <SelectableCard
+                      key={String(opt.id)}
+                      selected={selected}
+                      onClick={() => setSauna({ timesPerWeek: opt.id })}
+                      className="justify-center"
+                    >
+                      <span>{opt.label}</span>
+                    </SelectableCard>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+        </section>
+
+        {/* Cold Exposure */}
+        <section className="space-y-4 pb-6">
+          <div className="space-y-1 text-center">
+            <h2 className="text-lg font-semibold text-text-primary">חשיפה לקור</h2>
+            <p className="text-xs text-text-secondary/80">
+              רק אם אתה עושה זאת בכוונה/באופן קבוע.
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-sm font-medium text-text-primary/90">
+              האם אתה נחשף בכוונה לקור?
+            </h3>
+            <div className="grid gap-2 sm:grid-cols-3">
+              {FREQUENCY_3_OPTIONS.map((opt) => {
+                const selected = cold.currently === opt.id
+                return (
+                  <SelectableCard
+                    key={opt.id}
+                    selected={selected}
+                    onClick={() => {
+                      if (opt.id === 'no') {
+                        setCold({ currently: 'no', types: [] })
+                      } else {
+                        setCold({ currently: opt.id })
+                      }
+                    }}
+                    className="justify-center"
+                  >
+                    <span>{opt.label}</span>
+                  </SelectableCard>
+                )
+              })}
+            </div>
+          </div>
+
+          {showColdDetails && (
+            <div className="space-y-2">
+              <h3 className="text-sm font-medium text-text-primary/90">
+                איזה סוגי חשיפה לקור?
+              </h3>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {COLD_TYPES.map((opt) => {
+                  const selected = (cold.types ?? []).includes(opt.id)
+                  return (
+                    <SelectableCard
+                      key={opt.id}
+                      selected={selected}
+                      onClick={() => toggleColdType(opt.id)}
+                      className="justify-center"
+                    >
+                      <span>{opt.label}</span>
+                    </SelectableCard>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+        </section>
+
+        {/* Daily Movement */}
+        <section className="space-y-4 pb-6">
+          <div className="space-y-1 text-center">
+            <h2 className="text-lg font-semibold text-text-primary">תנועה יומית</h2>
+            <p className="text-xs text-text-secondary/80">
+              איך נראה רוב היום שלך?
+            </p>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-3">
+            {DAILY_MOVEMENT_OPTIONS.map((opt) => {
+              const selected = state.dailyMovement === opt.id
+              return (
+                <SelectableCard
+                  key={opt.id}
+                  selected={selected}
+                  onClick={() => setState((prev) => ({ ...prev, dailyMovement: opt.id }))}
+                  className="justify-center"
+                >
+                  <span>{opt.label}</span>
+                </SelectableCard>
+              )
+            })}
+          </div>
+        </section>
+
+        {/* Alcohol */}
+        <section className="space-y-4 pb-6">
+          <div className="space-y-1 text-center">
+            <h2 className="text-lg font-semibold text-text-primary">אלכוהול</h2>
+            <p className="text-xs text-text-secondary/80">
+              באיזו תדירות אתה שותה?
+            </p>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-3">
+            {ALCOHOL_OPTIONS.map((opt) => {
+              const selected = state.alcohol === opt.id
+              return (
+                <SelectableCard
+                  key={opt.id}
+                  selected={selected}
+                  onClick={() => setState((prev) => ({ ...prev, alcohol: opt.id }))}
+                  className="justify-center"
+                >
+                  <span>{opt.label}</span>
+                </SelectableCard>
+              )
+            })}
+          </div>
+        </section>
+
+        {/* Smoking */}
+        <section className="space-y-4 pb-6">
+          <div className="space-y-1 text-center">
+            <h2 className="text-lg font-semibold text-text-primary">עישון</h2>
+            <p className="text-xs text-text-secondary/80">
+              האם אתה מעשן כרגע?
+            </p>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-3">
+            {SMOKING_OPTIONS.map((opt) => {
+              const selected = state.smoking === opt.id
+              return (
+                <SelectableCard
+                  key={opt.id}
+                  selected={selected}
+                  onClick={() => setState((prev) => ({ ...prev, smoking: opt.id }))}
+                  className="justify-center"
+                >
+                  <span>{opt.label}</span>
+                </SelectableCard>
+              )
+            })}
+          </div>
+        </section>
+
+        {/* Supplements */}
+        <section className="space-y-4 pb-2">
+          <div className="space-y-1 text-center">
+            <h2 className="text-lg font-semibold text-text-primary">תוספים</h2>
+            <p className="text-xs text-text-secondary/80">
+              האם אתה לוקח תוספים כרגע?
+            </p>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-3">
+            {SUPPLEMENTS_OPTIONS.map((opt) => {
+              const selected = state.supplements === opt.id
+              return (
+                <SelectableCard
+                  key={opt.id}
+                  selected={selected}
+                  onClick={() => setState((prev) => ({ ...prev, supplements: opt.id }))}
+                  className="justify-center"
+                >
+                  <span>{opt.label}</span>
+                </SelectableCard>
+              )
+            })}
+          </div>
+        </section>
+      </div>
+
       {/* כפתור המשך בתחתית (אחרי כל השדות) */}
       <div className="mx-auto mt-6 w-full max-w-3xl px-1">
         <Button
@@ -259,7 +574,7 @@ export function LifestylePage() {
           size="lg"
           fullWidth
           onClick={handleContinue}
-          disabled={!isValid}
+          disabled={!extendedValid}
         >
           המשך
         </Button>

@@ -44,6 +44,8 @@ function useOnboardingSummary() {
 export function CompletePage() {
   const navigate = useNavigate()
   const { basics, fitness, lifestyle } = useOnboardingSummary()
+  const strength = fitness.strength ?? {}
+  const cardio = fitness.cardio ?? {}
 
   return (
     <div className="flex min-h-[60vh] flex-col items-center">
@@ -113,18 +115,136 @@ export function CompletePage() {
                 <SummaryRow label="משקל" value={`${basics.weightKg} ק״ג`} />
               )}
 
+              {strength.currently && (
+                <SummaryRow
+                  label="אימוני כוח"
+                  value={
+                    strength.currently === 'no'
+                      ? 'לא'
+                      : strength.currently === 'sometimes'
+                        ? 'לפעמים'
+                        : 'כן, באופן קבוע'
+                  }
+                />
+              )}
+              {strength.sessionsPerWeek && (
+                <SummaryRow
+                  label="אימוני כוח בשבוע"
+                  value={`${strength.sessionsPerWeek}${strength.sessionsPerWeek === 4 ? '+' : ''}`}
+                />
+              )}
+              {strength.experience && (
+                <SummaryRow
+                  label="ניסיון כוח"
+                  value={
+                    strength.experience === 'beginner'
+                      ? 'מתחיל'
+                      : strength.experience === 'intermediate'
+                        ? 'בינוני'
+                        : 'מתקדם'
+                  }
+                />
+              )}
+              {strength.priorities && strength.priorities.length > 0 && (
+                <SummaryRow
+                  label="מטרות כוח"
+                  value={strength.priorities
+                    .map((p) =>
+                      p === 'strength'
+                        ? 'כוח'
+                        : p === 'hypertrophy'
+                          ? 'היפרטרופיה'
+                          : p === 'endurance'
+                            ? 'סיבולת'
+                            : 'משולב',
+                    )
+                    .join(' / ')}
+                />
+              )}
+
+              {cardio.currently && (
+                <SummaryRow
+                  label="אירובי"
+                  value={
+                    cardio.currently === 'no'
+                      ? 'לא'
+                      : cardio.currently === 'sometimes'
+                        ? 'לפעמים'
+                        : 'כן, באופן קבוע'
+                  }
+                />
+              )}
+              {cardio.sessionsPerWeek && (
+                <SummaryRow
+                  label="אירובי בשבוע"
+                  value={`${cardio.sessionsPerWeek}${cardio.sessionsPerWeek === 4 ? '+' : ''}`}
+                />
+              )}
+              {cardio.types && cardio.types.length > 0 && (
+                <SummaryRow
+                  label="סוגי אירובי"
+                  value={cardio.types
+                    .map((t) =>
+                      t === 'walking'
+                        ? 'הליכה'
+                        : t === 'running'
+                          ? 'ריצה'
+                          : t === 'cycling'
+                            ? 'אופניים'
+                            : t === 'swimming'
+                              ? 'שחייה'
+                              : t === 'rowing'
+                                ? 'חתירה'
+                                : 'אחר',
+                    )
+                    .join(' / ')}
+                />
+              )}
+              {fitness.dailySteps && (
+                <SummaryRow
+                  label="צעדים ביום (כושר)"
+                  value={
+                    fitness.dailySteps === 'lt5k'
+                      ? 'פחות מ־5,000'
+                      : fitness.dailySteps === '5-7.5k'
+                        ? '5,000–7,500'
+                        : fitness.dailySteps === '7.5-10k'
+                          ? '7,500–10,000'
+                          : '10,000+'
+                  }
+                />
+              )}
+              {fitness.perceivedState && (
+                <SummaryRow
+                  label="תחושת כושר"
+                  value={
+                    fitness.perceivedState === 'strong'
+                      ? 'מרגיש חזק'
+                      : fitness.perceivedState === 'ok'
+                        ? 'מרגיש בסדר'
+                        : fitness.perceivedState === 'tired'
+                          ? 'מרגיש עייף'
+                          : 'מרגיש לא בכושר'
+                  }
+                />
+              )}
+
+              {/* Legacy fitness summary (if provided) */}
               {fitness.experience && (
                 <SummaryRow
-                  label="ניסיון אימוני"
+                  label="ניסיון אימוני (ישן)"
                   value={
-                    fitness.experience.charAt(0).toUpperCase() +
-                    fitness.experience.slice(1)
+                    fitness.experience === 'beginner'
+                      ? 'מתחיל'
+                      : fitness.experience === 'intermediate'
+                        ? 'בינוני'
+                        : 'מתקדם'
                   }
                 />
               )}
               {fitness.location && (
                 <SummaryRow
-                  label="מקום אימון"
+                  label="מקום אימון (ישן)"
                   value={
                     fitness.location === 'both'
                       ? 'חדר כושר ובית'
@@ -135,11 +255,14 @@ export function CompletePage() {
                 />
               )}
               {typeof fitness.daysPerWeek === 'number' && (
-                <SummaryRow label="ימי אימון בשבוע" value={`${fitness.daysPerWeek}`} />
+                <SummaryRow
+                  label="ימי אימון בשבוע (ישן)"
+                  value={`${fitness.daysPerWeek}`}
+                />
               )}
               {fitness.focus && (
                 <SummaryRow
-                  label="מוקד עיקרי"
+                  label="מוקד עיקרי (ישן)"
                   value={
                     fitness.focus === 'hypertrophy'
                       ? 'היפרטרופיה'
@@ -179,6 +302,104 @@ export function CompletePage() {
                       : lifestyle.nutrition === 'somewhat'
                         ? 'די עקבית'
                         : 'עקבית מאוד'
+                  }
+                />
+              )}
+              {lifestyle.sauna?.currently && (
+                <SummaryRow
+                  label="סאונה"
+                  value={
+                    lifestyle.sauna.currently === 'no'
+                      ? 'לא'
+                      : lifestyle.sauna.currently === 'sometimes'
+                        ? 'לפעמים'
+                        : 'כן, באופן קבוע'
+                  }
+                />
+              )}
+              {lifestyle.sauna?.timesPerWeek && (
+                <SummaryRow
+                  label="סאונה בשבוע"
+                  value={
+                    lifestyle.sauna.timesPerWeek === 'unknown'
+                      ? 'לא בטוח'
+                      : `${lifestyle.sauna.timesPerWeek}${lifestyle.sauna.timesPerWeek === 3 ? '+' : ''}`
+                  }
+                />
+              )}
+              {lifestyle.coldExposure?.currently && (
+                <SummaryRow
+                  label="חשיפה לקור"
+                  value={
+                    lifestyle.coldExposure.currently === 'no'
+                      ? 'לא'
+                      : lifestyle.coldExposure.currently === 'sometimes'
+                        ? 'לפעמים'
+                        : 'כן, באופן קבוע'
+                  }
+                />
+              )}
+              {lifestyle.coldExposure?.types && lifestyle.coldExposure.types.length > 0 && (
+                <SummaryRow
+                  label="סוגי קור"
+                  value={lifestyle.coldExposure.types
+                    .map((t) =>
+                      t === 'iceBath'
+                        ? 'אמבטיית קרח'
+                        : t === 'coldShowers'
+                          ? 'מקלחות קרות'
+                          : t === 'seaNature'
+                            ? 'ים / טבע'
+                            : 'אחר',
+                    )
+                    .join(' / ')}
+                />
+              )}
+              {lifestyle.dailyMovement && (
+                <SummaryRow
+                  label="תנועה יומית"
+                  value={
+                    lifestyle.dailyMovement === 'mostlySitting'
+                      ? 'רוב היום בישיבה'
+                      : lifestyle.dailyMovement === 'mixed'
+                        ? 'שילוב של ישיבה ותנועה'
+                        : 'רוב היום בתנועה'
+                  }
+                />
+              )}
+              {lifestyle.alcohol && (
+                <SummaryRow
+                  label="אלכוהול"
+                  value={
+                    lifestyle.alcohol === 'none'
+                      ? 'לא שותה'
+                      : lifestyle.alcohol === '1-2'
+                        ? '1–2 פעמים בשבוע'
+                        : '3+ פעמים בשבוע'
+                  }
+                />
+              )}
+              {lifestyle.smoking && (
+                <SummaryRow
+                  label="עישון"
+                  value={
+                    lifestyle.smoking === 'no'
+                      ? 'לא'
+                      : lifestyle.smoking === 'sometimes'
+                        ? 'לפעמים'
+                        : 'כן'
+                  }
+                />
+              )}
+              {lifestyle.supplements && (
+                <SummaryRow
+                  label="תוספים"
+                  value={
+                    lifestyle.supplements === 'no'
+                      ? 'לא'
+                      : lifestyle.supplements === 'basic'
+                        ? 'כן – בסיסיים'
+                        : 'כן – באופן קבוע'
                   }
                 />
               )}
