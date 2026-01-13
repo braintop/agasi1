@@ -19,31 +19,47 @@ function StepDots({
   currentIndex: number
 }) {
   return (
-    <div className="mx-auto mb-6 flex w-full max-w-3xl items-center justify-center gap-2 px-1 lg:hidden">
-      {ONBOARDING_STEPS.map((step, index) => {
-        const isActive = index === currentIndex
-        const isDone = currentIndex !== -1 && index <= currentIndex
+    <div className="mx-auto mb-6 w-full max-w-3xl px-1 lg:hidden">
+      {/* Mobile stepper: numbers only (1–7) */}
+      <div className="flex items-center justify-center gap-2 pt-4">
+        {ONBOARDING_STEPS.map((step, index) => {
+          const isActive = index === currentIndex
+          const isDone = currentIndex !== -1 && index <= currentIndex
 
-        return (
-          <Link
-            key={step.id}
-            to={step.path}
-            className={cn(
-              'flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold transition-colors',
-              // Default: background like screen, thin white border, white text
-              'bg-transparent text-text-primary border border-white/60',
-              // Progress: filled with the same brown as primary buttons
-              isDone && 'border-transparent bg-[#C98A6B] text-text-primary',
-              // Current step gets a subtle ring for clarity
-              isActive && 'ring-2 ring-[#C98A6B]/60 ring-offset-2 ring-offset-bg',
-            )}
-            aria-current={isActive ? 'step' : undefined}
-            title={step.label}
-          >
-            {index + 1}
-          </Link>
-        )
-      })}
+          return (
+            <div key={step.id} className="relative">
+              {/* Show label only for the selected/current step (mobile only) */}
+              {isActive && (
+                <div
+                  className={cn(
+                    'absolute left-1/2 -top-8 -translate-x-1/2',
+                    'rounded-lg border border-white/15 bg-bg/70 px-2 py-1',
+                    'text-[10px] font-semibold text-text-primary backdrop-blur-sm',
+                    'whitespace-nowrap',
+                  )}
+                >
+                  {step.label}
+                </div>
+              )}
+
+              <Link
+                to={step.path}
+                className={cn(
+                  'flex h-8 w-8 items-center justify-center rounded-full text-[12px] font-semibold transition-colors',
+                  'bg-transparent text-text-primary border border-white/60',
+                  isDone && 'border-transparent bg-[#C98A6B] text-text-primary',
+                  isActive &&
+                    'ring-2 ring-[#C98A6B]/60 ring-offset-2 ring-offset-bg',
+                )}
+                aria-current={isActive ? 'step' : undefined}
+                title={step.label}
+              >
+                {index + 1}
+              </Link>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
@@ -119,7 +135,7 @@ export function OnboardingLayout() {
 
       {/* תוכן המסך – ממורכז, בלי תפריט צדדי */}
       <main className="mx-auto flex max-w-2xl flex-col px-4 pb-32 pt-8">
-        {/* מד־התקדמות: 1–6 (מעל כפתורי המשך/חזור בכל מסך) */}
+        {/* מד־התקדמות: מובייל בלבד (כותרות לסירוגין + קו מחבר) */}
         <StepDots currentIndex={currentIndex} />
         <Outlet />
       </main>
