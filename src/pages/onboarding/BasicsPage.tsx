@@ -157,9 +157,9 @@ export function BasicsPage() {
                       }
                       className={cn(
                         'flex-1 rounded-xl px-3 py-2 text-sm transition-colors',
-                        'bg-surface-2 text-text-secondary hover:bg-surface',
+                        'border border-white/15 bg-surface-2 text-text-secondary hover:bg-surface',
                         isSelected &&
-                          'bg-[#A96D51] text-text-primary shadow-card',
+                          'bg-[#C98A6B] text-text-primary shadow-card hover:bg-[#A96D51]',
                       )}
                     >
                       {option.label}

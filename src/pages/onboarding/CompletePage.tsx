@@ -296,9 +296,6 @@ export function CompletePage() {
               {typeof lifestyle.stress === 'number' && (
                 <SummaryRow label="סטרס" value={`${lifestyle.stress}/10`} />
               )}
-              {lifestyle.steps && (
-                <SummaryRow label="צעדים ביום" value={lifestyle.steps} />
-              )}
               {lifestyle.nutrition && (
                 <SummaryRow
                   label="תזונה"
@@ -403,10 +400,14 @@ export function CompletePage() {
                   value={
                     lifestyle.supplements === 'no'
                       ? 'לא'
-                      : lifestyle.supplements === 'basic'
-                        ? 'כן – בסיסיים'
-                        : 'כן – באופן קבוע'
+                      : 'כן'
                   }
+                />
+              )}
+              {lifestyle.supplements === 'yes' && lifestyle.supplementsDetails?.trim() && (
+                <SummaryRow
+                  label="פירוט תוספים"
+                  value={lifestyle.supplementsDetails.trim()}
                 />
               )}
 
@@ -489,8 +490,8 @@ export function CompletePage() {
                         ...nutrition.restrictions
                           .filter((r) => r !== 'other')
                           .map((r) =>
-                            r === 'pork'
-                              ? 'חזיר'
+                            r === 'pork' || r === 'fish'
+                              ? 'דגים'
                               : r === 'seafood'
                                 ? 'פירות ים'
                                 : r === 'gluten'
@@ -574,7 +575,7 @@ export function CompletePage() {
                 }
               />
               <SummaryRow
-                label="הערות תזונה"
+                label="הערות"
                 value={nutrition.notes?.trim() ? nutrition.notes.trim() : 'לא צוין'}
               />
             </div>

@@ -15,7 +15,6 @@ import {
   type LifestyleInfo,
   emptyLifestyleInfo,
   type LifestyleSleep,
-  type LifestyleSteps,
   type LifestyleNutrition,
   type LifestyleFrequency3,
   type SaunaPerWeek,
@@ -34,13 +33,6 @@ const SLEEP_OPTIONS: { id: LifestyleSleep; label: string; helper: string }[] = [
   { id: 'poor', label: 'חלשה', helper: '0–5 שעות בלילה' },
   { id: 'average', label: 'בינונית', helper: '5–7 שעות בלילה' },
   { id: 'good', label: 'טובה', helper: '7–9 שעות בלילה' },
-]
-
-const STEP_OPTIONS: { id: LifestyleSteps; label: string }[] = [
-  { id: '<3k', label: 'פחות מ‑3,000' },
-  { id: '3-6k', label: '3,000–6,000' },
-  { id: '6-10k', label: '6,000–10,000' },
-  { id: '10k+', label: '10,000+' },
 ]
 
 const NUTRITION_OPTIONS: { id: LifestyleNutrition; label: string }[] = [
@@ -89,8 +81,7 @@ const SMOKING_OPTIONS: { id: SmokingFrequency; label: string }[] = [
 
 const SUPPLEMENTS_OPTIONS: { id: SupplementsFrequency; label: string }[] = [
   { id: 'no', label: 'לא' },
-  { id: 'basic', label: 'כן – בסיסיים' },
-  { id: 'regular', label: 'כן – באופן קבוע' },
+  { id: 'yes', label: 'כן' },
 ]
 
 export function LifestylePage() {
@@ -204,9 +195,9 @@ export function LifestylePage() {
                     }
                     className={cn(
                       'flex w-full flex-col items-start gap-1 rounded-xl px-4 py-2 text-left text-sm transition-colors',
-                      'bg-surface-2 text-text-secondary hover:bg-surface',
+                      'border border-white/15 bg-surface-2 text-text-secondary hover:bg-surface',
                       selected &&
-                        'bg-[#A96D51] text-text-primary shadow-card',
+                        'bg-[#C98A6B] text-text-primary shadow-card hover:bg-[#A96D51]',
                     )}
                   >
                     <span className="font-medium">{option.label}</span>
@@ -237,52 +228,21 @@ export function LifestylePage() {
                 </span>
                   <span>גבוה</span>
               </div>
-              <Slider
-                min={0}
-                max={10}
-                step={1}
-                value={state.stress ?? 5}
-                onChange={(e) =>
-                  setState((prev) => ({
-                    ...prev,
-                    stress: Number(e.target.value),
-                  }))
-                }
-              />
-            </div>
-          </section>
-
-          {/* Steps */}
-          <section className="space-y-2 pb-4">
-            <div>
-              <h3 className="text-sm font-medium text-text-primary/90">
-                צעדים ביום
-              </h3>
-              <p className="text-xs text-text-secondary/80">
-                בערך כמה צעדים אתה עושה ביום ממוצע?
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              {STEP_OPTIONS.map((option) => {
-                const selected = state.steps === option.id
-                return (
-                  <button
-                    key={option.id}
-                    type="button"
-                    onClick={() =>
-                      setState((prev) => ({ ...prev, steps: option.id }))
-                    }
-                    className={cn(
-                      'rounded-xl px-4 py-2 text-sm transition-colors',
-                      'bg-surface-2 text-text-secondary hover:bg-surface',
-                      selected &&
-                        'bg-[#A96D51] text-text-primary shadow-card',
-                    )}
-                  >
-                    {option.label}
-                  </button>
-                )
-              })}
+              <div className="flex h-10 items-center rounded-full border border-white/15 bg-white/5 px-3">
+                <Slider
+                  min={0}
+                  max={10}
+                  step={1}
+                  value={state.stress ?? 5}
+                  onChange={(e) =>
+                    setState((prev) => ({
+                      ...prev,
+                      stress: Number(e.target.value),
+                    }))
+                  }
+                  className="bg-transparent"
+                />
+              </div>
             </div>
           </section>
 
@@ -308,9 +268,9 @@ export function LifestylePage() {
                     }
                     className={cn(
                       'flex w-full items-center justify-between rounded-xl px-4 py-2 text-left text-sm transition-colors',
-                      'bg-surface-2 text-text-secondary hover:bg-surface',
+                      'border border-white/15 bg-surface-2 text-text-secondary hover:bg-surface',
                       selected &&
-                        'bg-[#A96D51] text-text-primary shadow-card',
+                        'bg-[#C98A6B] text-text-primary shadow-card hover:bg-[#A96D51]',
                     )}
                   >
                     <span>{option.label}</span>
@@ -549,14 +509,20 @@ export function LifestylePage() {
               האם אתה לוקח תוספים כרגע?
             </p>
           </div>
-          <div className="grid gap-2 sm:grid-cols-3">
+          <div className="grid gap-2 sm:grid-cols-2">
             {SUPPLEMENTS_OPTIONS.map((opt) => {
               const selected = state.supplements === opt.id
               return (
                 <SelectableCard
                   key={opt.id}
                   selected={selected}
-                  onClick={() => setState((prev) => ({ ...prev, supplements: opt.id }))}
+                  onClick={() =>
+                    setState((prev) => ({
+                      ...prev,
+                      supplements: opt.id,
+                      supplementsDetails: opt.id === 'yes' ? prev.supplementsDetails : '',
+                    }))
+                  }
                   className="justify-center"
                 >
                   <span>{opt.label}</span>
@@ -564,6 +530,18 @@ export function LifestylePage() {
               )
             })}
           </div>
+          {state.supplements === 'yes' && (
+            <div className="pt-2">
+              <Textarea
+                placeholder="איזה תוספים? (לדוגמה: ויטמין D, אומגה 3, מגנזיום...)"
+                value={state.supplementsDetails ?? ''}
+                onChange={(e) =>
+                  setState((prev) => ({ ...prev, supplementsDetails: e.target.value }))
+                }
+                rows={2}
+              />
+            </div>
+          )}
         </section>
       </div>
 

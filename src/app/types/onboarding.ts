@@ -93,7 +93,7 @@ export type ColdExposureType = 'iceBath' | 'coldShowers' | 'seaNature' | 'other'
 export type DailyMovement = 'mostlySitting' | 'mixed' | 'mostlyMoving'
 export type AlcoholFrequency = 'none' | '1-2' | '3+'
 export type SmokingFrequency = 'no' | 'sometimes' | 'yes'
-export type SupplementsFrequency = 'no' | 'basic' | 'regular'
+export type SupplementsFrequency = 'no' | 'yes'
 
 export interface LifestyleInfo {
   sleep?: LifestyleSleep
@@ -114,6 +114,7 @@ export interface LifestyleInfo {
   alcohol?: AlcoholFrequency
   smoking?: SmokingFrequency
   supplements?: SupplementsFrequency
+  supplementsDetails?: string
 }
 
 export const emptyLifestyleInfo: LifestyleInfo = {}
@@ -142,6 +143,7 @@ export type ProteinSource =
 
 export type Restriction =
   | 'pork'
+  | 'fish'
   | 'seafood'
   | 'gluten'
   | 'lactose'

@@ -22,7 +22,7 @@ export function SelectableCard({
         'border-[#8C7A73]/70 bg-transparent text-text-primary hover:bg-white/5',
         selected &&
           // Selected: keep border (stronger) + highlighted background, still white text
-          'border-[#C98A6B] bg-[#A96D51] text-text-primary shadow-card',
+          '!border-transparent !bg-[#C98A6B] !text-text-primary shadow-card hover:!bg-[#A96D51]',
         className,
       )}
       {...props}

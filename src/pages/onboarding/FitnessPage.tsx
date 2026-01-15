@@ -372,8 +372,8 @@ export function FitnessPage() {
                       }
                       className={cn(
                         'flex h-9 w-9 items-center justify-center rounded-xl text-sm transition-colors',
-                        'bg-surface-2 text-text-secondary hover:bg-surface',
-                        selected && 'bg-[#A96D51] text-text-primary shadow-card',
+                        'border border-white/15 bg-surface-2 text-text-secondary hover:bg-surface',
+                        selected && 'bg-[#C98A6B] text-text-primary shadow-card hover:bg-[#A96D51]',
                       )}
                     >
                       {day}
@@ -404,9 +404,10 @@ export function FitnessPage() {
                         setState((prev) => ({ ...prev, focus: option.id }))
                       }
                       className={cn(
-                        'rounded-xl px-4 py-2 text-sm transition-colors',
-                        'bg-surface-2 text-text-secondary hover:bg-surface',
-                        selected && 'bg-[#A96D51] text-text-primary shadow-card',
+                        'rounded-xl border border-white/15 px-4 py-2 text-sm transition-colors',
+                        'bg-transparent text-text-primary hover:bg-white/5',
+                        selected &&
+                          'border-transparent bg-[#C98A6B] text-text-primary shadow-card hover:bg-[#A96D51]',
                       )}
                     >
                       {option.label}

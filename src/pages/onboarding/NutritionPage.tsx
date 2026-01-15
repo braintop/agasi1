@@ -57,7 +57,7 @@ const PROTEIN_SOURCES: { id: ProteinSource; label: string }[] = [
 ]
 
 const RESTRICTIONS: { id: Restriction; label: string }[] = [
-  { id: 'pork', label: 'חזיר' },
+  { id: 'fish', label: 'דגים' },
   { id: 'seafood', label: 'פירות ים' },
   { id: 'gluten', label: 'גלוטן' },
   { id: 'lactose', label: 'לקטוז' },
@@ -123,6 +123,7 @@ export function NutritionPage() {
     if (!state.eatingOut) return false
     if (!state.hydration) return false
     if (!state.sweetenedDrinks) return false
+    if (!state.notes?.trim()) return false
     return true
   }, [
     state.eatingStyle,
@@ -134,6 +135,7 @@ export function NutritionPage() {
     state.eatingOut,
     state.hydration,
     state.sweetenedDrinks,
+    state.notes,
   ])
 
   const toggleProtein = (p: ProteinSource) => {
@@ -384,10 +386,10 @@ export function NutritionPage() {
           {/* Notes */}
           <section className="space-y-2">
             <h3 className="text-sm font-medium text-text-primary/90">
-              הערות (לא חובה)
+              הערות <span className="text-danger">*</span>
             </h3>
             <Textarea
-              placeholder="כל דבר נוסף שחשוב שנדע על התזונה שלך, העדפות או מגבלות…"
+              placeholder="תאר בבקשה יום אכילה מייצג שלך והערות נוספות שתרצה להוסיף"
               value={state.notes ?? ''}
               onChange={(e) => setState((prev) => ({ ...prev, notes: e.target.value }))}
               rows={3}
