@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import {
   LayoutDashboard,
@@ -6,6 +7,8 @@ import {
   CalendarCheck2,
   LineChart,
   Sparkles,
+  Menu,
+  X,
 } from 'lucide-react'
 import { cn } from '../utils/cn'
 
@@ -19,6 +22,8 @@ const USER_NAV_ITEMS = [
 ] as const
 
 export function UserLayout() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
   return (
     <div className="min-h-screen bg-bg text-text-primary">
       <div className="flex max-w-6xl gap-6 px-6 py-6">
@@ -86,7 +91,84 @@ export function UserLayout() {
                 </span>
               </div>
             </div>
+
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(true)}
+              className={cn(
+                'inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 bg-white/5',
+                'text-text-primary hover:bg-white/10',
+              )}
+              aria-label="פתיחת תפריט"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
           </div>
+
+          {/* Mobile hamburger menu */}
+          {isMobileMenuOpen && (
+            <div className="fixed inset-0 z-40 lg:hidden">
+              <button
+                type="button"
+                className="absolute inset-0 bg-black/60"
+                aria-label="סגירת תפריט"
+                onClick={() => setIsMobileMenuOpen(false)}
+              />
+
+              <aside className="absolute inset-y-0 right-0 w-72 border-l border-white/10 bg-bg/95 p-4 backdrop-blur">
+                <div className="mb-5 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#C98A6B] text-sm font-semibold text-bg">
+                      Y
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-semibold tracking-tight">
+                        Younger
+                      </span>
+                      <span className="text-xs text-text-secondary">
+                        תפריט
+                      </span>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={cn(
+                      'inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 bg-white/5',
+                      'text-text-primary hover:bg-white/10',
+                    )}
+                    aria-label="סגירת תפריט"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+
+                <nav className="space-y-1">
+                  {USER_NAV_ITEMS.map((item) => {
+                    const Icon = item.icon
+                    return (
+                      <NavLink
+                        key={item.path}
+                        to={item.path}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={({ isActive }) =>
+                          cn(
+                            'flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-colors',
+                            'text-text-secondary hover:bg-surface-2 hover:text-[#2F2626]',
+                            isActive && 'bg-[#A96D51] text-[#2F2626]',
+                          )
+                        }
+                      >
+                        <Icon className="h-4 w-4" />
+                        <span>{item.label}</span>
+                      </NavLink>
+                    )
+                  })}
+                </nav>
+              </aside>
+            </div>
+          )}
 
           <Outlet />
         </main>
