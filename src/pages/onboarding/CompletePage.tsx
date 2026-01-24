@@ -62,7 +62,7 @@ export function CompletePage() {
             variant="primary"
             size="sm"
             className="min-w-[90px]"
-            onClick={() => navigate('/nutrition')}
+            onClick={() => navigate('/onboarding/nutrition')}
           >
             חזור
           </Button>
@@ -632,7 +632,7 @@ export function CompletePage() {
           variant="primary"
           size="lg"
           fullWidth
-          onClick={() => navigate('/dashboard')}
+          onClick={() => navigate('/profile/fitness')}
         >
           כניסה לאפליקציה
         </Button>

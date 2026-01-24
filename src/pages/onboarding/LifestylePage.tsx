@@ -113,7 +113,7 @@ export function LifestylePage() {
 
   const handleContinue = () => {
     if (!extendedValid) return
-    navigate('/nutrition')
+    navigate('/onboarding/nutrition')
   }
 
   const setSauna = (patch: Partial<NonNullable<LifestyleInfo['sauna']>>) => {

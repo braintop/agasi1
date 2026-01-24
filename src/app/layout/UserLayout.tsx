@@ -1,28 +1,47 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import {
   LayoutDashboard,
-  Dumbbell,
-  HeartPulse,
-  CalendarCheck2,
   LineChart,
   Sparkles,
   Menu,
   X,
+  Utensils,
+  ChevronLeft,
+  ChevronRight,
+  CalendarDays,
 } from 'lucide-react'
 import { cn } from '../utils/cn'
 
 const USER_NAV_ITEMS = [
   { label: 'דאשבורד', path: '/dashboard', icon: LayoutDashboard },
-  { label: 'אימונים', path: '/workouts', icon: Dumbbell },
-  { label: 'קרדיו', path: '/cardio', icon: HeartPulse },
-  { label: 'צ׳ק‑אין יומי', path: '/dailycheckin', icon: CalendarCheck2 },
-  { label: 'התקדמות', path: '/progress', icon: LineChart },
+  { label: 'תזונה', path: '/nutrition', icon: Utensils },
   { label: 'תובנות AI', path: '/aiinsights', icon: Sparkles },
+  { label: 'התקדמות', path: '/progress', icon: LineChart },
 ] as const
 
 export function UserLayout() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [selectedDateISO, setSelectedDateISO] = useState(() => {
+    // Fixed date to match Figma screenshots.
+    // Later we can connect this to real data sources.
+    return '2026-01-24'
+  })
+
+  const selectedDate = useMemo(() => new Date(`${selectedDateISO}T12:00:00`), [selectedDateISO])
+  const dayLabel = useMemo(() => {
+    return selectedDate.toLocaleDateString('he-IL', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    })
+  }, [selectedDate])
+
+  const shiftDay = (deltaDays: number) => {
+    const d = new Date(`${selectedDateISO}T12:00:00`)
+    d.setDate(d.getDate() + deltaDays)
+    setSelectedDateISO(d.toISOString().slice(0, 10))
+  }
 
   return (
     <div className="min-h-screen bg-bg text-text-primary">
@@ -34,9 +53,7 @@ export function UserLayout() {
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-semibold tracking-tight">Younger</span>
-              <span className="text-xs text-text-secondary">
-                מאמן אריכות ימים יומי
-              </span>
+              <span className="text-xs text-text-secondary">אימון לאריכות ימים</span>
             </div>
           </div>
 
@@ -52,7 +69,7 @@ export function UserLayout() {
                       'flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-colors',
                       'text-text-secondary hover:bg-surface-2 hover:text-[#2F2626]',
                       isActive &&
-                        'bg-[#A96D51] text-[#2F2626]',
+                        'bg-[#C98A6B] text-[#2F2626]',
                     )
                   }
                 >
@@ -86,9 +103,7 @@ export function UserLayout() {
                 <span className="text-sm font-semibold tracking-tight">
                   Younger
                 </span>
-                <span className="text-[11px] text-text-secondary">
-                  אזור משתמש
-                </span>
+                <span className="text-[11px] text-text-secondary">תפריט</span>
               </div>
             </div>
 
@@ -125,9 +140,7 @@ export function UserLayout() {
                       <span className="text-sm font-semibold tracking-tight">
                         Younger
                       </span>
-                      <span className="text-xs text-text-secondary">
-                        תפריט
-                      </span>
+                      <span className="text-xs text-text-secondary">אימון לאריכות ימים</span>
                     </div>
                   </div>
 
@@ -156,7 +169,7 @@ export function UserLayout() {
                           cn(
                             'flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-colors',
                             'text-text-secondary hover:bg-surface-2 hover:text-[#2F2626]',
-                            isActive && 'bg-[#A96D51] text-[#2F2626]',
+                            isActive && 'bg-[#C98A6B] text-[#2F2626]',
                           )
                         }
                       >
@@ -169,6 +182,43 @@ export function UserLayout() {
               </aside>
             </div>
           )}
+
+          {/* Day navigation header (matches Figma) */}
+          <div className="mb-6 flex justify-center">
+            <div className="flex w-full max-w-xl items-center justify-between rounded-2xl border border-white/10 bg-surface px-3 py-2">
+              <button
+                type="button"
+                onClick={() => shiftDay(1)}
+                className={cn(
+                  'inline-flex h-8 w-8 items-center justify-center rounded-xl',
+                  'text-text-secondary hover:bg-white/5 hover:text-text-primary',
+                )}
+                aria-label="יום הבא"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+
+              <div className="flex items-center gap-2 text-center">
+                <CalendarDays className="h-4 w-4 text-[#C98A6B]" />
+                <div className="flex flex-col leading-tight">
+                  <span className="text-xs font-semibold text-text-primary">היום</span>
+                  <span className="text-[11px] text-text-secondary">{dayLabel}</span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => shiftDay(-1)}
+                className={cn(
+                  'inline-flex h-8 w-8 items-center justify-center rounded-xl',
+                  'text-text-secondary hover:bg-white/5 hover:text-text-primary',
+                )}
+                aria-label="יום קודם"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
 
           <Outlet />
         </main>
