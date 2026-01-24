@@ -26,7 +26,7 @@ import {
   streaks,
   todayActions,
 } from '../../app/mock/dashboard'
-import { Modal } from '../../app/ui/modal'
+import { RightDrawer } from '../../app/ui/right-drawer'
 import { getJSON, setJSON } from '../../app/utils/storage'
 
 export function DashboardPage() {
@@ -289,38 +289,47 @@ export function DashboardPage() {
         </CardContent>
       </Card>
 
-      <Modal
+      <RightDrawer
         open={explainOpen}
         onClose={() => setExplainOpen(false)}
-        title="הסבר על הציון"
+        title="איך ציון הלונג׳ביטי מחושב"
       >
-        <div className="space-y-3 text-sm">
+        <div className="space-y-5">
           <div className="space-y-2">
             {[
               { label: 'אימונים', value: explainScoreBreakdown.workouts },
               { label: 'קרדיו', value: explainScoreBreakdown.cardio },
               { label: 'תזונה', value: explainScoreBreakdown.nutrition },
               { label: 'שינה', value: explainScoreBreakdown.sleep },
-            ].map((row) => (
-              <div
-                key={row.label}
-                className="flex items-center justify-between rounded-xl bg-surface-2 px-3 py-2"
-              >
-                <span className="text-sm text-text-primary">{row.label}</span>
-                <span className="text-sm font-semibold text-text-primary">{row.value}</span>
-              </div>
-            ))}
+            ].map((row) => {
+              const pill =
+                row.value === 'טוב'
+                  ? 'bg-[#8FAF9A] text-[#2F2626]'
+                  : row.value === 'בינוני'
+                    ? 'bg-[#D6A77A] text-[#2F2626]'
+                    : 'bg-[#C96B6B] text-white'
+              return (
+                <div
+                  key={row.label}
+                  className="flex items-center justify-between rounded-2xl bg-surface px-4 py-3"
+                >
+                  <span className="text-sm text-text-primary">{row.label}</span>
+                  <span className={cn('rounded-full px-3 py-1 text-xs font-semibold', pill)}>
+                    {row.value}
+                  </span>
+                </div>
+              )
+            })}
           </div>
-          <div className="rounded-xl border border-border/70 bg-surface px-3 py-2 text-sm text-text-secondary">
-            {explainScoreBreakdown.recommendation}
-          </div>
-          <div className="flex justify-end">
-            <Button variant="secondary" size="sm" onClick={() => setExplainOpen(false)}>
-              סגירה
-            </Button>
+
+          <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-surface-2 via-surface-2 to-surface px-4 py-4">
+            <div className="text-sm font-semibold text-text-primary">המלצה</div>
+            <p className="mt-2 text-sm leading-relaxed text-text-secondary">
+              {explainScoreBreakdown.recommendation}
+            </p>
           </div>
         </div>
-      </Modal>
+      </RightDrawer>
     </div>
   )
 }
