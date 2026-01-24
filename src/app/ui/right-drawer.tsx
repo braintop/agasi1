@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { cn } from '../utils/cn'
 
 interface RightDrawerProps {
@@ -9,6 +9,16 @@ interface RightDrawerProps {
 }
 
 export function RightDrawer({ open, title, onClose, children }: RightDrawerProps) {
+  useEffect(() => {
+    if (!open) return
+    const root = document.documentElement
+    // Used by UserLayout to keep main content centered between drawers.
+    root.style.setProperty('--left-drawer-offset', '28rem')
+    return () => {
+      root.style.removeProperty('--left-drawer-offset')
+    }
+  }, [open])
+
   if (!open) return null
 
   return (

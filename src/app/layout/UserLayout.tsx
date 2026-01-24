@@ -44,9 +44,35 @@ export function UserLayout() {
   }
 
   return (
-    <div className="min-h-screen bg-bg text-text-primary">
-      <div className="flex max-w-6xl gap-6 px-6 py-6">
-        <aside className="flex w-64 flex-col bg-bg/90 pr-4 max-lg:hidden">
+    <div
+      className="min-h-screen bg-bg text-text-primary"
+      style={{
+        // User-area palette (green) to match new Figma dashboard
+        // Scoped here so onboarding can keep its palette.
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+        ['--bg' as any]: '#0f2b26',
+        ['--surface' as any]: '#193b34',
+        ['--surface-2' as any]: '#20463e',
+        ['--border' as any]: '#2b5a4f',
+        ['--text-primary' as any]: '#ffffff',
+        ['--text-secondary' as any]: '#a7c0b7',
+        ['--text-muted' as any]: '#7aa096',
+        ['--primary' as any]: '#63d7be',
+        ['--primary-dark' as any]: '#49b9a5',
+        ['--accent' as any]: '#63d7be',
+        ['--success' as any]: '#63d7be',
+        ['--primary-15' as any]: 'rgba(99, 215, 190, 0.15)',
+        ['--primary-25' as any]: 'rgba(99, 215, 190, 0.25)',
+      }}
+    >
+      <div className="mx-auto flex w-full justify-center px-6 py-6 lg:pr-[18rem] lg:pl-[var(--left-drawer-offset,0px)]">
+        <aside
+          className={cn(
+            'hidden lg:flex w-64 flex-col bg-bg/90',
+            'fixed right-0 top-0 bottom-0 z-30 px-6 py-6',
+            'border-l border-white/10',
+          )}
+        >
           <div className="mb-6 flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#C98A6B] text-sm font-semibold text-bg">
               Y
@@ -67,9 +93,9 @@ export function UserLayout() {
                   className={({ isActive }) =>
                     cn(
                       'flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-colors',
-                      'text-text-secondary hover:bg-surface-2 hover:text-[#2F2626]',
+                      'text-text-secondary hover:bg-white/5 hover:text-text-primary',
                       isActive &&
-                        'bg-[#C98A6B] text-[#2F2626]',
+                        'bg-[color:var(--primary)] text-bg',
                     )
                   }
                 >
@@ -93,7 +119,7 @@ export function UserLayout() {
           </div>
         </aside>
 
-        <main className="flex-1">
+        <main className="w-full max-w-3xl min-w-0">
           <div className="mb-4 flex items-center justify-between gap-3 lg:hidden">
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#C98A6B] text-xs font-semibold text-bg">
@@ -168,8 +194,8 @@ export function UserLayout() {
                         className={({ isActive }) =>
                           cn(
                             'flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-colors',
-                            'text-text-secondary hover:bg-surface-2 hover:text-[#2F2626]',
-                            isActive && 'bg-[#C98A6B] text-[#2F2626]',
+                          'text-text-secondary hover:bg-white/5 hover:text-text-primary',
+                          isActive && 'bg-[color:var(--primary)] text-bg',
                           )
                         }
                       >
@@ -188,14 +214,14 @@ export function UserLayout() {
             <div className="flex w-full max-w-xl items-center justify-between rounded-2xl border border-white/10 bg-surface px-3 py-2">
               <button
                 type="button"
-                onClick={() => shiftDay(1)}
+                onClick={() => shiftDay(-1)}
                 className={cn(
                   'inline-flex h-8 w-8 items-center justify-center rounded-xl',
                   'text-text-secondary hover:bg-white/5 hover:text-text-primary',
                 )}
-                aria-label="יום הבא"
+                aria-label="יום קודם"
               >
-                <ChevronLeft className="h-4 w-4" />
+                <ChevronRight className="h-4 w-4" />
               </button>
 
               <div className="flex items-center gap-2 text-center">
@@ -208,14 +234,14 @@ export function UserLayout() {
 
               <button
                 type="button"
-                onClick={() => shiftDay(-1)}
+                onClick={() => shiftDay(1)}
                 className={cn(
                   'inline-flex h-8 w-8 items-center justify-center rounded-xl',
                   'text-text-secondary hover:bg-white/5 hover:text-text-primary',
                 )}
-                aria-label="יום קודם"
+                aria-label="יום הבא"
               >
-                <ChevronRight className="h-4 w-4" />
+                <ChevronLeft className="h-4 w-4" />
               </button>
             </div>
           </div>

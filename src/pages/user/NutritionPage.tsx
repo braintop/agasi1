@@ -78,11 +78,15 @@ export function NutritionPage() {
   }
 
   return (
-    <div className="space-y-6 pb-10">
+    <div className="mx-auto max-w-3xl space-y-5 pb-10">
       <Card className="border-none bg-surface">
         <CardHeader className="flex flex-row items-center justify-between gap-3">
           <CardTitle className="text-base">תזונה</CardTitle>
-          <Button size="sm" onClick={handleAddMeal}>
+          <Button
+            size="sm"
+            onClick={handleAddMeal}
+            className="bg-[color:var(--primary)] text-bg hover:bg-[color:var(--primary-dark)]"
+          >
             <Plus className="mr-1 h-4 w-4" />
             הוסף ארוחה
           </Button>
@@ -97,7 +101,7 @@ export function NutritionPage() {
             </div>
             <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
               <div
-                className="h-full rounded-full bg-[#C98A6B]"
+                className="h-full rounded-full bg-[color:var(--primary)]"
                 style={{ width: `${caloriesPct}%` }}
               />
             </div>
@@ -112,7 +116,7 @@ export function NutritionPage() {
             </div>
             <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
               <div
-                className="h-full rounded-full bg-[#C98A6B]"
+                className="h-full rounded-full bg-[color:var(--primary)]"
                 style={{ width: `${proteinPct}%` }}
               />
             </div>
@@ -126,7 +130,7 @@ export function NutritionPage() {
         </CardHeader>
         <CardContent className="space-y-2">
           {meals.map((m) => (
-            <div key={m.id} className="flex items-start justify-between rounded-2xl bg-surface-2 px-4 py-3">
+            <div key={m.id} className="flex items-start justify-between rounded-2xl bg-surface-2 px-4 py-3 text-right">
               <div className="space-y-0.5">
                 <div className="text-xs font-semibold text-text-primary">
                   {m.type === 'Breakfast'
@@ -139,9 +143,9 @@ export function NutritionPage() {
                 </div>
                 <div className="text-[11px] text-text-secondary/80">{m.description}</div>
               </div>
-              <div className="text-right text-xs">
+              <div className="text-left text-xs">
                 <div className="text-text-primary">{m.calories} kcal</div>
-                <div className="text-[#8FAF9A]">{m.proteinG}g חלבון</div>
+                <div className="text-[color:var(--primary)]">{m.proteinG}g חלבון</div>
               </div>
             </div>
           ))}
