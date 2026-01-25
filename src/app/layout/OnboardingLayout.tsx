@@ -86,7 +86,26 @@ export function OnboardingLayout() {
   )
 
   return (
-    <div className="min-h-screen bg-bg text-text-primary">
+    <div
+      className="min-h-screen bg-bg text-text-primary"
+      style={{
+        // Warm, calm longevity palette for onboarding only
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+        ['--bg' as any]: '#2f2626',
+        ['--surface' as any]: '#e6c8b6',
+        ['--surface-2' as any]: '#f4e6dd',
+        ['--border' as any]: '#8c7a73',
+        ['--text-primary' as any]: '#ffffff',
+        ['--text-secondary' as any]: '#c9b1a4',
+        ['--text-muted' as any]: '#8c7a73',
+        ['--primary' as any]: '#c98a6b',
+        ['--primary-dark' as any]: '#a96d51',
+        ['--accent' as any]: '#c98a6b',
+        ['--danger' as any]: '#b36a5e',
+        ['--warning' as any]: '#d6a77a',
+        ['--success' as any]: '#8faf9a',
+      }}
+    >
       {/* כותרת עליונה + סטפר אופקי בדסקטופ */}
       <header className="sticky top-0 z-20 bg-bg/95 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">

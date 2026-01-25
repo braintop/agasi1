@@ -210,8 +210,8 @@ export function UserLayout() {
           )}
 
           {/* Day navigation header (matches Figma) */}
-          <div className="mb-6 flex justify-center">
-            <div className="flex w-full max-w-2xl items-center justify-between rounded-2xl border border-white/10 bg-surface px-4 py-3">
+          <div className="mb-6">
+            <div className="flex w-full items-center justify-between rounded-2xl border border-white/10 bg-surface px-5 py-4">
               <button
                 type="button"
                 onClick={() => shiftDay(-1)}
@@ -225,7 +225,7 @@ export function UserLayout() {
               </button>
 
               <div className="flex items-center gap-2 text-center">
-                <CalendarDays className="h-5 w-5 text-[#C98A6B]" />
+                <CalendarDays className="h-5 w-5 text-[color:var(--primary)]" />
                 <div className="flex flex-col leading-tight">
                   <span className="text-sm font-semibold text-text-primary">היום</span>
                   <span className="text-xs text-text-secondary">{dayLabel}</span>

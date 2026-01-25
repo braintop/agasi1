@@ -1,23 +1,23 @@
 @import 'tailwindcss';
 
 :root {
-  /* Warm, calm longevity palette */
-  --bg: #2f2626; /* primary background */
-  --surface: #e6c8b6; /* cards, panels */
-  --surface-2: #f4e6dd; /* light inner surfaces / forms */
-  --border: #8c7a73; /* soft warm border */
+  /* Default app palette (User area / Figma dashboard – green) */
+  --bg: #0f2b26;
+  --surface: #193b34;
+  --surface-2: #20463e;
+  --border: #2b5a4f;
 
-  --text-primary: #ffffff; /* headings on dark */
-  --text-secondary: #c9b1a4; /* body and descriptions */
-  --text-muted: #8c7a73; /* disabled / subtle */
+  --text-primary: #ffffff;
+  --text-secondary: #a7c0b7;
+  --text-muted: #7aa096;
 
-  --primary: #c98a6b; /* primary accent / CTAs */
-  --primary-dark: #a96d51; /* hover / active */
-  --accent: #c98a6b; /* align accent with primary */
+  --primary: #63d7be;
+  --primary-dark: #49b9a5;
+  --accent: #63d7be;
 
-  --danger: #b36a5e;
+  --danger: #c96b6b;
   --warning: #d6a77a;
-  --success: #8faf9a;
+  --success: #63d7be;
 }
 
 *,
