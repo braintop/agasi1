@@ -7,6 +7,9 @@ import {
   Menu,
   X,
   Utensils,
+  Zap,
+  CalendarCheck2,
+  Dumbbell,
   ChevronLeft,
   ChevronRight,
   CalendarDays,
@@ -14,7 +17,10 @@ import {
 import { cn } from '../utils/cn'
 
 const USER_NAV_ITEMS = [
-  { label: 'דאשבורד', path: '/dashboard', icon: LayoutDashboard },
+  { label: 'לוח בקרה', path: '/dashboard', icon: LayoutDashboard },
+  { label: 'מרכז בקרה יומי', path: '/dailycenter', icon: Zap },
+  { label: 'הרגלים יומיים', path: '/habits', icon: CalendarCheck2 },
+  { label: 'אימון כח ואירובי', path: '/training', icon: Dumbbell },
   { label: 'תזונה', path: '/nutrition', icon: Utensils },
   { label: 'תובנות AI', path: '/aiinsights', icon: Sparkles },
   { label: 'התקדמות', path: '/progress', icon: LineChart },

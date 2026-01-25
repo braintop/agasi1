@@ -19,6 +19,9 @@ import { CardioPage } from '../../pages/user/CardioPage'
 import { DailyCheckInPage } from '../../pages/user/DailyCheckInPage'
 import { ProgressPage } from '../../pages/user/ProgressPage'
 import { AIInsightsPage } from '../../pages/user/AIInsightsPage'
+import { DailyControlCenterPage } from '../../pages/user/DailyControlCenterPage'
+import { DailyHabitsPage } from '../../pages/user/DailyHabitsPage'
+import { TrainingPage } from '../../pages/user/TrainingPage'
 
 export function AppRoutes() {
   return (
@@ -40,6 +43,9 @@ export function AppRoutes() {
 
       <Route element={<UserLayout />}>
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/dailycenter" element={<DailyControlCenterPage />} />
+        <Route path="/habits" element={<DailyHabitsPage />} />
+        <Route path="/training" element={<TrainingPage />} />
         <Route path="/nutrition" element={<UserNutritionPage />} />
         <Route path="/workouts" element={<WorkoutsPage />} />
         <Route path="/workouts/:id" element={<WorkoutSessionPage />} />
