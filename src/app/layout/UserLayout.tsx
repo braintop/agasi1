@@ -65,16 +65,16 @@ export function UserLayout() {
         ['--primary-25' as any]: 'rgba(99, 215, 190, 0.25)',
       }}
     >
-      <div className="mx-auto flex w-full justify-center px-6 py-6 lg:pr-[18rem] lg:pl-[var(--left-drawer-offset,0px)]">
+      <div className="mx-auto flex w-full max-w-[1400px] justify-center px-6 py-6 lg:pr-[18rem] lg:pl-[var(--left-drawer-offset,0px)]">
         <aside
           className={cn(
-            'hidden lg:flex w-64 flex-col bg-bg/90',
+            'hidden lg:flex w-64 flex-col bg-surface',
             'fixed right-0 top-0 bottom-0 z-30 px-6 py-6',
             'border-l border-white/10',
           )}
         >
           <div className="mb-6 flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#C98A6B] text-sm font-semibold text-bg">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[color:var(--primary)] text-sm font-semibold text-bg">
               Y
             </div>
             <div className="flex flex-col">
@@ -107,7 +107,7 @@ export function UserLayout() {
           </nav>
 
           <div className="mt-6 flex items-center gap-3 rounded-xl border border-border/70 bg-surface-2 px-3 py-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#C98A6B]/10 text-xs font-semibold text-[#C98A6B]">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[color:var(--primary-15)] text-xs font-semibold text-[color:var(--primary)]">
               JH
             </div>
             <div className="flex flex-col">
@@ -119,10 +119,10 @@ export function UserLayout() {
           </div>
         </aside>
 
-        <main className="w-full max-w-3xl min-w-0">
+        <main className="w-full max-w-5xl min-w-0">
           <div className="mb-4 flex items-center justify-between gap-3 lg:hidden">
             <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#C98A6B] text-xs font-semibold text-bg">
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[color:var(--primary)] text-xs font-semibold text-bg">
                 Y
               </div>
               <div className="flex flex-col">
@@ -159,7 +159,7 @@ export function UserLayout() {
               <aside className="absolute inset-y-0 right-0 w-72 border-l border-white/10 bg-bg/95 p-4 backdrop-blur">
                 <div className="mb-5 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#C98A6B] text-sm font-semibold text-bg">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[color:var(--primary)] text-sm font-semibold text-bg">
                       Y
                     </div>
                     <div className="flex flex-col">
@@ -211,24 +211,24 @@ export function UserLayout() {
 
           {/* Day navigation header (matches Figma) */}
           <div className="mb-6 flex justify-center">
-            <div className="flex w-full max-w-xl items-center justify-between rounded-2xl border border-white/10 bg-surface px-3 py-2">
+            <div className="flex w-full max-w-2xl items-center justify-between rounded-2xl border border-white/10 bg-surface px-4 py-3">
               <button
                 type="button"
                 onClick={() => shiftDay(-1)}
                 className={cn(
-                  'inline-flex h-8 w-8 items-center justify-center rounded-xl',
+                  'inline-flex h-10 w-10 items-center justify-center rounded-xl',
                   'text-text-secondary hover:bg-white/5 hover:text-text-primary',
                 )}
                 aria-label="יום קודם"
               >
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="h-5 w-5" />
               </button>
 
               <div className="flex items-center gap-2 text-center">
-                <CalendarDays className="h-4 w-4 text-[#C98A6B]" />
+                <CalendarDays className="h-5 w-5 text-[#C98A6B]" />
                 <div className="flex flex-col leading-tight">
-                  <span className="text-xs font-semibold text-text-primary">היום</span>
-                  <span className="text-[11px] text-text-secondary">{dayLabel}</span>
+                  <span className="text-sm font-semibold text-text-primary">היום</span>
+                  <span className="text-xs text-text-secondary">{dayLabel}</span>
                 </div>
               </div>
 
@@ -236,12 +236,12 @@ export function UserLayout() {
                 type="button"
                 onClick={() => shiftDay(1)}
                 className={cn(
-                  'inline-flex h-8 w-8 items-center justify-center rounded-xl',
+                  'inline-flex h-10 w-10 items-center justify-center rounded-xl',
                   'text-text-secondary hover:bg-white/5 hover:text-text-primary',
                 )}
                 aria-label="יום הבא"
               >
-                <ChevronLeft className="h-4 w-4" />
+                <ChevronLeft className="h-5 w-5" />
               </button>
             </div>
           </div>

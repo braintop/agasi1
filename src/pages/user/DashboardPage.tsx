@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -7,13 +6,13 @@ import {
   ChevronLeft,
   ChevronRight,
   Flame,
-  Footprints,
   Moon,
   CalendarCheck2,
   Dumbbell,
   HeartPulse,
   Utensils,
   X,
+  Zap,
 } from 'lucide-react'
 import {
   Card,
@@ -40,19 +39,19 @@ export function DashboardPage() {
 
   const weekDays = useMemo(
     () => [
-      { day: 27, month: 'ינו׳' },
-      { day: 26, month: 'ינו׳' },
-      { day: 25, month: 'ינו׳' },
-      { day: 24, month: 'ינו׳', selected: true },
-      { day: 23, month: 'ינו׳' },
-      { day: 22, month: 'ינו׳' },
       { day: 21, month: 'ינו׳' },
+      { day: 22, month: 'ינו׳' },
+      { day: 23, month: 'ינו׳' },
+      { day: 24, month: 'ינו׳', selected: true },
+      { day: 25, month: 'ינו׳' },
+      { day: 26, month: 'ינו׳' },
+      { day: 27, month: 'ינו׳' },
     ],
     [],
   )
 
   return (
-    <div className="mx-auto max-w-3xl space-y-5 pb-10">
+    <div className="w-full space-y-6 pb-10">
       {/* כרטיס ציון (עיצוב ירוק) */}
       <Card
         className="border-none shadow-card"
@@ -61,23 +60,28 @@ export function DashboardPage() {
             'linear-gradient(135deg, rgba(99,215,190,0.95) 0%, rgba(124,207,185,0.95) 100%)',
         }}
       >
-        <CardContent className="space-y-3 py-6">
-          <div className="flex items-start justify-between gap-4">
-            <div className="space-y-1 text-right">
-              <div className="text-sm font-semibold text-bg">ציון אריכות ימים</div>
-              <div className="text-xs text-bg/80">
+        <CardContent className="space-y-3 py-10 md:py-12">
+          {/* Use row-reverse so score stays on the right in RTL */}
+          <div className="flex min-h-[180px] flex-row-reverse items-start justify-between gap-6 md:min-h-[220px]">
+            <div className="space-y-2 text-right">
+              <div className="text-base font-semibold text-bg md:text-lg">
+                ציון אריכות ימים
+              </div>
+              <div className="text-sm text-bg/80">
                 ↗ {longevityScore.trend.replace('this week', 'השבוע')}
               </div>
-              <div className="text-xs text-bg/70">{longevityScore.explanation}</div>
+              <div className="max-w-md text-sm leading-relaxed text-bg/70">
+                {longevityScore.explanation}
+              </div>
               <Button
                 size="sm"
-                className="mt-2 h-8 rounded-full bg-black/70 px-5 text-[11px] text-white hover:bg-black/80"
+                className="mt-3 h-10 rounded-full bg-black/70 px-6 text-sm text-white hover:bg-black/80"
                 onClick={() => setExplainOpen(true)}
               >
                 הסבר על הציון שלי
               </Button>
             </div>
-            <div className="text-6xl font-semibold leading-none text-bg">
+            <div className="text-7xl font-semibold leading-none text-bg md:text-8xl">
               {longevityScore.value}
             </div>
           </div>
@@ -85,29 +89,30 @@ export function DashboardPage() {
       </Card>
 
       {/* שורת ימים */}
-      <div className="flex items-center justify-between gap-3">
+      {/* Use ltr so the visual order matches the Figma (21→27) */}
+      <div dir="ltr" className="flex items-center justify-between gap-3">
         <button
           type="button"
-          className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-text-primary hover:bg-white/10"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-text-primary hover:bg-white/10"
           aria-label="שבוע קודם"
         >
-          <ChevronRight className="h-4 w-4" />
+          <ChevronLeft className="h-4 w-4" />
         </button>
-        <div className="flex flex-1 items-center justify-center gap-2">
+        <div className="flex flex-1 items-center justify-center gap-3">
           {weekDays.map((d) => (
             <button
               key={d.day}
               type="button"
               className={cn(
-                'flex h-12 w-12 flex-col items-center justify-center rounded-2xl',
+                'flex h-16 w-16 flex-col items-center justify-center rounded-2xl shadow-card/20',
                 d.selected
                   ? 'bg-[color:var(--primary)] text-bg'
-                  : 'bg-surface text-text-primary',
+                  : 'bg-surface text-text-primary hover:bg-surface-2',
               )}
               aria-current={d.selected ? 'date' : undefined}
             >
-              <span className="text-sm font-semibold leading-none">{d.day}</span>
-              <span className="mt-1 text-[10px] leading-none opacity-80">
+              <span className="text-base font-semibold leading-none">{d.day}</span>
+              <span className="mt-1 text-[11px] leading-none opacity-80">
                 {d.month}
               </span>
             </button>
@@ -115,44 +120,74 @@ export function DashboardPage() {
         </div>
         <button
           type="button"
-          className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-text-primary hover:bg-white/10"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-text-primary hover:bg-white/10"
           aria-label="שבוע הבא"
         >
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronRight className="h-4 w-4" />
         </button>
       </div>
 
-      {/* 4 מדדים */}
-      <div className="grid gap-4 md:grid-cols-2">
-        <MetricCard
-          title="שינה"
-          value="6.5"
-          unit="שעות"
-          icon={<Moon className="h-4 w-4" />}
-          status="טוב"
-        />
-        <MetricCard
-          title="צעדים יומיים"
-          value="8,900"
-          unit="צעדים"
-          icon={<Footprints className="h-4 w-4" />}
-          status="טוב"
-        />
-        <MetricCard
-          title="רמת לחץ"
-          value="נמוכה"
-          unit=""
-          icon={<Activity className="h-4 w-4" />}
-          status="טוב"
-        />
-        <MetricCard
-          title="קלוריות שנשרפו"
-          value="3,400"
-          unit="קק״ל"
-          icon={<Flame className="h-4 w-4" />}
-          status="בינוני"
-        />
-      </div>
+      {/* מרכז בקרה יומי (כמו פיגמה) */}
+      <Card className="border-none bg-surface">
+        <CardHeader className="mb-0 pb-1">
+          <CardTitle className="text-base">מרכז בקרה יומי</CardTitle>
+        </CardHeader>
+        <CardContent className="mt-0 space-y-4 pt-2">
+          <div className="grid gap-3 md:grid-cols-2">
+            <div className="flex items-center justify-between rounded-2xl bg-surface-2 px-4 py-3">
+              <div className="space-y-0.5 text-right">
+                <div className="text-xs text-text-secondary/80">אימון</div>
+                <div className="text-sm font-semibold text-text-primary">הושלם {completedCount}/{totalCount}</div>
+              </div>
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-[color:var(--primary)]">
+                <Dumbbell className="h-4 w-4" />
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between rounded-2xl bg-surface-2 px-4 py-3">
+              <div className="space-y-0.5 text-right">
+                <div className="text-xs text-text-secondary/80">תזונה</div>
+                <div className="text-sm font-semibold text-text-primary">סטטוס {progressPct}%</div>
+              </div>
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-[color:var(--primary)]">
+                <Utensils className="h-4 w-4" />
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between rounded-2xl bg-surface-2 px-4 py-3">
+              <div className="space-y-0.5 text-right">
+                <div className="text-xs text-text-secondary/80">שינה</div>
+                <div className="text-sm font-semibold text-text-primary">6.5 שעות</div>
+              </div>
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-[color:var(--primary)]">
+                <Moon className="h-4 w-4" />
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between rounded-2xl bg-surface-2 px-4 py-3">
+              <div className="space-y-0.5 text-right">
+                <div className="text-xs text-text-secondary/80">סטטוס</div>
+                <div className="text-sm font-semibold text-text-primary">25%</div>
+              </div>
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-[color:var(--primary)]">
+                <Activity className="h-4 w-4" />
+              </span>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className={cn(
+              'flex w-full items-center justify-center gap-2 rounded-2xl',
+              'bg-[color:var(--primary)] px-4 py-4 text-sm font-semibold text-bg',
+              'hover:bg-[color:var(--primary-dark)]',
+            )}
+          >
+            <Zap className="h-4 w-4" />
+            סיים את היום
+          </button>
+        </CardContent>
+      </Card>
 
       {/* רצף – ריבועים */}
       <Card className="border-none bg-surface">
@@ -308,50 +343,6 @@ export function DashboardPage() {
         </div>
       </RightDrawer>
     </div>
-  )
-}
-
-function MetricCard({
-  title,
-  value,
-  unit,
-  icon,
-  status,
-}: {
-  title: string
-  value: string
-  unit: string
-  icon: ReactNode
-  status: 'טוב' | 'בינוני' | 'חלש'
-}) {
-  const pill =
-    status === 'טוב'
-      ? 'bg-[color:var(--primary)] text-bg'
-      : status === 'בינוני'
-        ? 'bg-[#D6A77A] text-bg'
-        : 'bg-[#C96B6B] text-white'
-
-  return (
-    <Card className="border-none bg-surface">
-      <CardContent className="relative min-h-[128px] py-5">
-        <div className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-[color:var(--primary)]">
-          {icon}
-        </div>
-        <div className="text-right">
-          <div className="text-xs text-text-secondary/80">{title}</div>
-          <div className="mt-2 text-3xl font-semibold text-text-primary">{value}</div>
-          {unit ? <div className="text-xs text-text-secondary/80">{unit}</div> : null}
-          <span
-            className={cn(
-              'absolute bottom-4 right-4 inline-flex rounded-full px-3 py-1 text-[11px] font-semibold',
-              pill,
-            )}
-          >
-            {status}
-          </span>
-        </div>
-      </CardContent>
-    </Card>
   )
 }
 

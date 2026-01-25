@@ -13,16 +13,16 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const baseClasses =
-  'inline-flex items-center justify-center gap-2 rounded-xl border text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C98A6B]/70 disabled:cursor-not-allowed disabled:opacity-60'
+  'inline-flex items-center justify-center gap-2 rounded-xl border text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--primary-25)] disabled:cursor-not-allowed disabled:opacity-60'
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-[#C98A6B] text-[#2F2626] border-transparent hover:bg-[#A96D51] shadow-card',
+    'bg-[color:var(--primary)] text-bg border-transparent hover:bg-[color:var(--primary-dark)] shadow-card',
   secondary:
     // Use explicit color to avoid cases where theme tokens don't resolve
-    'bg-[#F4E6DD] text-[#2F2626] border-transparent hover:bg-[#e0bba7]',
+    'bg-surface-2 text-bg border-transparent hover:bg-white/10',
   ghost:
-    'bg-transparent text-text-secondary border-transparent hover:bg-surface-2 hover:text-[#2F2626]',
+    'bg-transparent text-text-secondary border-transparent hover:bg-white/5 hover:text-text-primary',
 }
 
 const sizeClasses: Record<ButtonSize, string> = {
