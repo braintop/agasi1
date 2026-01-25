@@ -197,7 +197,7 @@ export function LifestylePage() {
                       'flex w-full flex-col items-start gap-1 rounded-xl px-4 py-2 text-left text-sm transition-colors',
                       'border border-white/15 bg-surface-2 text-text-secondary hover:bg-surface',
                       selected &&
-                        'bg-[#C98A6B] text-text-primary shadow-card hover:bg-[#A96D51]',
+                        'bg-[color:var(--primary)] text-bg shadow-card hover:bg-[color:var(--primary-dark)]',
                     )}
                   >
                     <span className="font-medium">{option.label}</span>
@@ -270,7 +270,7 @@ export function LifestylePage() {
                       'flex w-full items-center justify-between rounded-xl px-4 py-2 text-left text-sm transition-colors',
                       'border border-white/15 bg-surface-2 text-text-secondary hover:bg-surface',
                       selected &&
-                        'bg-[#C98A6B] text-text-primary shadow-card hover:bg-[#A96D51]',
+                        'bg-[color:var(--primary)] text-bg shadow-card hover:bg-[color:var(--primary-dark)]',
                     )}
                   >
                     <span>{option.label}</span>

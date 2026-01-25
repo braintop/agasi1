@@ -19,10 +19,10 @@ export function SelectableCard({
       className={cn(
         'flex w-full items-center justify-between rounded-2xl border px-4 py-3 text-sm font-medium transition-colors',
         // Default (unselected): framed + readable on dark background
-        'border-[#8C7A73]/70 bg-transparent text-text-primary hover:bg-white/5',
+        'border-white/15 bg-transparent text-text-primary hover:bg-white/5',
         selected &&
           // Selected: keep border (stronger) + highlighted background, still white text
-          '!border-transparent !bg-[#C98A6B] !text-text-primary shadow-card hover:!bg-[#A96D51]',
+          '!border-transparent !bg-[color:var(--primary)] !text-bg shadow-card hover:!bg-[color:var(--primary-dark)]',
         className,
       )}
       {...props}

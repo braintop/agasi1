@@ -47,9 +47,9 @@ function StepDots({
                 className={cn(
                   'flex h-8 w-8 items-center justify-center rounded-full text-[12px] font-semibold transition-colors',
                   'bg-transparent text-text-primary border border-white/60',
-                  isDone && 'border-transparent bg-[#C98A6B] text-text-primary',
+                  isDone && 'border-transparent bg-[color:var(--primary)] text-bg',
                   isActive &&
-                    'ring-2 ring-[#C98A6B]/60 ring-offset-2 ring-offset-bg',
+                    'ring-2 ring-[color:var(--primary-25)] ring-offset-2 ring-offset-bg',
                 )}
                 aria-current={isActive ? 'step' : undefined}
                 title={step.label}
@@ -86,31 +86,12 @@ export function OnboardingLayout() {
   )
 
   return (
-    <div
-      className="min-h-screen bg-bg text-text-primary"
-      style={{
-        // Warm, calm longevity palette for onboarding only
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        ['--bg' as any]: '#2f2626',
-        ['--surface' as any]: '#e6c8b6',
-        ['--surface-2' as any]: '#f4e6dd',
-        ['--border' as any]: '#8c7a73',
-        ['--text-primary' as any]: '#ffffff',
-        ['--text-secondary' as any]: '#c9b1a4',
-        ['--text-muted' as any]: '#8c7a73',
-        ['--primary' as any]: '#c98a6b',
-        ['--primary-dark' as any]: '#a96d51',
-        ['--accent' as any]: '#c98a6b',
-        ['--danger' as any]: '#b36a5e',
-        ['--warning' as any]: '#d6a77a',
-        ['--success' as any]: '#8faf9a',
-      }}
-    >
+    <div className="min-h-screen bg-bg text-text-primary">
       {/* כותרת עליונה + סטפר אופקי בדסקטופ */}
       <header className="sticky top-0 z-20 bg-bg/95 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
           <div className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#C98A6B] text-sm font-semibold text-bg">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[color:var(--primary)] text-sm font-semibold text-bg">
               Y
             </div>
             <div className="flex flex-col">
@@ -137,7 +118,7 @@ export function OnboardingLayout() {
                   className={cn(
                     'flex flex-1 min-w-0 items-center justify-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-medium transition-colors',
                     isActive
-                      ? 'bg-[#A96D51] text-[#2F2626] shadow-card'
+                    ? 'bg-[color:var(--primary)] text-bg shadow-card'
                       : isCompleted
                         ? 'bg-transparent text-text-primary'
                         : 'bg-transparent text-text-secondary hover:bg-surface-2/60',

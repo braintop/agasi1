@@ -12,26 +12,7 @@ export function ProfileSetupLayout() {
   const safeIndex = currentIndex === -1 ? 0 : currentIndex
 
   return (
-    <div
-      className="min-h-screen bg-bg text-text-primary"
-      style={{
-        // Warm palette for profile setup screens
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        ['--bg' as any]: '#2f2626',
-        ['--surface' as any]: '#e6c8b6',
-        ['--surface-2' as any]: '#f4e6dd',
-        ['--border' as any]: '#8c7a73',
-        ['--text-primary' as any]: '#ffffff',
-        ['--text-secondary' as any]: '#c9b1a4',
-        ['--text-muted' as any]: '#8c7a73',
-        ['--primary' as any]: '#c98a6b',
-        ['--primary-dark' as any]: '#a96d51',
-        ['--accent' as any]: '#c98a6b',
-        ['--danger' as any]: '#b36a5e',
-        ['--warning' as any]: '#d6a77a',
-        ['--success' as any]: '#8faf9a',
-      }}
-    >
+    <div className="min-h-screen bg-bg text-text-primary">
       <main className="mx-auto flex min-h-screen max-w-3xl flex-col items-center justify-start px-4 py-10">
         <div className="mb-8 w-full text-center">
           <h1 className="text-2xl font-semibold text-text-primary">
@@ -50,7 +31,7 @@ export function ProfileSetupLayout() {
                   key={s.path}
                   className={cn(
                     'h-1.5 flex-1 rounded-full',
-                    isActive ? 'bg-[#C98A6B]' : 'bg-white/15',
+                    isActive ? 'bg-[color:var(--primary)]' : 'bg-white/15',
                   )}
                   aria-label={s.label}
                 />

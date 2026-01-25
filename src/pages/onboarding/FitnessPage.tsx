@@ -373,7 +373,8 @@ export function FitnessPage() {
                       className={cn(
                         'flex h-9 w-9 items-center justify-center rounded-xl text-sm transition-colors',
                         'border border-white/15 bg-surface-2 text-text-secondary hover:bg-surface',
-                        selected && 'bg-[#C98A6B] text-text-primary shadow-card hover:bg-[#A96D51]',
+                        selected &&
+                          'bg-[color:var(--primary)] text-bg shadow-card hover:bg-[color:var(--primary-dark)]',
                       )}
                     >
                       {day}
@@ -407,7 +408,7 @@ export function FitnessPage() {
                         'rounded-xl border border-white/15 px-4 py-2 text-sm transition-colors',
                         'bg-transparent text-text-primary hover:bg-white/5',
                         selected &&
-                          'border-transparent bg-[#C98A6B] text-text-primary shadow-card hover:bg-[#A96D51]',
+                          'border-transparent bg-[color:var(--primary)] text-bg shadow-card hover:bg-[color:var(--primary-dark)]',
                       )}
                     >
                       {option.label}

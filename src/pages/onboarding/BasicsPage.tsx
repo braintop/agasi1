@@ -159,7 +159,7 @@ export function BasicsPage() {
                         'flex-1 rounded-xl px-3 py-2 text-sm transition-colors',
                         'border border-white/15 bg-surface-2 text-text-secondary hover:bg-surface',
                         isSelected &&
-                          'bg-[#C98A6B] text-text-primary shadow-card hover:bg-[#A96D51]',
+                          'bg-[color:var(--primary)] text-bg shadow-card hover:bg-[color:var(--primary-dark)]',
                       )}
                     >
                       {option.label}
