@@ -2,14 +2,14 @@
 
 :root {
   /* Default app palette (User area / Figma dashboard – green) */
-  --bg: #0f2b26;
-  --surface: #193b34;
-  --surface-2: #20463e;
-  --border: #2b5a4f;
+  --bg: #0b211d;
+  --surface: #163a33;
+  --surface-2: #1c463e;
+  --border: #2a5f55;
 
   --text-primary: #ffffff;
-  --text-secondary: #a7c0b7;
-  --text-muted: #7aa096;
+  --text-secondary: #a9c7be;
+  --text-muted: #7ea79c;
 
   --primary: #63d7be;
   --primary-dark: #49b9a5;

@@ -51,24 +51,26 @@ export function UserLayout() {
 
   return (
     <div
-      className="min-h-screen bg-bg text-text-primary"
+      className="min-h-screen text-text-primary"
       style={{
         // User-area palette (green) to match new Figma dashboard
         // Scoped here so onboarding can keep its palette.
         // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        ['--bg' as any]: '#0f2b26',
-        ['--surface' as any]: '#193b34',
-        ['--surface-2' as any]: '#20463e',
-        ['--border' as any]: '#2b5a4f',
+        ['--bg' as any]: '#0b211d',
+        ['--surface' as any]: '#163a33',
+        ['--surface-2' as any]: '#1c463e',
+        ['--border' as any]: '#2a5f55',
         ['--text-primary' as any]: '#ffffff',
-        ['--text-secondary' as any]: '#a7c0b7',
-        ['--text-muted' as any]: '#7aa096',
+        ['--text-secondary' as any]: '#a9c7be',
+        ['--text-muted' as any]: '#7ea79c',
         ['--primary' as any]: '#63d7be',
         ['--primary-dark' as any]: '#49b9a5',
         ['--accent' as any]: '#63d7be',
         ['--success' as any]: '#63d7be',
         ['--primary-15' as any]: 'rgba(99, 215, 190, 0.15)',
         ['--primary-25' as any]: 'rgba(99, 215, 190, 0.25)',
+        background:
+          'radial-gradient(900px 520px at 18% 0%, rgba(99,215,190,0.11) 0%, rgba(11,33,29,0) 58%), radial-gradient(900px 700px at 90% 78%, rgba(99,215,190,0.07) 0%, rgba(11,33,29,0) 55%), var(--bg)',
       }}
     >
       <div className="mx-auto flex w-full max-w-[1400px] justify-center px-6 py-6 lg:pr-[18rem] lg:pl-[var(--left-drawer-offset,0px)]">
